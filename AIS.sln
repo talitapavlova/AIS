@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "AIS", "AIS\AIS.sqlproj", "{474228E8-7582-43D7-A193-8137CDA458E0}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "AIS_EDW", "AIS_EDW\AIS_EDW.sqlproj", "{22A7D5BC-7847-4446-A3EB-544C1DB0E599}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "AIS_Stage", "AIS_Stage\AIS_Stage.sqlproj", "{DFD36A2E-5D63-48DA-9665-16BF178D2751}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +13,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{474228E8-7582-43D7-A193-8137CDA458E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{474228E8-7582-43D7-A193-8137CDA458E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{474228E8-7582-43D7-A193-8137CDA458E0}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{474228E8-7582-43D7-A193-8137CDA458E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{474228E8-7582-43D7-A193-8137CDA458E0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{474228E8-7582-43D7-A193-8137CDA458E0}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{22A7D5BC-7847-4446-A3EB-544C1DB0E599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22A7D5BC-7847-4446-A3EB-544C1DB0E599}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22A7D5BC-7847-4446-A3EB-544C1DB0E599}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{22A7D5BC-7847-4446-A3EB-544C1DB0E599}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22A7D5BC-7847-4446-A3EB-544C1DB0E599}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22A7D5BC-7847-4446-A3EB-544C1DB0E599}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{DFD36A2E-5D63-48DA-9665-16BF178D2751}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFD36A2E-5D63-48DA-9665-16BF178D2751}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFD36A2E-5D63-48DA-9665-16BF178D2751}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{DFD36A2E-5D63-48DA-9665-16BF178D2751}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFD36A2E-5D63-48DA-9665-16BF178D2751}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFD36A2E-5D63-48DA-9665-16BF178D2751}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

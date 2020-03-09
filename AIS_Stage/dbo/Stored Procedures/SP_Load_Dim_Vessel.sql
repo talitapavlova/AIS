@@ -1,6 +1,7 @@
 ﻿
 
 
+
 CREATE PROCEDURE [dbo].[SP_Load_Dim_Vessel]
 @countr int = 0
 AS
@@ -22,15 +23,15 @@ set @countr = (select count(*) from AIS_EDW.edw.Dim_Vessel where MMSI = (select 
 			--ValidTo, 
 			 ) 
 		( SELECT 
-			Cast(MMSI as char), 
-			Cast(IMO as char), 
+			MMSI, 
+			IMO, 
 			Type_of_mobile, 
 			Call_Sign, 
 			Name, 
 			Ship_type, 
-			Cast(Width as decimal(18,0)), 
-			Cast(Length as decimal(18,0)),
-			Cast(Draught as decimal(18,0)), 
-			Cast(Timestamp as datetime2(7)) 	
+			Width_, 
+			Length_,
+			Draugth_ , 
+			DateCreated_ 	
 		 FROM stage.VIEW_DimVessel)
 END

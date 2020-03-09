@@ -16,3 +16,4 @@ INSERT INTO AIS_EDW.edw.Dim_Vessel
 FROM stage.D_Vessel)
 
 END
+

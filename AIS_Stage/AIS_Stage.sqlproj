@@ -67,4 +67,13 @@
     <Build Include="dbo\Stored Procedures\SP_Dim_Vessel.sql" />
     <Build Include="Security\stage.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AIS_EDW\AIS_EDW.sqlproj">
+      <Name>AIS_EDW</Name>
+      <Project>{22a7d5bc-7847-4446-a3eb-544c1db0e599}</Project>
+      <Private>True</Private>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+      <DatabaseVariableLiteralValue>AIS_EDW</DatabaseVariableLiteralValue>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

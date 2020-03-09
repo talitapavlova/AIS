@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/9/2020 10:43:25 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PC-6541"
+  DTS:CreatorName="SYSTEMATICGROUP\napav"
+  DTS:DTSID="{9746B376-A4AA-4C4B-BDDE-C807AFE04FB8}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1301.433"
+  DTS:LocaleID="1030"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionGUID="{208366E0-DBF6-4C3E-865A-B2D64D4A1249}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables />
+</DTS:Executable>

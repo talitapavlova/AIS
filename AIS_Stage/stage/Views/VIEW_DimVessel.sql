@@ -1,18 +1,19 @@
 ﻿
 
+
+
+
 CREATE VIEW [stage].[VIEW_DimVessel]
 AS
-	WITH temp_VesselInfo_1 as
 	(Select 
-			Type_of_mobile, 
 			MMSI, 
 			IMO, 
-			Callsign, 
+			Type_of_mobile, 
+			Call_Sign, 
 			Name, 
-			Ship_type, 
-			Cargo_type, 
+			Ship_type,
 			Width, 
 			Length, 
-			Draught 
+			Draught, 
+			Timestamp
 		FROM dbo.Extract_Vessel)
-	SELECT * FROM temp_VesselInfo_1

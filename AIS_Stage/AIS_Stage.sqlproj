@@ -70,5 +70,6 @@
     <Build Include="dbo\Tables\Extract_Vessel.sql" />
     <Build Include="stage\Views\VIEW_DimVessel.sql" />
     <Build Include="dbo\Stored Procedures\SP_Extract_Vessel.sql" />
+    <Build Include="dbo\Stored Procedures\SP_Load_Dim_Vessel.sql" />
   </ItemGroup>
 </Project>

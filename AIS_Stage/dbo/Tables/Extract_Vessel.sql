@@ -4,13 +4,13 @@
     [MMSI]                           NVARCHAR (100) NULL,
     [Latitude]                       NVARCHAR (100) NULL,
     [Longitude]                      NVARCHAR (100) NULL,
-    [NavigationalStatus]             NVARCHAR (100) NULL,
+    [Navigational_Status]            NVARCHAR (100) NULL,
     [ROT]                            NVARCHAR (100) NULL,
     [SOG]                            NVARCHAR (100) NULL,
     [COG]                            NVARCHAR (100) NULL,
     [Heading]                        NVARCHAR (100) NULL,
     [IMO]                            NVARCHAR (100) NULL,
-    [Callsign]                       NVARCHAR (100) NULL,
+    [Call_Sign]                      NVARCHAR (100) NULL,
     [Name]                           NVARCHAR (100) NULL,
     [Ship_type]                      NVARCHAR (100) NULL,
     [Cargo_type]                     NVARCHAR (100) NULL,
@@ -26,4 +26,6 @@
     [C]                              NVARCHAR (100) NULL,
     [D]                              NVARCHAR (100) NULL
 );
+
+
 

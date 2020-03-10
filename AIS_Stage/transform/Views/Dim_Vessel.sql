@@ -4,7 +4,8 @@
 
 
 
-CREATE VIEW [stage].[VIEW_DimVessel]
+
+CREATE VIEW [transform].[Dim_Vessel]
 AS
 	Select 
 			MMSI, 

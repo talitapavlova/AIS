@@ -1,5 +1,6 @@
 ﻿
-CREATE PROCEDURE [dbo].[SP_Extract_Vessel]
+
+CREATE PROCEDURE [extract].[AIS_Data_SP]
 AS
 BEGIN 
 

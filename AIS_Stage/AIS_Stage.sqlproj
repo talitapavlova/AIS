@@ -62,14 +62,23 @@
     <Folder Include="dbo\Stored Procedures\" />
     <Folder Include="Security\" />
     <Folder Include="dbo\Tables\" />
+    <Folder Include="transform\" />
+    <Folder Include="transform\Views\" />
+    <Folder Include="load\" />
+    <Folder Include="load\Stored Procedures\" />
+    <Folder Include="extract\" />
+    <Folder Include="extract\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="stage\Views\D_Vessel.sql" />
     <Build Include="dbo\Stored Procedures\SP_Dim_Vessel.sql" />
     <Build Include="Security\stage.sql" />
     <Build Include="dbo\Tables\Extract_Vessel.sql" />
-    <Build Include="stage\Views\VIEW_DimVessel.sql" />
-    <Build Include="dbo\Stored Procedures\SP_Extract_Vessel.sql" />
-    <Build Include="dbo\Stored Procedures\SP_Load_Dim_Vessel.sql" />
+    <Build Include="transform\Views\Dim_Vessel.sql" />
+    <Build Include="load\Stored Procedures\Dim_Vessel_SP.sql" />
+    <Build Include="extract\Stored Procedures\AIS_Data_SP.sql" />
+    <Build Include="Security\transform.sql" />
+    <Build Include="Security\load.sql" />
+    <Build Include="Security\extract.sql" />
   </ItemGroup>
 </Project>

@@ -2,7 +2,8 @@
 
 
 
-CREATE PROCEDURE [dbo].[SP_Load_Dim_Vessel]
+
+CREATE PROCEDURE [load].[Dim_Vessel_SP]
 @countr int = 0
 AS
 set @countr = (select count(*) from AIS_EDW.edw.Dim_Vessel where MMSI = (select MMSI from stage.D_Vessel))

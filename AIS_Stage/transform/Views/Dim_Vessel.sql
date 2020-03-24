@@ -1,10 +1,5 @@
 ﻿
 
-
-
-
-
-
 CREATE VIEW [transform].[Dim_Vessel]
 AS
 	Select 
@@ -13,9 +8,11 @@ AS
 			Type_of_mobile, 
 			Call_Sign, 
 			Name, 
-			Ship_type,
-			Cast(Width as decimal) as Width_, 
-			Cast(Length as decimal) as Length_,
-			Cast(Draught as decimal) as Draugth_, 
-			Cast(Timestamp as datetime2) as DateCreated_
+			Ship_type, 
+			try_cast(replace([Latitude],'.','') as float) as Latitude,
+			try_cast(replace([Longitude],'.','') as float) as Longitude,
+			CAST(Width as float) as Width,
+			CAST(Length as float) as Length,
+			CAST(Draught as float) as Draugth,
+			convert ([Timestamp], GETDATE(), 13) as DateCreated
 		FROM dbo.Extract_Vessel

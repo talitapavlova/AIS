@@ -3,6 +3,7 @@
 
 
 
+
 CREATE PROCEDURE [load].[Dim_Vessel_SP]
 @countr int = 0
 AS
@@ -18,8 +19,8 @@ set @countr = (select count(*) from AIS_EDW.edw.Dim_Vessel where MMSI = (select 
 			Ship_type, 
 			Width, 
 			Length, 
-			Draught, 
-			DateCreated 	
+			Draught
+			--DateCreated 	
 			--ValidFrom,
 			--ValidTo, 
 			 ) 
@@ -30,9 +31,9 @@ set @countr = (select count(*) from AIS_EDW.edw.Dim_Vessel where MMSI = (select 
 			Call_Sign, 
 			Name, 
 			Ship_type, 
-			Width_, 
-			Length_,
-			Draugth_ , 
-			DateCreated_ 	
-		 FROM stage.VIEW_DimVessel)
+			Width, 
+			Length,
+			Draugth 
+			--DateCreated
+		 FROM transform.Dim_Vessel)
 END

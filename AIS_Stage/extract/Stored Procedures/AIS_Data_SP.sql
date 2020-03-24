@@ -1,5 +1,9 @@
 ﻿
 
+
+
+
+
 CREATE PROCEDURE [extract].[AIS_Data_SP]
 AS
 BEGIN 
@@ -34,7 +38,7 @@ SELECT
 	B,
 	C,
 	D	
-FROM OPENROWSET (BULK 'C:\Users\winpc\Desktop\Vessels_FEW_Records.json', SINGLE_CLOB) as j 
+FROM OPENROWSET (BULK 'C:\Users\stefy\Desktop\375.json', SINGLE_CLOB) as j 
 	CROSS APPLY OPENJSON(BulkColumn)
 	WITH(
 			Timestamp nvarchar(100) '$.Timestamp',

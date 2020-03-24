@@ -68,6 +68,7 @@
     <Folder Include="load\Stored Procedures\" />
     <Folder Include="extract\" />
     <Folder Include="extract\Stored Procedures\" />
+    <Folder Include="Snapshots" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="stage\Views\D_Vessel.sql" />
@@ -89,5 +90,8 @@
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
       <DatabaseVariableLiteralValue>AIS_EDW</DatabaseVariableLiteralValue>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Snapshots\AIS_Stage_20200324_23-50-02.dacpac" />
   </ItemGroup>
 </Project>

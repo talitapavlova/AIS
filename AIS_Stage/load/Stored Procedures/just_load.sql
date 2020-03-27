@@ -5,7 +5,7 @@
 CREATE PROCEDURE [load].[just_load]
 @countr int = 0
 AS
-set @countr = (select count(*) as cnt from AIS_EDW.edw.Dim_Vessel where MMSI in (select MMSI from AIS_Stage.transform.Dim_Vessel))
+set @countr = (select count(*) as cnt from AIS_EDW.edw.Dim_Vessel where MMSI in (select MMSI from transform.Dim_Vessel))
  if (@countr = 0) 
  BEGIN  
 		INSERT INTO AIS_EDW.edw.Dim_Vessel
@@ -33,5 +33,5 @@ set @countr = (select count(*) as cnt from AIS_EDW.edw.Dim_Vessel where MMSI in 
 			Length,
 			Draugth 
 			--DateCreated
-		 FROM AIS_Stage.transform.Dim_Vessel)
+		 FROM transform.Dim_Vessel)
 END

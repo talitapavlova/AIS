@@ -69,6 +69,9 @@
     <Folder Include="extract\" />
     <Folder Include="extract\Stored Procedures\" />
     <Folder Include="Snapshots" />
+    <Folder Include="utility\" />
+    <Folder Include="utility\Tables\" />
+    <Folder Include="utility\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="stage\Views\D_Vessel.sql" />
@@ -83,6 +86,9 @@
     <Build Include="Security\extract.sql" />
     <Build Include="load\Stored Procedures\just_load.sql" />
     <Build Include="load\Stored Procedures\Dim_Vessel.sql" />
+    <Build Include="utility\Tables\Date_Info.sql" />
+    <Build Include="utility\Stored Procedures\Get_Date.sql" />
+    <Build Include="Security\utility.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AIS_EDW\AIS_EDW.sqlproj">

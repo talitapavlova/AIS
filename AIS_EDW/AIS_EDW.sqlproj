@@ -64,5 +64,6 @@
     <Build Include="edw\Tables\Dim_Vessel.sql" />
     <Build Include="Security\edw.sql" />
     <Build Include="edw\Tables\Dim_Date.sql" />
+    <Build Include="edw\Tables\Dim_Time.sql" />
   </ItemGroup>
 </Project>

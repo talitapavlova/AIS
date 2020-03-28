@@ -1,11 +1,17 @@
 ﻿
+/*
+Change log: 
+	2020-03-26	NP	Stored procedure created
+*/
+
 
 CREATE PROCEDURE [utility].[Get_Date] AS
+
+BEGIN
 DECLARE
 	@StartYear nvarchar(4) = '2000',
 	@EndYear nvarchar(4) = '2051'
 
-BEGIN
 SET NOCOUNT ON;
 SET DATEFIRST 1;
 TRUNCATE TABLE utility.Date_Info;
@@ -24,12 +30,12 @@ Dates AS
 	FROM Dates
 	WHERE Date < CAST(@EndYear AS DateTime) - 1
 )
---select * from Dates OPTION (MAXRECURSION 0)
+
 /*
+Taking different attributes of the Date and using them to fill in [utility].[Date_Info] table
 Week 1 is defined as the week with the first Thursday in the Year (In Denmark)
--- The weeks can be found by counting the thursdays in a year so we find
--- the thursday in the week for a particular date */
-INSERT INTO [utility].[Date_Info] (
+*/
+INSERT INTO utility.Date_Info (
 	DateKey,
 	Date,
 	Year,
@@ -45,10 +51,10 @@ INSERT INTO [utility].[Date_Info] (
 	DayOfWeek_ShortName
 ) SELECT
 	YEAR(Date) * 10000 + MONTH(Date) * 100 + DAY(Date), -- [DateKey]
-	CAST(Date AS Date),		-- [Date]
-	YEAR(Date),
-	DATEPART(Quarter, Date),
-	MONTH(Date),
+	CAST(Date AS Date),					-- [Date]				
+	YEAR(Date),							-- [Year]
+	DATEPART(Quarter, Date),			-- [QuarterOfYear]
+	MONTH(Date),						-- [Month]
 	CASE MONTH(Date) 
 		WHEN 1 THEN 'January'
 		WHEN 2 THEN 'February'
@@ -62,7 +68,7 @@ INSERT INTO [utility].[Date_Info] (
 		WHEN 10 THEN 'Oktober'
 		WHEN 11 THEN 'November'
 		WHEN 12 THEN 'December'
-	END,
+	END,								-- [MonthOfYear_Name]
 	CASE MONTH(Date) 
 		WHEN 1 THEN 'Jan'
 		WHEN 2 THEN 'Feb'
@@ -76,12 +82,12 @@ INSERT INTO [utility].[Date_Info] (
 		WHEN 10 THEN 'Okt'
 		WHEN 11 THEN 'Nov'
 		WHEN 12 THEN 'Dec'
-	END,
-	DATEPART(WEEK, Date),
-	DATEPART(DAY, Date),
-	DATEPART(DAYOFYEAR, Date),
-	DATEPART(Weekday, Date),
-	CASE DATEPART(Weekday, Date)
+	END,								-- [MonthOfYear_ShortName]
+	DATEPART(WEEK, Date),				-- [WeekOfYear]
+	DATEPART(DAY, Date),				-- [Day]
+	DATEPART(DAYOFYEAR, Date),			-- [DayOfYear]
+	DATEPART(Weekday, Date),			-- [DayOfWeek]
+	CASE DATEPART(Weekday, Date)	
 		WHEN 1 THEN 'Monday'
 		WHEN 2 THEN 'Tuesday'
 		WHEN 3 THEN 'Wednesday'
@@ -89,7 +95,7 @@ INSERT INTO [utility].[Date_Info] (
 		WHEN 5 THEN 'Friday'
 		WHEN 6 THEN 'Saturday'
 		WHEN 7 THEN 'Sunday'
-	END,
+	END,								-- [DayOfWeek_Name]
 	CASE DATEPART(Weekday, Date)
 		WHEN 1 THEN 'Mon'
 		WHEN 2 THEN 'Tue'
@@ -98,17 +104,17 @@ INSERT INTO [utility].[Date_Info] (
 		WHEN 5 THEN 'Fre'
 		WHEN 6 THEN 'Sat'
 		WHEN 7 THEN 'Sun'
-	END
+	END									-- [DayOfWeek_ShortName]
 FROM Dates 
 OPTION (MAXRECURSION 0)
 
 TRUNCATE TABLE AIS_EDW.edw.Dim_Date
 
 /*
-Insert unknown values into Dim_Date
+Insert unknown values into [edw].[Dim_Date]
 */
 INSERT INTO AIS_EDW.edw.Dim_Date(
-	DateKey,
+	Date_Key,
 	Date,
 	Year ,
 	QuarterOfYear,
@@ -138,8 +144,11 @@ INSERT INTO AIS_EDW.edw.Dim_Date(
 	'NA'						-- [DayOfWeek_ShortName]
 )
 
+/*
+Insert [utility].[Date_Info] into [edw].[Dim_Date]
+*/
 INSERT INTO AIS_EDW.edw.Dim_Date(
-	DateKey,
+	Date_Key,
 	Date,
 	Year ,
 	QuarterOfYear,

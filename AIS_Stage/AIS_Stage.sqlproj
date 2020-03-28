@@ -84,6 +84,8 @@
     <Build Include="Security\transform.sql" />
     <Build Include="Security\load.sql" />
     <Build Include="Security\extract.sql" />
+    <Build Include="dbo\Tables\Extract_Data.sql" />
+    <Build Include="extract\Stored Procedures\AIS_Data_SP_JSON.sql" />
     <Build Include="load\Stored Procedures\just_load.sql" />
     <Build Include="load\Stored Procedures\Dim_Vessel.sql" />
     <Build Include="utility\Tables\Date_Info.sql" />

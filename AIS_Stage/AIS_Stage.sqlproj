@@ -71,17 +71,15 @@
     <Folder Include="Snapshots" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="stage\Views\D_Vessel.sql" />
-    <Build Include="dbo\Stored Procedures\SP_Dim_Vessel.sql" />
     <Build Include="Security\stage.sql" />
     <Build Include="transform\Views\Dim_Vessel.sql" />
-    <Build Include="load\Stored Procedures\Dim_Vessel_SP.sql" />
-    <Build Include="extract\Stored Procedures\AIS_Data_SP.sql" />
     <Build Include="Security\transform.sql" />
     <Build Include="Security\load.sql" />
     <Build Include="Security\extract.sql" />
-    <Build Include="dbo\Tables\Extract_Data.sql" />
-    <Build Include="extract\Stored Procedures\AIS_Data_SP_JSON.sql" />
+    <Build Include="dbo\Tables\AIS_Data.sql" />
+    <Build Include="load\Stored Procedures\Dim_Vessel_L.sql" />
+    <Build Include="extract\Stored Procedures\AIS_Data_JSON.sql" />
+    <Build Include="extract\Stored Procedures\AIS_Data_CSV.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AIS_EDW\AIS_EDW.sqlproj">

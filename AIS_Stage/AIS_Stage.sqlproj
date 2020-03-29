@@ -69,17 +69,34 @@
     <Folder Include="extract\" />
     <Folder Include="extract\Stored Procedures\" />
     <Folder Include="Snapshots" />
+    <Folder Include="utility\" />
+    <Folder Include="utility\Tables\" />
+    <Folder Include="utility\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\stage.sql" />
+    <Build Include="dbo\Tables\Extract_Vessel.sql" />
     <Build Include="transform\Views\Dim_Vessel.sql" />
     <Build Include="Security\transform.sql" />
     <Build Include="Security\load.sql" />
     <Build Include="Security\extract.sql" />
+<<<<<<< HEAD
     <Build Include="dbo\Tables\AIS_Data.sql" />
     <Build Include="load\Stored Procedures\Dim_Vessel_L.sql" />
     <Build Include="extract\Stored Procedures\AIS_Data_JSON.sql" />
     <Build Include="extract\Stored Procedures\AIS_Data_CSV.sql" />
+=======
+    <Build Include="dbo\Tables\Extract_Data.sql" />
+    <Build Include="extract\Stored Procedures\AIS_Data_SP_JSON.sql" />
+    <Build Include="load\Stored Procedures\just_load.sql" />
+    <Build Include="load\Stored Procedures\Dim_Vessel.sql" />
+    <Build Include="utility\Tables\Date_Info.sql" />
+    <Build Include="utility\Stored Procedures\Get_Date.sql" />
+    <Build Include="Security\utility.sql" />
+    <Build Include="utility\Tables\Time_Info.sql" />
+    <Build Include="dbo\Tables\Extract_AIS_Data.sql" />
+    <Build Include="utility\Stored Procedures\Get_Time.sql" />
+>>>>>>> 219e2758ed5de121989b6889897d970db3b17871
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AIS_EDW\AIS_EDW.sqlproj">

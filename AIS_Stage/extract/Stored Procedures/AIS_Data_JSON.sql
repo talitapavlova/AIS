@@ -1,5 +1,7 @@
 ﻿
-CREATE   PROCEDURE [extract].[AIS_Data_SP_JSON]
+---------------------------JSON
+
+CREATE    PROCEDURE [extract].[AIS_Data_JSON]
 AS
 BEGIN 
 

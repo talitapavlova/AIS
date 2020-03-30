@@ -59,11 +59,15 @@
     <Folder Include="edw\" />
     <Folder Include="edw\Tables\" />
     <Folder Include="Security\" />
+    <Folder Include="archive\" />
+    <Folder Include="archive\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="edw\Tables\Dim_Vessel.sql" />
     <Build Include="Security\edw.sql" />
     <Build Include="edw\Tables\Dim_Date.sql" />
     <Build Include="edw\Tables\Dim_Time.sql" />
+    <Build Include="archive\Tables\AIS_Data_archive.sql" />
+    <Build Include="Security\archive.sql" />
   </ItemGroup>
 </Project>

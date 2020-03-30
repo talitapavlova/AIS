@@ -10,11 +10,14 @@
     [Width]          DECIMAL (10, 2) NULL,
     [Length]         DECIMAL (10, 2) NULL,
     [Draught]        DECIMAL (10, 2) NULL,
-    [Recieved_Time]  DATETIME2 (7)   CONSTRAINT [DF_Vessel] DEFAULT (getdate()) NULL,
+    [Recieved_Time]  DATETIME2 (7)   NULL,
     [Valid_From]     DATETIME2 (7)   NULL,
     [Valid_To]       DATETIME2 (7)   NULL,
+    [DateCreated]    DATETIME2 (7)   CONSTRAINT [DF_Vessel] DEFAULT (getdate()) NULL,
     CONSTRAINT [PK_Vessel] PRIMARY KEY CLUSTERED ([Vessel_Key] ASC)
 );
+
+
 
 
 

@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[AIS_Data] (
+﻿CREATE TABLE [archive].[AIS_Data_archive] (
     [MMSI]                         NVARCHAR (9)    NULL,
     [Vessel_Name]                  NVARCHAR (100)  NULL,
     [Latitude_Degree]              NVARCHAR (100)  NULL,
@@ -11,7 +11,7 @@
     [COG]                          DECIMAL (10, 2) NULL,
     [RecievedTime]                 DATETIME2 (7)   NULL,
     [MID]                          NVARCHAR (100)  NULL,
-    [DateCreated]                  DATETIME2 (7)   CONSTRAINT [DF_AIS_Data_DateCreated] DEFAULT (getdate()) NULL
+    [DateCreated]                  DATETIME2 (7)   CONSTRAINT [DF_AIS_archive_DateCreated] DEFAULT (getdate()) NULL
 );
 
 

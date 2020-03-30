@@ -1,63 +1,36 @@
 ﻿
 
+
 CREATE PROCEDURE [dbo].[AIS_Data_archive]
 AS
 BEGIN 
 
 INSERT INTO AIS_EDW.archive.AIS_Data_archive (
-	[Timestamp],
-    [Type_of_mobile],
-    [MMSI],
-    [Latitude],
-    [Longitude],
-    [Navigational_Status],
-    [ROT],
-    [SOG],
-    [COG],
-    [Heading],
-    [IMO],
-    [Call_Sign],
-    [Name],
-    [Ship_type],
-    [Cargo_type],
-    [Width],
-    [Length],
-    [Type_of_position_fixing_device],
-    [Draught],
-    [Destination],
-    [ETA],
-    [Data_source_type],
-    [A],
-    [B],
-    [C],
-    [D])
+	[MMSI]
+   ,[Vessel_Name]
+   ,[Latitude_Degree]
+   ,[Latitde_MinutesSeconds]
+   ,[Latitude_CardinalDirection]
+   ,[Longitude_Degree]
+   ,[Longitude_MinutesSeconds]
+   ,[Longitude_CardinalDirection ]
+   ,[SOG]
+   ,[COG]
+   ,[RecievedTime]
+   ,[MID])
 ( SELECT 
-	[Timestamp],
-    [Type_of_mobile],
-    [MMSI],
-    [Latitude],
-    [Longitude],
-    [Navigational_Status],
-    [ROT],
-    [SOG],
-    [COG],
-    [Heading],
-    [IMO],
-    [Call_Sign],
-    [Name],
-    [Ship_type],
-    [Cargo_type],
-    [Width],
-    [Length],
-    [Type_of_position_fixing_device],
-    [Draught],
-    [Destination],
-    [ETA],
-    [Data_source_type],
-    [A],
-    [B],
-    [C],
-    [D]
+	[MMSI]
+   ,[Vessel_Name]
+   ,[Latitude_Degree]
+   ,[Latitde_MinutesSeconds]
+   ,[Latitude_CardinalDirection]
+   ,[Longitude_Degree]
+   ,[Longitude_MinutesSeconds]
+   ,[Longitude_CardinalDirection ]
+   ,[SOG]
+   ,[COG]
+   ,[RecievedTime]
+   ,[MID]
 FROM dbo.AIS_Data)
 
 END

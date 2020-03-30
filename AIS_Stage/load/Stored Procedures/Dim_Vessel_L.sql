@@ -1,49 +1,44 @@
 ﻿
 
 
-CREATE    PROCEDURE [load].[Dim_Vessel_L]
-AS
-		
--- use CTE since only working with few attributes from VIEW and disregard already existing records with no new data
-WITH tbl_NewRecords 
-	AS(
-		SELECT 
-			newMMSI, 
-			newVesselName, 
-			newMID, 
-			newReceivedTime, 
-			Valid_From, 
-			Valid_To, 
-			Already_Existing
-		FROM  [transform].[Dim_Vessel] where Already_Existing is not null
-	)
-	
-	MERGE INTO AIS_EDW.edw.Dim_Vessel dimTbl
-	USING (SELECT distinct * FROM  tbl_NewRecords) s
-		ON (dimTbl.MMSI = s.newMMSI)
-	WHEN MATCHED THEN 
-		UPDATE Set dimTbl.Valid_To = GetDate()
-	WHEN NOT MATCHED THEN 
-		INSERT (MMSI, MID,  Vessel_Name, Recieved_Time, Valid_From, Valid_To) 
-				VALUES ( 
-				newMMSI, 
-				newMID, 
-				newVesselName,
-				newReceivedTime,
-				GETDATE(),
-				CAST('9999-12-31' AS datetime2));
 
---insert already existing records containing new data 
-INSERT INTO AIS_EDW.edw.Dim_Vessel (MMSI, MID,  Vessel_Name, Recieved_Time, Valid_From, Valid_To) 
-	SELECT 	
-		newMMSI, 
-		newMID, 
-		newVesselName,
-		newReceivedTime,
-		GETDATE(),
-		CAST('9999-12-31' AS datetime2) 			
-	FROM [transform].[Dim_Vessel]
-	WHERE (Already_Existing is not null)
+CREATE PROCEDURE [load].[Dim_Vessel_L]
+AS
+
+-- temporary
+TRUNCATE table AIS_EDW.edw.Dim_Vessel
+		
+IF OBJECT_ID('tempdb..#newRecords') IS NOT NULL DROP TABLE #newRecords
+SELECT 
+	MMSI, 
+	VesselName, 
+	MID, 
+	MMSI_exists,
+	isChanged 
+INTO #newRecords
+FROM  [transform].[Dim_Vessel]
+
+UPDATE AIS_EDW.edw.Dim_Vessel
+SET Valid_To = GetDate()
+WHERE MMSI = (SELECT MMSI 
+				FROM #newRecords 
+				WHERE MMSI_exists = 1 AND isChanged > 0)
+
+INSERT INTO AIS_EDW.edw.Dim_Vessel (
+	MMSI, 
+	MID,  
+	Vessel_Name, 
+	Valid_From, 
+	Valid_To) 
+SELECT 	
+	MMSI, 
+	MID, 
+	VesselName,
+	CAST(GETDATE() AS datetime2),
+	CAST('9999-12-31' AS datetime2) 			
+FROM #newRecords
+WHERE MMSI_exists = 0
+	OR (MMSI_exists = 1 AND isChanged > 0)
 
 -- TEMPORARY SOLUTION: delete everything from dbo.AIS_data
-DELETE FROM dbo.AIS_Data
+--TRUNCATE table dbo.AIS_Data

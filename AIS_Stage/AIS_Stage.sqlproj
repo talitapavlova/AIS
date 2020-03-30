@@ -90,6 +90,8 @@
     <Build Include="dbo\Tables\Extract_AIS_Data.sql" />
     <Build Include="utility\Stored Procedures\Get_Time.sql" />
     <Build Include="dbo\Stored Procedures\AIS_Data_archive.sql" />
+    <Build Include="transform\Views\Fact_Route_T.sql" />
+    <Build Include="load\Stored Procedures\Fact_Route_L.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AIS_EDW\AIS_EDW.sqlproj">

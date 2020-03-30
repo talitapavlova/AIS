@@ -2,6 +2,9 @@
 
 
 
+
+
+
 /**
 
  - The following procedure uses the OEPNROWSET and FILEFORMAT for allowing to import csv. data line by line into a TEMPORARY table, with no defined structure. 
@@ -28,27 +31,51 @@
  ***/
  
 
-Create   PROCEDURE [extract].[AIS_Data_CSV]
+CREATE PROCEDURE [extract].[AIS_Data_CSV]
 AS
-	WITH tbl_IncomingRecords  AS 
-		( SELECT  a.* FROM OPENROWSET ( BULK 'C:\DummyData\375.csv',   
-											FIRSTROW = 2,
-											FORMATFILE ='C:\DummyData\test.fmt'				  					
-											) AS a WHERE a.MMSI is not null)
-											
-	INSERT INTO dbo.AIS_Data
-		SELECT  
-			MMSI,
-			Vessel_Name,
 
-			substring(Latitude, 1,  CHARindex( '°', Latitude, 1)) as Lat_Degree,
-			substring(Latitude,  CHARINDEX('°', Latitude)+1,  CHARINDEX('''', Latitude)-(CHARINDEX('°', Latitude))) as Lat_MinSec,
-			substring(reverse(Latitude), 1, 1) as Lat_Cardinal_Direction ,
-			substring(Longitude, 1,  CHARindex( '°', Longitude, 1)) as Long_Degree,
-			substring(Longitude,  CHARINDEX('°', Longitude)+1,  CHARINDEX('''', Longitude)-(CHARINDEX('°', Longitude))) as Long_MinSec, 
-            substring(reverse(Longitude), 1, 1) as Long_Cardinal_Direction ,
-			convert(decimal(10,2), replace(SOG, ',', '.') ) as SOG ,
-			convert(decimal(10,2), replace(COG, ',', '.') ) as COG ,
-			convert(datetime2, RecievedTime, 103) as DateCreated,
-			MID
-		FROM tbl_IncomingRecords
+--TRUNCATE table [dbo].[AIS_Data]
+
+WITH 
+tbl_IncomingRecords  AS ( 
+	SELECT
+		a.MMSI,
+		a.Vessel_Name,
+		a.Latitude,
+		a.Longitude,
+		a.SOG,
+		a.COG,
+		a.RecievedTime,
+		a.MID
+	FROM OPENROWSET ( BULK 'C:\DummyData\output.csv',   
+						FIRSTROW = 2,
+						FORMATFILE ='C:\DummyData\test.fmt'				  					
+					) AS a WHERE a.MMSI is not null)
+
+INSERT INTO dbo.AIS_Data (
+	[MMSI],
+    [Vessel_Name],
+    [Latitude_Degree],
+    [Latitde_MinutesSeconds],
+    [Latitude_CardinalDirection],
+    [Longitude_Degree],
+    [Longitude_MinutesSeconds],
+    [Longitude_CardinalDirection],
+    [SOG],
+    [COG],
+    [RecievedTime],
+    [MID]
+) SELECT  
+	MMSI,
+	Vessel_Name,
+	substring(Latitude, 1,  CHARindex( '°', Latitude, 1)),		-- Lat_Degree
+	substring(Latitude,  CHARINDEX('°', Latitude)+1,  CHARINDEX('''', Latitude)-(CHARINDEX('°', Latitude))),		-- Lat_MinSec 
+	substring(reverse(Latitude), 1, 1),							-- Lat_Cardinal_Direction
+	substring(Longitude, 1,  CHARindex( '°', Longitude, 1)),	-- Long_Degree
+	substring(Longitude,  CHARINDEX('°', Longitude)+1,  CHARINDEX('''', Longitude)-(CHARINDEX('°', Longitude))),	--Long_MinSec
+          substring(reverse(Longitude), 1, 1),					-- Long_Cardinal_Direction 
+	convert(decimal(10,2), replace(SOG, ',', '.') ),			-- SOG 
+	convert(decimal(10,2), replace(COG, ',', '.') ),			-- COG 
+	convert(datetime2, RecievedTime, 103),						-- RecievedTime
+	MID
+FROM tbl_IncomingRecords

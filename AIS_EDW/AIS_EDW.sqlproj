@@ -69,5 +69,6 @@
     <Build Include="edw\Tables\Dim_Time.sql" />
     <Build Include="archive\Tables\AIS_Data_archive.sql" />
     <Build Include="Security\archive.sql" />
+    <Build Include="edw\Tables\Fact_Route.sql" />
   </ItemGroup>
 </Project>

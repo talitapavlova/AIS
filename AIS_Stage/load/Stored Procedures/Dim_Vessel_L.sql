@@ -2,11 +2,14 @@
 
 
 
+
+
+
 CREATE PROCEDURE [load].[Dim_Vessel_L]
 AS
 
 -- temporary
-TRUNCATE table AIS_EDW.edw.Dim_Vessel
+--TRUNCATE table AIS_EDW.edw.Dim_Vessel
 		
 IF OBJECT_ID('tempdb..#newRecords') IS NOT NULL DROP TABLE #newRecords
 SELECT 
@@ -20,9 +23,10 @@ FROM  [transform].[Dim_Vessel]
 
 UPDATE AIS_EDW.edw.Dim_Vessel
 SET Valid_To = GetDate()
-WHERE MMSI = (SELECT MMSI 
+WHERE MMSI in (SELECT MMSI 
 				FROM #newRecords 
 				WHERE MMSI_exists = 1 AND isChanged > 0)
+AND Valid_To = CAST('9999-12-31' as datetime2)
 
 INSERT INTO AIS_EDW.edw.Dim_Vessel (
 	MMSI, 

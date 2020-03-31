@@ -73,7 +73,7 @@ INSERT INTO dbo.AIS_Data (
 	substring(reverse(Latitude), 1, 1),							-- Lat_Cardinal_Direction
 	substring(Longitude, 1,  CHARindex( '°', Longitude, 1)),	-- Long_Degree
 	substring(Longitude,  CHARINDEX('°', Longitude)+1,  CHARINDEX('''', Longitude)-(CHARINDEX('°', Longitude))),	--Long_MinSec
-          substring(reverse(Longitude), 1, 1),					-- Long_Cardinal_Direction 
+    substring(reverse(Longitude), 1, 1),						-- Long_Cardinal_Direction 
 	convert(decimal(10,2), replace(SOG, ',', '.') ),			-- SOG 
 	convert(decimal(10,2), replace(COG, ',', '.') ),			-- COG 
 	convert(datetime2, RecievedTime, 103),						-- RecievedTime

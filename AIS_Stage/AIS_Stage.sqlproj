@@ -87,7 +87,6 @@
     <Build Include="utility\Stored Procedures\Get_Date.sql" />
     <Build Include="Security\utility.sql" />
     <Build Include="utility\Tables\Time_Info.sql" />
-    <Build Include="dbo\Tables\Extract_AIS_Data.sql" />
     <Build Include="utility\Stored Procedures\Get_Time.sql" />
     <Build Include="dbo\Stored Procedures\AIS_Data_archive.sql" />
     <Build Include="transform\Views\Fact_Route_T.sql" />

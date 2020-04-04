@@ -5,6 +5,8 @@
 
 
 
+
+
 /**
 
  - The following procedure uses the OEPNROWSET and FILEFORMAT for allowing to import csv. data line by line into a TEMPORARY table, with no defined structure. 
@@ -47,9 +49,9 @@ tbl_IncomingRecords  AS (
 		a.COG,
 		a.RecievedTime,
 		a.MID
-	FROM OPENROWSET ( BULK 'C:\DummyData\output.csv',   
+	FROM OPENROWSET ( BULK 'C:\AIS\output_in_use.csv',   
 						FIRSTROW = 2,
-						FORMATFILE ='C:\DummyData\test.fmt'				  					
+						FORMATFILE ='C:\AIS\format.fmt'				  					
 					) AS a WHERE a.MMSI is not null)
 
 INSERT INTO dbo.AIS_Data (

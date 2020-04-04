@@ -91,6 +91,8 @@
     <Build Include="dbo\Stored Procedures\AIS_Data_archive.sql" />
     <Build Include="transform\Views\Fact_Route_T.sql" />
     <Build Include="load\Stored Procedures\Fact_Route_L.sql" />
+    <Build Include="utility\Tables\Batch.sql" />
+    <Build Include="load\Stored Procedures\Add_Batch.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AIS_EDW\AIS_EDW.sqlproj">

@@ -7,6 +7,7 @@
 
 
 
+
 /**
 
  - The following procedure uses the OEPNROWSET and FILEFORMAT for allowing to import csv. data line by line into a TEMPORARY table, with no defined structure. 
@@ -65,8 +66,9 @@ INSERT INTO dbo.AIS_Data (
     [Longitude_CardinalDirection],
     [SOG],
     [COG],
-    [RecievedTime],
-    [MID]
+    [MID],
+	[RecievedTime],
+	[Batch]
 ) SELECT  
 	MMSI,
 	Vessel_Name,
@@ -78,6 +80,7 @@ INSERT INTO dbo.AIS_Data (
     substring(reverse(Longitude), 1, 1),						-- Long_Cardinal_Direction 
 	convert(decimal(10,2), replace(SOG, ',', '.') ),			-- SOG 
 	convert(decimal(10,2), replace(COG, ',', '.') ),			-- COG 
+	MID,
 	convert(datetime2, RecievedTime, 103),						-- RecievedTime
-	MID
+	(Select max(Batch) from utility.Batch)
 FROM tbl_IncomingRecords

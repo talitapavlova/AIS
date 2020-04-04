@@ -1,7 +1,5 @@
 ﻿
 
-
-
 CREATE VIEW [transform].[Dim_Vessel]
 AS
 
@@ -12,16 +10,16 @@ SELECT distinct
 	old.MMSI AS MMSI_exists,
 	new.Vessel_Name as VesselName,
 	CASE 
-		WHEN new.Vessel_Name = old.Vessel_Name THEN 0
-		WHEN new.Vessel_Name IS NULL AND old.Vessel_Name IS NULL THEN 0
+		WHEN ISNULL(new.Vessel_Name, 0) = ISNULL(old.Vessel_Name, 0) THEN 0
 		ELSE 1
 	END AS isVesNameChanged,  
 	new.MID as MID,
 	CASE 
-		WHEN new.MID = old.MID THEN 0
-		WHEN new.MID IS NULL AND old.MID IS NULL THEN 0
+		WHEN ISNULL(new.MID, 0) = ISNULL(old.MID, 0) THEN 0
 		ELSE 1
-	END AS isMIDChanged
+	END AS isMIDChanged,
+	Batch,
+	RecievedTime
 FROM dbo.AIS_Data new
 LEFT JOIN AIS_EDW.edw.Dim_Vessel old  
 		ON new.MMSI = old.MMSI 
@@ -31,6 +29,8 @@ SELECT
 	MMSI,
 	VesselName,
 	MID,
+	Batch,
+	RecievedTime,
 	CASE
 		WHEN MMSI_exists IS NOT NULL THEN 1
 		ELSE 0

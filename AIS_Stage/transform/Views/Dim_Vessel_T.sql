@@ -1,6 +1,7 @@
 ﻿
 
 
+
 CREATE VIEW [transform].[Dim_Vessel_T]
 AS
 
@@ -24,7 +25,7 @@ SELECT DISTINCT
 	END AS isMIDChanged,
 	new.Batch,
 	new.RecievedTime
-FROM dbo.AIS_Data new
+FROM extract.AIS_Data new
 LEFT JOIN AIS_EDW.edw.Dim_Vessel old  
 		ON new.MMSI = old.MMSI 
 		AND old.BatchUpdated IS NULL

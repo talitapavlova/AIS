@@ -19,7 +19,7 @@ SELECT DISTINCT
 		ELSE 1
 	END,
 	MAX(RecievedTime)		
-FROM dbo.AIS_Data
+FROM extract.AIS_Data
 GROUP BY Batch
 
 END

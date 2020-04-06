@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[AIS_Data] (
+﻿CREATE TABLE [extract].[AIS_Data] (
     [MMSI]                        NVARCHAR (9)    NULL,
     [Vessel_Name]                 NVARCHAR (100)  NULL,
     [Latitude_Degree]             NVARCHAR (100)  NULL,
@@ -13,8 +13,4 @@
     [RecievedTime]                DATETIME2 (7)   NULL,
     [Batch]                       INT             NULL
 );
-
-
-
-
 

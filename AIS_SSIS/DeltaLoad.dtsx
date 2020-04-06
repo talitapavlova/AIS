@@ -11,8 +11,8 @@
   DTS:LocaleID="1030"
   DTS:ObjectName="DeltaLoad"
   DTS:PackageType="5"
-  DTS:VersionBuild="9"
-  DTS:VersionGUID="{B909356F-6D0A-4CD8-80B3-54CA6211672B}">
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{56523777-C211-46DD-99C0-0677B33C9478}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -29,7 +29,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{DCF4C886-625E-4045-98C7-E1E1A3078BAB}"
+          SQLTask:Connection="{D59E26AB-8475-43EB-8EF5-41488A4ED299}"
           SQLTask:SqlStatementSource="exec [utility].[Add_Batch] 1" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -61,7 +61,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{DCF4C886-625E-4045-98C7-E1E1A3078BAB}"
+          SQLTask:Connection="{D59E26AB-8475-43EB-8EF5-41488A4ED299}"
           SQLTask:SqlStatementSource="exec extract.AIS_Data_CSV" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -77,7 +77,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{DCF4C886-625E-4045-98C7-E1E1A3078BAB}"
+          SQLTask:Connection="{D59E26AB-8475-43EB-8EF5-41488A4ED299}"
           SQLTask:SqlStatementSource="exec load.Dim_Vessel_L" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -93,7 +93,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{DCF4C886-625E-4045-98C7-E1E1A3078BAB}"
+          SQLTask:Connection="{D59E26AB-8475-43EB-8EF5-41488A4ED299}"
           SQLTask:SqlStatementSource="exec load.Fact_Route_L" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -125,7 +125,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{DCF4C886-625E-4045-98C7-E1E1A3078BAB}"
+          SQLTask:Connection="{D59E26AB-8475-43EB-8EF5-41488A4ED299}"
           SQLTask:SqlStatementSource="Truncate table dbo.AIS_Data" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -316,33 +316,33 @@
         <NodeLayout
           Size="162.4,41.6"
           Id="Package\Load Fact_Route"
-          TopLeft="357.714291806124,370.117652249584" />
+          TopLeft="357.714291806124,370.729416964046" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
           TopLeft="231.771431169705,340.752945371978">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="207.142860636419,29.3647068776053"
+              EndConnector="207.142860636419,29.9764715920675"
               Start="0,0"
-              End="207.142860636419,21.8647068776053">
+              End="207.142860636419,22.4764715920675">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,10.6823534388027" />
+                    End="0,10.9882357960337" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,10.6823534388027"
-                    Point2="0,14.6823534388027"
-                    Point3="4,14.6823534388027" />
+                    Point1="0,10.9882357960337"
+                    Point2="0,14.9882357960337"
+                    Point3="4,14.9882357960337" />
                   <mssgle:LineSegment
-                    End="203.142860636419,14.6823534388027" />
+                    End="203.142860636419,14.9882357960337" />
                   <mssgle:CubicBezierSegment
-                    Point1="203.142860636419,14.6823534388027"
-                    Point2="207.142860636419,14.6823534388027"
-                    Point3="207.142860636419,18.6823534388027" />
+                    Point1="203.142860636419,14.9882357960337"
+                    Point2="207.142860636419,14.9882357960337"
+                    Point3="207.142860636419,18.9882357960337" />
                   <mssgle:LineSegment
-                    End="207.142860636419,21.8647068776053" />
+                    End="207.142860636419,22.4764715920675" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -357,18 +357,18 @@
           TopLeft="352.000005994524,441.647064400379" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 4]"
-          TopLeft="437.257148900324,411.717652249584">
+          TopLeft="437.257148900324,412.329416964046">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,29.9294121507955"
+              EndConnector="0,29.3176474363333"
               Start="0,0"
-              End="0,22.4294121507955">
+              End="0,21.8176474363333">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,22.4294121507955" />
+                    End="0,21.8176474363333" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

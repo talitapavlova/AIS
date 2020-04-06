@@ -9,6 +9,7 @@
 
 
 
+
 /**
 
  - The following procedure uses the OEPNROWSET and FILEFORMAT for allowing to import csv. data line by line into a TEMPORARY table, with no defined structure. 
@@ -60,7 +61,7 @@ WITH
 						FORMATFILE ='C:\AIS\format.fmt'				  					
 					) AS a WHERE a.MMSI is not null)
 
-INSERT INTO dbo.AIS_Data (
+INSERT INTO extract.AIS_Data (
 	[MMSI],
     [Vessel_Name],
     [Latitude_Degree],

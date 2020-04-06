@@ -1,11 +1,11 @@
 ﻿
 
 
-CREATE PROCEDURE [dbo].[AIS_Data_archive]
+CREATE PROCEDURE [archive].[AIS_Data_AddToArchive]
 AS
 BEGIN 
 
-INSERT INTO AIS_EDW.archive.AIS_Data_archive (
+INSERT INTO archive.AIS_Data_archive (
 	[MMSI]
    ,[Vessel_Name]
    ,[Latitude_Degree]
@@ -31,6 +31,6 @@ INSERT INTO AIS_EDW.archive.AIS_Data_archive (
    ,[COG]
    ,[RecievedTime]
    ,[MID]
-FROM dbo.AIS_Data)
+FROM extract.AIS_Data)
 
 END

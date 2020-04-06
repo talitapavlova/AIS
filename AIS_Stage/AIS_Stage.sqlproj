@@ -70,12 +70,15 @@
     <Folder Include="utility\" />
     <Folder Include="utility\Tables\" />
     <Folder Include="utility\Stored Procedures\" />
+    <Folder Include="extract\Tables\" />
+    <Folder Include="archive\" />
+    <Folder Include="archive\Tables\" />
+    <Folder Include="archive\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\transform.sql" />
     <Build Include="Security\load.sql" />
     <Build Include="Security\extract.sql" />
-    <Build Include="dbo\Tables\AIS_Data.sql" />
     <Build Include="load\Stored Procedures\Dim_Vessel_L.sql" />
     <Build Include="extract\Stored Procedures\AIS_Data_JSON.sql" />
     <Build Include="extract\Stored Procedures\AIS_Data_CSV.sql" />
@@ -84,12 +87,15 @@
     <Build Include="Security\utility.sql" />
     <Build Include="utility\Tables\Time_Info.sql" />
     <Build Include="utility\Stored Procedures\Get_Time.sql" />
-    <Build Include="dbo\Stored Procedures\AIS_Data_archive.sql" />
     <Build Include="transform\Views\Fact_Route_T.sql" />
     <Build Include="load\Stored Procedures\Fact_Route_L.sql" />
     <Build Include="utility\Tables\Batch.sql" />
     <Build Include="transform\Views\Dim_Vessel_T.sql" />
     <Build Include="utility\Stored Procedures\Add_Batch.sql" />
+    <Build Include="extract\Tables\AIS_Data.sql" />
+    <Build Include="archive\Tables\AIS_Data_archive.sql" />
+    <Build Include="archive\Stored Procedures\AIS_Data_AddToArchive.sql" />
+    <Build Include="Security\archive.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AIS_EDW\AIS_EDW.sqlproj">

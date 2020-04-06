@@ -3,9 +3,6 @@
 
 CREATE PROCEDURE [load].[Dim_Vessel_L]
 AS
-
--- temporary
---TRUNCATE table AIS_EDW.edw.Dim_Vessel
 	
 IF OBJECT_ID('tempdb..#newRecords') IS NOT NULL DROP TABLE #newRecords
 SELECT 
@@ -14,16 +11,21 @@ SELECT
 	MID, 
 	Batch,
 	RecievedTime,
+	Valid_To,
+	VesselRowNumDesc,
+	VesselRowNumAsc,
 	MMSI_exists,
 	isChanged
 INTO #newRecords
-FROM  [transform].[Dim_Vessel]
+FROM  [transform].[Dim_Vessel_T]
 
 UPDATE AIS_EDW.edw.Dim_Vessel
 SET Valid_To = b.RecievedTime,
 	BatchUpdated = b.Batch
 FROM AIS_EDW.edw.Dim_Vessel a
-INNER JOIN #newRecords b ON a.MMSI = b.MMSI
+INNER JOIN #newRecords b 
+	ON a.MMSI = b.MMSI 
+	AND b.VesselRowNumAsc = 1
 WHERE a.BatchUpdated IS NULL 
 	AND b.MMSI_exists = 1 
 	AND b.isChanged > 0
@@ -33,6 +35,7 @@ INSERT INTO AIS_EDW.edw.Dim_Vessel (
 	MID,  
 	Vessel_Name, 
 	BatchCreated,
+	BatchUpdated,
 	Valid_From, 
 	Valid_To) 
 SELECT 	
@@ -40,8 +43,12 @@ SELECT
 	MID, 
 	VesselName,
 	Batch,
+	CASE 
+		WHEN VesselRowNumDesc != 1 THEN Batch
+		ELSE NULL
+	END,
 	RecievedTime,
-	CAST('9999-12-31' AS datetime2)
+	Valid_To
 FROM #newRecords
 WHERE MMSI_exists = 0
 	OR (MMSI_exists = 1 AND isChanged > 0)

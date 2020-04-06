@@ -8,6 +8,7 @@
 
 
 
+
 /**
 
  - The following procedure uses the OEPNROWSET and FILEFORMAT for allowing to import csv. data line by line into a TEMPORARY table, with no defined structure. 
@@ -37,10 +38,14 @@
 CREATE PROCEDURE [extract].[AIS_Data_CSV]
 AS
 
---TRUNCATE table [dbo].[AIS_Data]
+DECLARE
+@Batch int
+
+SELECT @Batch = MAX(Batch) + 1 
+FROM utility.Batch;
 
 WITH 
-tbl_IncomingRecords  AS ( 
+#IncomingRecords  AS ( 
 	SELECT
 		a.MMSI,
 		a.Vessel_Name,
@@ -82,5 +87,8 @@ INSERT INTO dbo.AIS_Data (
 	convert(decimal(10,2), replace(COG, ',', '.') ),			-- COG 
 	MID,
 	convert(datetime2, RecievedTime, 103),						-- RecievedTime
-	(Select max(Batch) from utility.Batch)
-FROM tbl_IncomingRecords
+	CASE 
+		WHEN @Batch IS NOT NULL THEN @Batch
+		ELSE 1
+	END
+FROM #IncomingRecords

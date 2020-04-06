@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">PC-6541</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAh2CRDweMPkur0m2rKY8jnQAAAAACAAAAAAADZgAAwAAAABAAAAA5M1fW+ebp5OnKsRMBkPOKAAAAAASAAACgAAAAEAAAADqTYoPUiT7PZ4tgt8Q7CPCIAAAAUEGpHZw5e9cXmOGngvQqTZ8MjfY4jqGivYhMBrA9IvesEHWn2Ek3FU5EG/wOehSmOZBpyM11rjnC7t7tnmBbUaHlqG53LguhlxnVJegljP7rfd+joycxxZYnNrPJP4C5EKHfG47bwWfGqKaecbkydSV5Du18T09C4XgN1D4GsjlSZ0z4eq3dHxQAAAD9QBi4IZJNgdrdJyMPmAEgcWgZTA==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAh2CRDweMPkur0m2rKY8jnQAAAAACAAAAAAADZgAAwAAAABAAAAD46pMFsSG1qIfgebttE2w8AAAAAASAAACgAAAAEAAAAPs7T50R45nYsYc2CbniZNiIAAAAJ3Cfbwur6KQLCsDuAacwOn1MtXSJWGtfZSW7z2d0SXJwkymCrVl0nz5KN3XHjrSfheQwAzOskpIay/66jtJ70yYP5QELMpqh04HscNBUY5yoiSeFfmYzUTN0Kdejj70SMWd8yAcSD3naRZ+c6THSrJoOYlDNuKgWS2j54nidABnTYc2d6PggGBQAAAAV832nGSM/EJYcylHDXTfEzxFs7g==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -282,31 +282,16 @@
                 <SSIS:Property SSIS:Name="Name">DeltaLoad</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">5</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">7</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{F946D6E8-9D02-4B17-8041-DCDF86F0381F}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{D4CB3FDA-FF6D-494D-85D0-F074273AE61B}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
                 <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
               </SSIS:Properties>
-              <SSIS:Parameters>
-                <SSIS:Parameter SSIS:Name="batchTimestamp">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">{4B5FEBEE-3D46-45B1-AB81-75C9C0D0F7BE}</SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-              </SSIS:Parameters>
+              <SSIS:Parameters />
             </SSIS:PackageMetaData>
           </SSIS:PackageInfo>
         </SSIS:DeploymentInfo>

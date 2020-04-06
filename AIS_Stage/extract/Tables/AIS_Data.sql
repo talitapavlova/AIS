@@ -10,7 +10,9 @@
     [SOG]                         DECIMAL (10, 2) NULL,
     [COG]                         DECIMAL (10, 2) NULL,
     [MID]                         NVARCHAR (100)  NULL,
-    [RecievedTime]                DATETIME2 (7)   NULL,
+    [ReceivedTime]                DATETIME2 (7)   NULL,
     [Batch]                       INT             NULL
 );
+
+
 

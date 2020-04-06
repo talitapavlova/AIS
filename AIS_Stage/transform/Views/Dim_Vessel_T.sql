@@ -2,6 +2,7 @@
 
 
 
+
 CREATE VIEW [transform].[Dim_Vessel_T]
 AS
 
@@ -24,7 +25,7 @@ SELECT DISTINCT
 		ELSE 1
 	END AS isMIDChanged,
 	new.Batch,
-	new.RecievedTime
+	new.ReceivedTime
 FROM extract.AIS_Data new
 LEFT JOIN AIS_EDW.edw.Dim_Vessel old  
 		ON new.MMSI = old.MMSI 
@@ -38,9 +39,9 @@ SELECT
 	VesselName,
 	MID,
 	Batch,
-	RecievedTime,
-	ROW_NUMBER() OVER(PARTITION BY MMSI ORDER BY RecievedTime DESC) as VesselRowNumDesc,
-	ROW_NUMBER() OVER(PARTITION BY MMSI ORDER BY RecievedTime ASC) as VesselRowNumAsc,
+	ReceivedTime,
+	ROW_NUMBER() OVER(PARTITION BY MMSI ORDER BY ReceivedTime DESC) as VesselRowNumDesc,
+	ROW_NUMBER() OVER(PARTITION BY MMSI ORDER BY ReceivedTime ASC) as VesselRowNumAsc,
 	MMSI_exists,
 	isVesNameChanged + isMIDChanged as isChanged
 FROM VesselCheckExists
@@ -51,10 +52,10 @@ SELECT
 	VesselName,
 	MID,
 	Batch,
-	RecievedTime,
+	ReceivedTime,
 	CASE
 		WHEN VesselRowNumDesc = 1 THEN CAST('9999-12-31' as datetime2)
-		ELSE LAG (RecievedTime) OVER (PARTITION BY MMSI ORDER BY VesselRowNumDesc)
+		ELSE LAG (ReceivedTime) OVER (PARTITION BY MMSI ORDER BY VesselRowNumDesc)
 	END AS Valid_To,
 	VesselRowNumDesc,
 	VesselRowNumAsc,

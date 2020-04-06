@@ -2,6 +2,7 @@
 
 
 
+
 CREATE VIEW [transform].[Fact_Route_T]
 AS
 
@@ -13,9 +14,9 @@ SELECT
 FROM extract.AIS_Data a
 LEFT JOIN AIS_EDW.edw.Dim_Vessel ves  
 	ON a.MMSI = ves.MMSI 
-	AND a.RecievedTime >= ves.Valid_From
-	AND a.RecievedTime < Valid_To
+	AND a.ReceivedTime >= ves.Valid_From
+	AND a.ReceivedTime < Valid_To
 LEFT JOIN AIS_EDW.edw.Dim_Date dt  
-	ON CAST(a.RecievedTime as date) = dt.Date
+	ON CAST(a.ReceivedTime as date) = dt.Date
 LEFT JOIN AIS_EDW.edw.Dim_Time tm  
-	ON CAST(a.RecievedTime as time) = tm.Time
+	ON CAST(a.ReceivedTime as time) = tm.Time

@@ -1,6 +1,7 @@
 ﻿
 
 
+
 CREATE PROCEDURE [load].[Dim_Vessel_L]
 AS
 	
@@ -10,7 +11,7 @@ SELECT
 	VesselName, 
 	MID, 
 	Batch,
-	RecievedTime,
+	ReceivedTime,
 	Valid_To,
 	VesselRowNumDesc,
 	VesselRowNumAsc,
@@ -20,7 +21,7 @@ INTO #newRecords
 FROM  [transform].[Dim_Vessel_T]
 
 UPDATE AIS_EDW.edw.Dim_Vessel
-SET Valid_To = b.RecievedTime,
+SET Valid_To = b.ReceivedTime,
 	BatchUpdated = b.Batch
 FROM AIS_EDW.edw.Dim_Vessel a
 INNER JOIN #newRecords b 
@@ -47,7 +48,7 @@ SELECT
 		WHEN VesselRowNumDesc != 1 THEN Batch
 		ELSE NULL
 	END,
-	RecievedTime,
+	ReceivedTime,
 	Valid_To
 FROM #newRecords
 WHERE MMSI_exists = 0

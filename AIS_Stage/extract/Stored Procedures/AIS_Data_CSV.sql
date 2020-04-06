@@ -10,6 +10,7 @@
 
 
 
+
 /**
 
  - The following procedure uses the OEPNROWSET and FILEFORMAT for allowing to import csv. data line by line into a TEMPORARY table, with no defined structure. 
@@ -73,7 +74,7 @@ INSERT INTO extract.AIS_Data (
     [SOG],
     [COG],
     [MID],
-	[RecievedTime],
+	[ReceivedTime],
 	[Batch]
 ) SELECT  
 	MMSI,

@@ -9,8 +9,10 @@
     [Longitude_CardinalDirection] NVARCHAR (1)    NULL,
     [SOG]                         DECIMAL (10, 2) NULL,
     [COG]                         DECIMAL (10, 2) NULL,
-    [RecievedTime]                DATETIME2 (7)   NULL,
+    [ReceivedTime]                DATETIME2 (7)   NULL,
     [MID]                         NVARCHAR (100)  NULL,
     [Batch]                       INT             NULL
 );
+
+
 

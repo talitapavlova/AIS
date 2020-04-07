@@ -5,6 +5,12 @@
 
 
 
+
+
+
+
+
+
 /**
 
  - The following procedure uses the OEPNROWSET and FILEFORMAT for allowing to import csv. data line by line into a TEMPORARY table, with no defined structure. 
@@ -34,10 +40,14 @@
 CREATE PROCEDURE [extract].[AIS_Data_CSV]
 AS
 
---TRUNCATE table [dbo].[AIS_Data]
+DECLARE
+@Batch int
+
+SELECT @Batch = MAX(Batch) + 1 
+FROM utility.Batch;
 
 WITH 
-tbl_IncomingRecords  AS ( 
+#IncomingRecords  AS ( 
 	SELECT
 		a.MMSI,
 		a.Vessel_Name,
@@ -47,12 +57,12 @@ tbl_IncomingRecords  AS (
 		a.COG,
 		a.RecievedTime,
 		a.MID
-	FROM OPENROWSET ( BULK 'C:\DummyData\output.csv',   
+	FROM OPENROWSET ( BULK 'C:\AIS\output_in_use.csv',   
 						FIRSTROW = 2,
-						FORMATFILE ='C:\DummyData\test.fmt'				  					
+						FORMATFILE ='C:\AIS\format.fmt'				  					
 					) AS a WHERE a.MMSI is not null)
 
-INSERT INTO dbo.AIS_Data (
+INSERT INTO extract.AIS_Data (
 	[MMSI],
     [Vessel_Name],
     [Latitude_Degree],
@@ -63,8 +73,9 @@ INSERT INTO dbo.AIS_Data (
     [Longitude_CardinalDirection ],
     [SOG],
     [COG],
-    [RecievedTime],
-    [MID]
+    [MID],
+	[ReceivedTime],
+	[Batch]
 ) SELECT  
 	MMSI,
 	Vessel_Name,
@@ -73,9 +84,13 @@ INSERT INTO dbo.AIS_Data (
 	substring(reverse(Latitude), 1, 1),							-- Lat_Cardinal_Direction
 	substring(Longitude, 1,  CHARindex( '°', Longitude, 1)),	-- Long_Degree
 	substring(Longitude,  CHARINDEX('°', Longitude)+1,  CHARINDEX('''', Longitude)-(CHARINDEX('°', Longitude))),	--Long_MinSec
-          substring(reverse(Longitude), 1, 1),					-- Long_Cardinal_Direction 
+    substring(reverse(Longitude), 1, 1),						-- Long_Cardinal_Direction 
 	convert(decimal(10,2), replace(SOG, ',', '.') ),			-- SOG 
 	convert(decimal(10,2), replace(COG, ',', '.') ),			-- COG 
+	MID,
 	convert(datetime2, RecievedTime, 103),						-- RecievedTime
-	MID
-FROM tbl_IncomingRecords
+	CASE 
+		WHEN @Batch IS NOT NULL THEN @Batch
+		ELSE 1
+	END
+FROM #IncomingRecords

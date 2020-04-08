@@ -70,7 +70,7 @@ INSERT INTO extract.AIS_Data (
     [Latitude_CardinalDirection],
     [Longitude_Degree],
     [Longitude_MinutesSeconds],
-    [Longitude_CardinalDirection ],
+    [Longitude_CardinalDirection],
     [SOG],
     [COG],
     [MID],

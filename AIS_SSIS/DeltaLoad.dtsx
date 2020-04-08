@@ -11,8 +11,8 @@
   DTS:LocaleID="1030"
   DTS:ObjectName="DeltaLoad"
   DTS:PackageType="5"
-  DTS:VersionBuild="10"
-  DTS:VersionGUID="{56523777-C211-46DD-99C0-0677B33C9478}">
+  DTS:VersionBuild="11"
+  DTS:VersionGUID="{FD536940-AE7A-4DFC-B94B-019FA879390C}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -126,7 +126,7 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{D59E26AB-8475-43EB-8EF5-41488A4ED299}"
-          SQLTask:SqlStatementSource="Truncate table dbo.AIS_Data" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="Truncate table extract.AIS_Data" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
@@ -216,6 +216,10 @@
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
+          Size="126.4,41.6"
+          Id="Package\Add Batch"
+          TopLeft="156.571431237824,209.223532346046" />
+        <NodeLayout
           Size="112.8,41.6"
           Id="Package\Archive"
           TopLeft="166.857145698703,448.423535700735" />
@@ -228,35 +232,17 @@
           Id="Package\Load Dim_Vessel"
           TopLeft="152.571431169705,299.152945371978" />
         <NodeLayout
+          Size="162.4,41.6"
+          Id="Package\Load Fact_Route"
+          TopLeft="357.714291806124,370.729416964046" />
+        <NodeLayout
           Size="129.6,41.6"
           Id="Package\Output"
           TopLeft="163.428574211743,24.4705885784849" />
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="226.571431203765,66.0705885784849">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,41.600001166849"
-              Start="0,0"
-              End="0,34.100001166849">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,34.100001166849" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <NodeLayout
-          Size="126.4,41.6"
-          Id="Package\Add Batch"
-          TopLeft="156.571431237824,209.223532346046" />
+          Size="167.2,41.6"
+          Id="Package\Truncate AIS_Data"
+          TopLeft="352.000005994524,441.647064400379" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="222.342859716805,149.270589745334">
@@ -271,6 +257,62 @@
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,52.4529426007118" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="231.771431169705,340.752945371978">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="207.142860636419,29.9764715920675"
+              Start="0,0"
+              End="207.142860636419,22.4764715920675">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,10.9882357960337" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.9882357960337"
+                    Point2="0,14.9882357960337"
+                    Point3="4,14.9882357960337" />
+                  <mssgle:LineSegment
+                    End="203.142860636419,14.9882357960337" />
+                  <mssgle:CubicBezierSegment
+                    Point1="203.142860636419,14.9882357960337"
+                    Point2="207.142860636419,14.9882357960337"
+                    Point3="207.142860636419,18.9882357960337" />
+                  <mssgle:LineSegment
+                    End="207.142860636419,22.4764715920675" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="226.571431203765,66.0705885784849">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.600001166849"
+              Start="0,0"
+              End="0,34.100001166849">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.100001166849" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -313,48 +355,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="162.4,41.6"
-          Id="Package\Load Fact_Route"
-          TopLeft="357.714291806124,370.729416964046" />
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="231.771431169705,340.752945371978">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="207.142860636419,29.9764715920675"
-              Start="0,0"
-              End="207.142860636419,22.4764715920675">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,10.9882357960337" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,10.9882357960337"
-                    Point2="0,14.9882357960337"
-                    Point3="4,14.9882357960337" />
-                  <mssgle:LineSegment
-                    End="203.142860636419,14.9882357960337" />
-                  <mssgle:CubicBezierSegment
-                    Point1="203.142860636419,14.9882357960337"
-                    Point2="207.142860636419,14.9882357960337"
-                    Point3="207.142860636419,18.9882357960337" />
-                  <mssgle:LineSegment
-                    End="207.142860636419,22.4764715920675" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="167.2,41.6"
-          Id="Package\Truncate AIS_Data"
-          TopLeft="352.000005994524,441.647064400379" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 4]"
           TopLeft="437.257148900324,412.329416964046">

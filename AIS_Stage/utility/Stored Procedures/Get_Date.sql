@@ -1,7 +1,9 @@
 ﻿
+
 /*
 Change log: 
 	2020-03-26	NP	Stored procedure created
+	2020-04-08	NP	Updated SP for correct week number
 */
 
 
@@ -22,39 +24,29 @@ A recursive temporary table that produces all dates between @StartYear 1/1 and @
 WITH 
 Dates AS
 (
-	SELECT CAST(@StartYear AS DateTime) Date
+SELECT 
+	CAST(@StartYear AS DateTime) Date
 
-	UNION ALL
+UNION ALL
 
-	SELECT (Date + 1) AS Date
-	FROM Dates
-	WHERE Date < CAST(@EndYear AS DateTime) - 1
+SELECT 
+	(Date + 1) AS Date
+FROM Dates
+WHERE Date < CAST(@EndYear AS DateTime) - 1
 )
+,
 
 /*
-Taking different attributes of the Date and using them to fill in [utility].[Date_Info] table
-Week 1 is defined as the week with the first Thursday in the Year (In Denmark)
+Extracting date properties with the build in SQL functions
 */
-INSERT INTO utility.Date_Info (
-	DateKey,
-	Date,
-	Year,
-	QuarterOfYear,
-	MonthOfYear,
-	MonthOfYear_Name,
-	MonthOfYear_ShortName,
-	WeekOfYear,
-	Day,
-	DayOfYear,
-	DayOfWeek,
-	DayOfWeek_Name,
-	DayOfWeek_ShortName
-) SELECT
-	YEAR(Date) * 10000 + MONTH(Date) * 100 + DAY(Date), -- [DateKey]
-	CAST(Date AS Date),					-- [Date]				
-	YEAR(Date),							-- [Year]
-	DATEPART(Quarter, Date),			-- [QuarterOfYear]
-	MONTH(Date),						-- [Month]
+DateInfo AS
+(
+SELECT
+	YEAR(Date) * 10000 + MONTH(Date) * 100 + DAY(Date) AS DateKey,
+	CAST(Date AS Date) AS Date,				
+	YEAR(Date) AS Year,
+	DATEPART(Quarter, Date) AS Quarter,
+	MONTH(Date) AS Month,
 	CASE MONTH(Date) 
 		WHEN 1 THEN 'January'
 		WHEN 2 THEN 'February'
@@ -68,7 +60,7 @@ INSERT INTO utility.Date_Info (
 		WHEN 10 THEN 'Oktober'
 		WHEN 11 THEN 'November'
 		WHEN 12 THEN 'December'
-	END,								-- [MonthOfYear_Name]
+	END AS Month_Name, 
 	CASE MONTH(Date) 
 		WHEN 1 THEN 'Jan'
 		WHEN 2 THEN 'Feb'
@@ -82,11 +74,11 @@ INSERT INTO utility.Date_Info (
 		WHEN 10 THEN 'Okt'
 		WHEN 11 THEN 'Nov'
 		WHEN 12 THEN 'Dec'
-	END,								-- [MonthOfYear_ShortName]
-	DATEPART(WEEK, Date),				-- [WeekOfYear]
-	DATEPART(DAY, Date),				-- [Day]
-	DATEPART(DAYOFYEAR, Date),			-- [DayOfYear]
-	DATEPART(Weekday, Date),			-- [DayOfWeek]
+	END AS Month_ShortName,
+	DATEPART(WEEK, Date) AS Week,
+	DATEPART(DAY, Date) AS Day,
+	DATEPART(DAYOFYEAR, Date) AS DayOfYear,
+	DATEPART(Weekday, Date) AS DayOfWeek,
 	CASE DATEPART(Weekday, Date)	
 		WHEN 1 THEN 'Monday'
 		WHEN 2 THEN 'Tuesday'
@@ -95,7 +87,7 @@ INSERT INTO utility.Date_Info (
 		WHEN 5 THEN 'Friday'
 		WHEN 6 THEN 'Saturday'
 		WHEN 7 THEN 'Sunday'
-	END,								-- [DayOfWeek_Name]
+	END AS DayOfWeek_Name,
 	CASE DATEPART(Weekday, Date)
 		WHEN 1 THEN 'Mon'
 		WHEN 2 THEN 'Tue'
@@ -104,8 +96,63 @@ INSERT INTO utility.Date_Info (
 		WHEN 5 THEN 'Fre'
 		WHEN 6 THEN 'Sat'
 		WHEN 7 THEN 'Sun'
-	END									-- [DayOfWeek_ShortName]
-FROM Dates 
+	END	AS DayOfWeek_ShortName
+FROM Dates
+)
+, 
+
+/*
+Table with years where first week of the year contains Thursday
+*/
+WeeksInfo AS (
+SELECT 
+	Year
+FROM DateInfo
+WHERE Week = 1
+	AND DayOfWeek = 4
+)
+
+/*
+Populating [utility].[Date_Info] table
+Correcting the week number - Week 1 is defined as the week with the first Thursday in the Year (In Denmark)
+*/
+INSERT INTO utility.Date_Info (
+	DateKey,
+	Date,
+	Year ,
+	Quarter,
+	Month,
+	Month_Name,
+	Month_ShortName,
+	Week,
+	Day,
+	DayOfYear,
+	DayOfWeek,
+	DayOfWeek_Name,
+	DayOfWeek_ShortName
+) SELECT
+	DateKey,
+	Date,
+	a.Year ,
+	Quarter,
+	Month,
+	Month_Name,
+	Month_ShortName,
+	CASE 
+		WHEN b.Year IS NULL THEN 
+			CASE 
+				WHEN Week - 1 != 0 THEN Week - 1
+				ELSE 52
+			END
+		ELSE Week
+	END,
+	Day,
+	DayOfYear,
+	DayOfWeek,
+	DayOfWeek_Name,
+	DayOfWeek_ShortName
+FROM DateInfo a
+LEFT JOIN WeeksInfo b ON a.Year = b.Year
 OPTION (MAXRECURSION 0)
 
 TRUNCATE TABLE AIS_EDW.edw.Dim_Date
@@ -117,11 +164,11 @@ INSERT INTO AIS_EDW.edw.Dim_Date(
 	Date_Key,
 	Date,
 	Year ,
-	QuarterOfYear,
-	MonthOfYear,
-	MonthOfYear_Name,
-	MonthOfYear_ShortName,
-	WeekOfYear,
+	Quarter,
+	Month,
+	Month_Name,
+	Month_ShortName,
+	Week,
 	Day,
 	DayOfYear,
 	DayOfWeek,
@@ -132,11 +179,11 @@ INSERT INTO AIS_EDW.edw.Dim_Date(
 	-1,							-- [DateKey]
 	CAST('1900-01-01' AS Date),	-- [Date]
 	-1,							-- [Year]
-	-1,							-- [QuarterOfYear]
+	-1,							-- [Quarter]
 	-1,							-- [Month]
-	'NA',						-- [MonthOfYear_Name]
-	'NA',						-- [MonthOfYear_ShortName]
-	-1,							-- [WeekOfYear]
+	'NA',						-- [Month_Name]
+	'NA',						-- [Month_ShortName]
+	-1,							-- [Week]
 	-1,							-- [Day] 
 	-1,							-- [DayOfYear]
 	-1,							-- [DayOfWeek]
@@ -151,11 +198,11 @@ INSERT INTO AIS_EDW.edw.Dim_Date(
 	Date_Key,
 	Date,
 	Year ,
-	QuarterOfYear,
-	MonthOfYear,
-	MonthOfYear_Name,
-	MonthOfYear_ShortName,
-	WeekOfYear,
+	Quarter,
+	Month,
+	Month_Name,
+	Month_ShortName,
+	Week,
 	Day,
 	DayOfYear,
 	DayOfWeek,
@@ -165,11 +212,11 @@ INSERT INTO AIS_EDW.edw.Dim_Date(
 	DateKey,
 	Date,
 	Year ,
-	QuarterOfYear,
-	MonthOfYear,
-	MonthOfYear_Name,
-	MonthOfYear_ShortName,
-	WeekOfYear,
+	Quarter,
+	Month,
+	Month_Name,
+	Month_ShortName,
+	Week,
 	Day,
 	DayOfYear,
 	DayOfWeek,

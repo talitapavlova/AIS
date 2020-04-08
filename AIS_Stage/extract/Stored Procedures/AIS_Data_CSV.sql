@@ -89,8 +89,5 @@ INSERT INTO extract.AIS_Data (
 	convert(decimal(10,2), replace(COG, ',', '.') ),			-- COG 
 	MID,
 	convert(datetime2, RecievedTime, 103),						-- RecievedTime
-	CASE 
-		WHEN @Batch IS NOT NULL THEN @Batch
-		ELSE 1
-	END
+	ISNULL(@Batch, 1)
 FROM #IncomingRecords

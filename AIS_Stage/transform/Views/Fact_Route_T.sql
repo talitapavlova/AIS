@@ -1,8 +1,6 @@
 ﻿
 
 
-
-
 CREATE VIEW [transform].[Fact_Route_T]
 AS
 
@@ -10,6 +8,8 @@ SELECT
 	ves.Vessel_Key,
 	dt.Date_Key,
 	tm.Time_Key,
+	a.SOG,
+	a.COG,
 	a.Batch
 FROM extract.AIS_Data a
 LEFT JOIN AIS_EDW.edw.Dim_Vessel ves  

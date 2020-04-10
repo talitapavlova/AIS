@@ -77,6 +77,7 @@
     <Folder Include="tSQLt\User Defined Types\" />
     <Folder Include="Assemblies\" />
     <Folder Include="Security\" />
+    <Folder Include="extract\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\tSQLt_tempobject_9632318be2be4e7b96257806c0036aec.sql" />
@@ -248,6 +249,8 @@
     <Build Include="Security\load.sql" />
     <Build Include="Security\extract.sql" />
     <Build Include="Security\edw.sql" />
+    <Build Include="extract\Tables\AIS_Data.sql" />
+    <Build Include="transform\Views\Dim_Vessel_T.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\tSQLtCLR.dll" />

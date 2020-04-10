@@ -3,14 +3,6 @@
 
 
 
-
-
-
-
-
-
-
-
 /**
 
  - The following procedure uses the OEPNROWSET and FILEFORMAT for allowing to import csv. data line by line into a TEMPORARY table, with no defined structure. 
@@ -37,11 +29,15 @@
  ***/
  
 
-CREATE PROCEDURE [extract].[AIS_Data_CSV]
+CREATE    PROCEDURE [extract].[AIS_Data_CSV]
 AS
 
 DECLARE
 @Batch int
+
+declare @fileLocation nvarchar(200)
+
+set @fileLocation = 'C:\AIS\output_in_use.csv'
 
 SELECT @Batch = MAX(Batch) + 1 
 FROM utility.Batch;
@@ -57,7 +53,7 @@ WITH
 		a.COG,
 		a.RecievedTime,
 		a.MID
-	FROM OPENROWSET ( BULK 'C:\AIS\output_in_use.csv',   
+	FROM OPENROWSET ( BULK ''' @fileLocation ''',  
 						FIRSTROW = 2,
 						FORMATFILE ='C:\AIS\format.fmt'				  					
 					) AS a WHERE a.MMSI is not null)
@@ -70,7 +66,7 @@ INSERT INTO extract.AIS_Data (
     [Latitude_CardinalDirection],
     [Longitude_Degree],
     [Longitude_MinutesSeconds],
-    [Longitude_CardinalDirection ],
+    [Longitude_CardinalDirection],
     [SOG],
     [COG],
     [MID],
@@ -94,3 +90,5 @@ INSERT INTO extract.AIS_Data (
 		ELSE 1
 	END
 FROM #IncomingRecords
+
+--exec  [extract].[AIS_Data_CSV] N'C:\AIS\Users\stefy\output_in_use.csv'

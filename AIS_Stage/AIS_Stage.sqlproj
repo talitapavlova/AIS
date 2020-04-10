@@ -96,6 +96,10 @@
     <Build Include="archive\Tables\AIS_Data_archive.sql" />
     <Build Include="archive\Stored Procedures\AIS_Data_AddToArchive.sql" />
     <Build Include="Security\archive.sql" />
+    <Build Include="utility\Tables\Longitude_Info.sql" />
+    <Build Include="utility\Tables\Latitude_Info.sql" />
+    <Build Include="utility\Stored Procedures\Get_Longitude.sql" />
+    <Build Include="utility\Stored Procedures\Get_Latitude.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AIS_EDW\AIS_EDW.sqlproj">

@@ -69,5 +69,7 @@
     <Build Include="edw\Tables\Dim_Time.sql" />
     <Build Include="Security\archive.sql" />
     <Build Include="edw\Tables\Fact_Route.sql" />
+    <Build Include="edw\Tables\Dim_Longitude.sql" />
+    <Build Include="edw\Tables\Dim_Latitude.sql" />
   </ItemGroup>
 </Project>

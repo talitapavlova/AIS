@@ -16,7 +16,6 @@ INSERT INTO archive.AIS_Data_archive (
    ,[Longitude_CardinalDirection]
    ,[SOG]
    ,[COG]
-   ,[RecievedTime]
    ,[MID])
 ( SELECT 
 	[MMSI]
@@ -29,7 +28,6 @@ INSERT INTO archive.AIS_Data_archive (
    ,[Longitude_CardinalDirection]
    ,[SOG]
    ,[COG]
-   ,[RecievedTime]
    ,[MID]
 FROM extract.AIS_Data)
 

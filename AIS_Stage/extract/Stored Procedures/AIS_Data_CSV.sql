@@ -11,23 +11,25 @@
 */
  
 
-CREATE PROCEDURE [extract].[AIS_Data_CSV]
+CREATE PROCEDURE [extract].[AIS_Data_CSV] (@File nvarchar(50) = 'C:\AIS\output_in_use.csv')
 AS
 
 DECLARE
-@Batch int
+@Batch int,
+@sql nvarchar(1000)
 
 SELECT @Batch = ISNULL(MAX(Batch) + 1, 1) 
 FROM utility.Batch;
 
-WITH 
-#IncomingRecords  AS ( 
+SET @sql = N' IF OBJECT_ID(''tempdb..##IncomingRecords'') IS NOT NULL DROP TABLE ##IncomingRecords
 	SELECT *
-	FROM OPENROWSET ( BULK 'C:\AIS\output_in_use.csv',   
-						FIRSTROW = 2,
-						FORMATFILE ='C:\AIS\format.fmt'				  					
-					) AS a WHERE a.Repeat_Indicator = 0)
-				
+	INTO ##IncomingRecords
+	FROM OPENROWSET ( BULK''' + @File + ''',   
+		FIRSTROW = 2,
+		FORMATFILE = ''C:\AIS\format.fmt''				  					
+	) AS a WHERE a.Repeat_Indicator = 0'
+
+EXEC (@sql)	
 			
 INSERT INTO extract.AIS_Data (
 	  MMSI
@@ -97,4 +99,4 @@ INSERT INTO extract.AIS_Data (
 	, CAST(REPLACE(ETA_Draught, ',', '.') AS decimal(6, 2))
 	, Destination
 	, @Batch
-FROM #IncomingRecords
+FROM ##IncomingRecords

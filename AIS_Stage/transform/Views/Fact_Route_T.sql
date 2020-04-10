@@ -1,4 +1,15 @@
-﻿
+﻿USE [AIS_Stage]
+GO
+
+/****** Object:  View [transform].[Fact_Route_T]    Script Date: 10/04/2020 14.15.39 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
 CREATE VIEW [transform].[Fact_Route_T]
 AS
 
@@ -6,8 +17,8 @@ SELECT
 	ves.Vessel_Key,
 	dt.Date_Key,
 	tm.Time_Key,
-	a.SOG,
-	a.COG,
+	a.Speed_Over_Ground_SOG,
+	a.Course_Over_Ground_COG,
 	lat.Latitude_Degree,
 	lat.Latitude_Min,
 	lat.Latitude_Sec,
@@ -28,3 +39,6 @@ LEFT JOIN AIS_EDW.edw.Dim_Latitude lat
 	ON a.Latitude = lat.Latitude_Key
 LEFT JOIN AIS_EDW.edw.Dim_Longitude long
 	ON a.Longitude = long.Longitude_Key
+GO
+
+

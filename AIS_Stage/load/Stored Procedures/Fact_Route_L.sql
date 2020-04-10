@@ -1,6 +1,16 @@
-﻿
+﻿USE [AIS_Stage]
+GO
 
-CREATE PROCEDURE [load].[Fact_Route_L]
+/****** Object:  StoredProcedure [load].[Fact_Route_L]    Script Date: 10/04/2020 14.16.19 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE   PROCEDURE [load].[Fact_Route_L]
 AS
 	
 INSERT INTO AIS_EDW.edw.Fact_Route (
@@ -14,7 +24,10 @@ SELECT
 	COALESCE(Vessel_Key, -1),
 	COALESCE(Date_Key, -1),
 	COALESCE(Time_Key, -1),
-	SOG,
-	COG,
+	Speed_Over_Ground_SOG,
+	Course_Over_Ground_COG,
 	Batch  			
 FROM transform.Fact_Route_T
+GO
+
+

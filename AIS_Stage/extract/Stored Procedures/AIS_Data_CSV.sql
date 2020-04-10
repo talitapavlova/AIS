@@ -1,17 +1,6 @@
 ﻿
 
-
-
-
-
-
-
-
-
-
-
-
-/**
+/*
 
  - The following procedure uses the OEPNROWSET and FILEFORMAT for allowing to import csv. data line by line into a TEMPORARY table, with no defined structure. 
 	An alternative would be to use BULK INSERT and have an already created table in the SQL Server, where to import the data. However, for aviding creating 
@@ -19,22 +8,7 @@
 	For OPENROWSET to perform accordingly a FILEFORMAT has to be cerated. The file can be created manually or be generated using the BCP utility. 
 	* For more information : https://docs.microsoft.com/en-us/sql/relational-databases/import-export/use-a-format-file-to-bulk-import-data-sql-server?view=sql-server-ver15
 
- - Create FILEFORMAT file manually  - ONLY WHEN FIRST TIME RUNNING THIS PROCEDURE ON THE SERVER THE FOLLOWING MUST BE DONE:
-		- Open a notepad file and replace with following text:
-		
-			14.0
-			8
-			1       SQLCHAR             0       200     "|"      1     MMSI                         SQL_Latin1_General_CP1_CI_AS
-			2       SQLCHAR             0       200     "|"      2     Vessel_Name                  SQL_Latin1_General_CP1_CI_AS
-			3       SQLCHAR             0       200     "|"      3     Latitude                     SQL_Latin1_General_CP1_CI_AS
-			4       SQLCHAR             0       200     "|"      4     Longitude                    SQL_Latin1_General_CP1_CI_AS
-			5       SQLCHAR             0       200     "|"      5     SOG                          SQL_Latin1_General_CP1_CI_AS
-			6       SQLCHAR             0       200     "|"      6     COG                          SQL_Latin1_General_CP1_CI_AS
-			7       SQLCHAR             0       200     "|"      7     RecievedTime                 SQL_Latin1_General_CP1_CI_AS
-			8       SQLCHAR             0       200     "\r\n"   8     MID                          SQL_Latin1_General_CP1_CI_AS
-
-		- Provide the path as the value of FILEFORMAT in OPENROWSET
- ***/
+*/
  
 
 CREATE PROCEDURE [extract].[AIS_Data_CSV]
@@ -43,51 +17,84 @@ AS
 DECLARE
 @Batch int
 
-SELECT @Batch = MAX(Batch) + 1 
+SELECT @Batch = ISNULL(MAX(Batch) + 1, 1) 
 FROM utility.Batch;
 
 WITH 
 #IncomingRecords  AS ( 
-	SELECT
-		a.MMSI,
-		a.Vessel_Name,
-		a.Latitude,
-		a.Longitude,
-		a.SOG,
-		a.COG,
-		a.RecievedTime,
-		a.MID
+	SELECT *
 	FROM OPENROWSET ( BULK 'C:\AIS\output_in_use.csv',   
 						FIRSTROW = 2,
 						FORMATFILE ='C:\AIS\format.fmt'				  					
-					) AS a WHERE a.MMSI is not null)
-
+					) AS a WHERE a.Repeat_Indicator = 0)
+				
+			
 INSERT INTO extract.AIS_Data (
-	[MMSI],
-    [Vessel_Name],
-    [Latitude_Degree],
-    [Latitde_MinutesSeconds],
-    [Latitude_CardinalDirection],
-    [Longitude_Degree],
-    [Longitude_MinutesSeconds],
-    [Longitude_CardinalDirection],
-    [SOG],
-    [COG],
-    [MID],
-	[ReceivedTime],
-	[Batch]
+	  MMSI
+	, Message_Type
+	, Longitude
+	, Latitude
+	, MID_Number
+	, MID
+	, Navigation_Status
+	, Rate_Of_Turn_ROT
+	, Speed_Over_Ground_SOG
+	, Position_Accuracy
+	, Course_Over_Ground_COG
+	, True_Heading_HDG
+	, Manoeuvre_Indicator
+	, RAIM_Flag
+	, ReceivedTime
+	, Vessel_Name
+	, IMO
+	, Call_Sign
+	, Ship_Type
+	, Dimension_To_Bow
+	, Dimension_To_Stern
+	, Length
+	, Dimension_To_Port
+	, Dimension_To_Starboard
+	, Beam
+	, Position_Type_Fix
+	, ETA_month
+	, ETA_day
+	, ETA_hour
+	, ETA_minute
+	, ETA_Draught
+	, Destination
+	, Batch
 ) SELECT  
-	MMSI,
-	Vessel_Name,
-	substring(Latitude, 1,  CHARindex( '°', Latitude, 1)),		-- Lat_Degree
-	substring(Latitude,  CHARINDEX('°', Latitude)+1,  CHARINDEX('''', Latitude)-(CHARINDEX('°', Latitude))),		-- Lat_MinSec 
-	substring(reverse(Latitude), 1, 1),							-- Lat_Cardinal_Direction
-	substring(Longitude, 1,  CHARindex( '°', Longitude, 1)),	-- Long_Degree
-	substring(Longitude,  CHARINDEX('°', Longitude)+1,  CHARINDEX('''', Longitude)-(CHARINDEX('°', Longitude))),	--Long_MinSec
-    substring(reverse(Longitude), 1, 1),						-- Long_Cardinal_Direction 
-	convert(decimal(10,2), replace(SOG, ',', '.') ),			-- SOG 
-	convert(decimal(10,2), replace(COG, ',', '.') ),			-- COG 
-	MID,
-	convert(datetime2, RecievedTime, 103),						-- RecievedTime
-	ISNULL(@Batch, 1)
+	  MMSI
+	, CAST(Message_Type AS tinyint)
+	, CAST(Longitude AS decimal(10, 6))
+	, CAST(Latitude AS decimal(10, 6))
+	, CAST(MID_Number AS int)
+	, MID
+	, CAST(Navigation_Status AS tinyint)
+	, CAST(Rate_Of_Turn_ROT AS int)
+	, CAST(REPLACE(Speed_Over_Ground_SOG, ',', '.') AS decimal(10, 2))
+	, CAST(Position_Accuracy  AS tinyint)
+	, CAST(REPLACE(Course_Over_Ground_COG, ',', '.') AS decimal(10, 2))
+	, CAST(True_Heading_HDG AS int)
+	, CAST(Manoeuvre_Indicator AS tinyint)
+	, CAST(RAIM_Flag AS tinyint)
+	, CONVERT(datetime2(7), Received_Time, 103)
+	, Vessel_Name
+	, IMO
+	, Call_Sign
+	, CAST(Ship_Type AS int)
+	, CAST(Dimension_To_Bow AS int)
+	, CAST(Dimension_To_Stern AS int)
+	, CAST(Length AS int)
+	, CAST(Dimension_To_Port AS int)
+	, CAST(Dimension_To_Starboard AS int)
+	, CAST(Beam AS int)
+	, CAST(Position_Type_Fix AS tinyint)
+	, CAST(ETA_month AS tinyint)
+	, CAST(ETA_day AS tinyint)
+	, CAST(ETA_hour AS tinyint)
+	, CAST(ETA_minute AS tinyint)
+	, CAST(REPLACE(ETA_Draught, ',', '.') AS decimal(6, 2))
+	, Destination
+	, @Batch
 FROM #IncomingRecords

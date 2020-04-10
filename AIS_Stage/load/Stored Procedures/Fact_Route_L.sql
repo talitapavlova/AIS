@@ -1,15 +1,4 @@
-﻿USE [AIS_Stage]
-GO
-
-/****** Object:  StoredProcedure [load].[Fact_Route_L]    Script Date: 10/04/2020 14.16.19 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
+﻿
 CREATE   PROCEDURE [load].[Fact_Route_L]
 AS
 	

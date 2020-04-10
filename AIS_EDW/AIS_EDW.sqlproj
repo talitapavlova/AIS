@@ -72,4 +72,7 @@
     <Build Include="edw\Tables\Dim_Longitude.sql" />
     <Build Include="edw\Tables\Dim_Latitude.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="AIS_EDW.refactorlog" />
+  </ItemGroup>
 </Project>

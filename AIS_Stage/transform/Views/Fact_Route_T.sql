@@ -1,15 +1,4 @@
-﻿USE [AIS_Stage]
-GO
-
-/****** Object:  View [transform].[Fact_Route_T]    Script Date: 10/04/2020 14.15.39 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
+﻿
 CREATE VIEW [transform].[Fact_Route_T]
 AS
 

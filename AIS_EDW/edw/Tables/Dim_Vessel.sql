@@ -4,7 +4,7 @@
     [Vessel_Name]            NVARCHAR (200) NULL,
     [IMO]                    NVARCHAR (10)  NULL,
     [Call_Sign]              NVARCHAR (10)  NULL,
-    [Ship_type]              INT            NULL,
+    [Ship_Type]              INT            NULL,
     [MID]                    NVARCHAR (100) NULL,
     [MID_Number]             INT            NULL,
     [Dimension_To_Bow]       INT            NULL,

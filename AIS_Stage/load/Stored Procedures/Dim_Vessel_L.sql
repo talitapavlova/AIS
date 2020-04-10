@@ -1,15 +1,24 @@
 ﻿
 
-
-
 CREATE PROCEDURE [load].[Dim_Vessel_L]
 AS
 	
 IF OBJECT_ID('tempdb..#newRecords') IS NOT NULL DROP TABLE #newRecords
 SELECT 
-	MMSI, 
-	VesselName, 
-	MID, 
+	MMSI,
+	Vessel_Name,
+	MID,
+	MID_Number,
+	IMO,
+	Call_Sign,
+	Ship_Type,
+	Dimension_To_Bow,
+	Dimension_To_Stern,
+	Length, 
+	Dimension_To_Port,
+	Dimension_To_Starboard,
+	Beam,
+	Position_Type_Fix,
 	Batch,
 	ReceivedTime,
 	Valid_To,
@@ -32,17 +41,39 @@ WHERE a.BatchUpdated IS NULL
 	AND b.isChanged > 0
 
 INSERT INTO AIS_EDW.edw.Dim_Vessel (
-	MMSI, 
-	MID,  
-	Vessel_Name, 
+	MMSI,
+	Vessel_Name,
+	MID,
+	MID_Number,
+	IMO,
+	Call_Sign,
+	Ship_Type,
+	Dimension_To_Bow,
+	Dimension_To_Stern,
+	Length, 
+	Dimension_To_Port,
+	Dimension_To_Starboard,
+	Beam,
+	Position_Type_Fix,
 	BatchCreated,
 	BatchUpdated,
 	Valid_From, 
 	Valid_To) 
 SELECT 	
-	MMSI, 
-	MID, 
-	VesselName,
+	MMSI,
+	Vessel_Name,
+	MID,
+	MID_Number,
+	IMO,
+	Call_Sign,
+	Ship_Type,
+	Dimension_To_Bow,
+	Dimension_To_Stern,
+	Length, 
+	Dimension_To_Port,
+	Dimension_To_Starboard,
+	Beam,
+	Position_Type_Fix,
 	Batch,
 	CASE 
 		WHEN VesselRowNumDesc != 1 THEN Batch

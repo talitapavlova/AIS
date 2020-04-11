@@ -1,34 +1,43 @@
-﻿USE [AIS_Stage]
-GO
+﻿
+/*
+Change log: 
+	2020-03-27	NP	Stored procedure created
+	2020-04-10	SI	Added Latitude and Longitude Key lookup 
+	2020-04-11	NP	Added measures
+*/
 
-/****** Object:  StoredProcedure [load].[Fact_Route_L]    Script Date: 10/04/2020 14.16.19 ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-CREATE    PROCEDURE [load].[Fact_Route_L]
+CREATE PROCEDURE [load].[Fact_Route_L]
 AS
 	
 INSERT INTO AIS_EDW.edw.Fact_Route (
 	Vessel_Key,
 	Date_Key,
 	Time_Key,
-	SOG,
-	COG,
-	Latitude, 
-	Longitude, 
+	Latitude_Key, 
+	Longitude_Key, 
+	Rate_Of_Turn_ROT,
+	Speed_Over_Ground_SOG,
+	Course_Over_Ground_COG,
+	True_Heading_HDG,
+	Position_Accuracy,
+	Manoeuvre_Indicator,
+	RAIM_Flag,
+	Draught,
 	Batch )
 SELECT 	
 	COALESCE(Vessel_Key, -1),
 	COALESCE(Date_Key, -1),
 	COALESCE(Time_Key, -1),
+	COALESCE(Latitude_Key, -1),
+	COALESCE(Longitude_Key, -1),
+	Rate_Of_Turn_ROT,
 	Speed_Over_Ground_SOG,
 	Course_Over_Ground_COG,
-	case when COALESCE(Latitude_Key, -1) between 53.000000 and 59.999999 then Latitude_Key else -1 end,
-	case when COALESCE(Longitude_Key, -1) between 3.000000 and 17.999999 then Longitude_Key else -1 end,
+	True_Heading_HDG,
+	Position_Accuracy,
+	Manoeuvre_Indicator,
+	RAIM_Flag,
+	Draught,
 	Batch  			
 FROM transform.Fact_Route_T
 GO

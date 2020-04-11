@@ -1,4 +1,8 @@
 ﻿
+/*
+Change log: 
+	2020-04-10	NP	Stored procedure created; Unknowns for Dim_Vessel
+*/
 
 CREATE PROCEDURE [utility].[Add_Unknowns]
 AS

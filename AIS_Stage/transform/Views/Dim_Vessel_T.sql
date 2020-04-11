@@ -1,4 +1,11 @@
 ﻿
+/*
+Change log: 
+	2020-03-01	NP	View created
+	2020-03-27	SI	Added Exist and isChanged logic
+	2020-04-06	NP	Updated selection of rows to insert logic; Moved Valid_To calculations from load to transform; Added batch
+	2020-04-10	NP	Updated to include more columns
+*/
 
 
 CREATE VIEW [transform].[Dim_Vessel_T]

@@ -10,7 +10,9 @@ GO
 
 
 
-CREATE   VIEW [transform].[Fact_Route_T]
+
+
+CREATE      VIEW [transform].[Fact_Route_T]
 AS
 
 SELECT 
@@ -19,8 +21,8 @@ SELECT
 	tm.Time_Key,
 	a.Speed_Over_Ground_SOG,
 	a.Course_Over_Ground_COG,
-	a.Latitude,
-	a.Longitude, 
+	lat.Latitude_Key,
+	long.Longitude_Key, 
 	a.Batch
 FROM extract.AIS_Data a
 LEFT JOIN AIS_EDW.edw.Dim_Vessel ves  

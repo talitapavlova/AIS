@@ -100,6 +100,10 @@
     <Build Include="utility\Stored Procedures\Get_Longitude.sql" />
     <Build Include="utility\Stored Procedures\Get_Latitude.sql" />
     <Build Include="utility\Stored Procedures\Add_Unknowns.sql" />
+    <Build Include="utility\Tables\Longitude_Info_OLD.sql" />
+    <Build Include="utility\Tables\Latitude_Info_OLD.sql" />
+    <Build Include="utility\Stored Procedures\Get_Longitude_OLD.sql" />
+    <Build Include="utility\Stored Procedures\Get_Latitude_OLD.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AIS_EDW\AIS_EDW.sqlproj">

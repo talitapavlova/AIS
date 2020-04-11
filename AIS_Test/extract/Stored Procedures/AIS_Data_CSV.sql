@@ -1,5 +1,11 @@
 ﻿
 
+/*
+Change log: 
+	2020-02-27	SI	Stored procedure created
+	2020-04-06	NP	Added Batch logic
+	2020-04-10	NP	Added extra columns; Uppdated so file name can be a parameter
+*/
 
 /*
 

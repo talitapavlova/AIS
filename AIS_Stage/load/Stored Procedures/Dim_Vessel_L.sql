@@ -1,5 +1,13 @@
 ﻿
 
+/*
+Change log: 
+	2020-03-01	NP	Stored procedure created
+	2020-03-30	SI	Added Update of Dim_Vessel for no longer valid rows
+	2020-04-06	NP	Added Batch logic
+	2020-04-10	NP	Updated to include more columns
+*/
+
 CREATE PROCEDURE [load].[Dim_Vessel_L]
 AS
 	

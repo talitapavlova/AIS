@@ -1,40 +1,44 @@
-﻿USE [AIS_Stage]
-GO
+﻿
 
-/****** Object:  View [transform].[Fact_Route_T]    Script Date: 10/04/2020 14.15.39 ******/
-SET ANSI_NULLS ON
-GO
+/*
+Change log: 
+	2020-04-01	NP	View created with Vessel, Date and Time
+	2020-04-10	SI	Added Latitude and Longitude
+	2020-04-11	NP	Added measures
+*/
 
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
-CREATE   VIEW [transform].[Fact_Route_T]
+CREATE VIEW [transform].[Fact_Route_T]
 AS
 
 SELECT 
 	ves.Vessel_Key,
+	a.MMSI,
 	dt.Date_Key,
 	tm.Time_Key,
+	lat.Latitude_Key,
+	long.Longitude_Key,
+	a.Rate_Of_Turn_ROT,
 	a.Speed_Over_Ground_SOG,
 	a.Course_Over_Ground_COG,
-	a.Latitude,
-	a.Longitude, 
+	a.True_Heading_HDG,
+	a.Position_Accuracy,
+	a.Manoeuvre_Indicator,
+	a.RAIM_Flag,
+	a.ETA_Draught AS Draught,
 	a.Batch
 FROM extract.AIS_Data a
 LEFT JOIN AIS_EDW.edw.Dim_Vessel ves  
 	ON a.MMSI = ves.MMSI 
 	AND a.ReceivedTime >= ves.Valid_From
-	AND a.ReceivedTime < Valid_To
+	AND a.ReceivedTime < ves.Valid_To
 LEFT JOIN AIS_EDW.edw.Dim_Date dt  
 	ON CAST(a.ReceivedTime as date) = dt.Date
 LEFT JOIN AIS_EDW.edw.Dim_Time tm  
 	ON CAST(a.ReceivedTime as time) = tm.Time
 LEFT JOIN AIS_EDW.edw.Dim_Latitude lat
-	ON a.Latitude = lat.Latitude_Key
+	ON a.Latitude * 1000000 = lat.Latitude_Key
 LEFT JOIN AIS_EDW.edw.Dim_Longitude long
-	ON a.Longitude = long.Longitude_Key
+	ON a.Longitude * 1000000 = long.Longitude_Key
 GO
 
 

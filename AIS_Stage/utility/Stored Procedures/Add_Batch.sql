@@ -1,4 +1,9 @@
 ﻿
+/*
+Change log: 
+	2020-04-06	NP	Stored procedure created
+	2020-04-09	NP	Updated with Min and Max ReceivedTime 
+*/
 
 
 CREATE PROCEDURE [utility].[Add_Batch] (@continuous smallint)

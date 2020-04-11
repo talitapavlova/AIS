@@ -78,7 +78,4 @@
   <ItemGroup>
     <RefactorLog Include="AIS_EDW.refactorlog" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Snapshots\AIS_EDW_20200411_16-30-54.dacpac" />
-  </ItemGroup>
 </Project>

@@ -3,13 +3,14 @@
 
 
 
+
 /*
 Change log: 
 	2020-04-10	SI	Stored procedure created
 	2020-04-11	NP	Added Longitude_key as integer
 */
 
-CREATE PROCEDURE [utility].[Get_Longitude] AS
+CREATE   PROCEDURE [utility].[Get_Longitude] AS
 BEGIN
 
 /***** Denmark's border, including the water bodies, ranges from 3.000000 degrees to 17.000000 degrees Longitude, 
@@ -17,7 +18,7 @@ BEGIN
 			   The deciaml degree value can be further translated into minutes and seconds *****/
 DECLARE 
 	@danish_min_longitude_degree_point int = 3,
-	@danish_max_longitude_degree_point int = 17,
+	@danish_max_longitude_degree_point int = 18,
 
 	@danish_min_longitude_decimal_degree_point int = 0,
 	@danish_max_longitude_decimal_degree_point int = 999999,
@@ -28,7 +29,7 @@ DECLARE
 SET NOCOUNT ON;
 TRUNCATE table utility.Longitude_Info
 
-WHILE(@danish_min_longitude_degree_point<= @danish_max_longitude_degree_point) 
+WHILE(@danish_min_longitude_degree_point< @danish_max_longitude_degree_point) 
 	BEGIN 
 		WHILE(@danish_min_longitude_decimal_degree_point <= @danish_max_longitude_decimal_degree_point) 
 			BEGIN	

@@ -3,13 +3,14 @@
 
 
 
+
 /*
 Change log: 
 	2020-04-10	SI	Stored procedure created
 	2020-04-11	NP	Added Latitude_key as integer
 */
 
-CREATE  PROCEDURE [utility].[Get_Latitude] AS
+CREATE    PROCEDURE [utility].[Get_Latitude] AS
 BEGIN
 
 /***** Denmark's border, including the water bodies, ranges from 53.000000 degrees to 59.000000 degrees Latitude, 
@@ -17,7 +18,7 @@ BEGIN
 		The decimal degree value can be further translated into minutes and seconds *****/
 DECLARE 
 	@danish_min_latitude_degree_point int = 53,
-	@danish_max_latitude_degree_point int = 59,
+	@danish_max_latitude_degree_point int = 60,
 
 	@danish_min_latitude_decimal_degree_point int = 0,
 	@danish_max_latitude_decimal_degree_point int = 999999,
@@ -28,7 +29,7 @@ DECLARE
 SET NOCOUNT ON;
 TRUNCATE table utility.Latitude_Info
 
-WHILE(@danish_min_latitude_degree_point<= @danish_max_latitude_degree_point) 
+WHILE(@danish_min_latitude_degree_point< @danish_max_latitude_degree_point) 
 	BEGIN 
 		WHILE(@danish_min_latitude_decimal_degree_point <= @danish_max_latitude_decimal_degree_point) 
 		BEGIN	

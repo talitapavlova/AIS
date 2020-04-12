@@ -1,9 +1,11 @@
 ﻿
 
 
+
+
 -- Test5 - Insert one already existing records containg update(s).
 
-CREATE   PROCEDURE [test].[Test5 - Insert one already existing records containg update(s). ]
+CREATE    PROCEDURE [testDimVessel].[Test5 - Insert one already existing records containg update(s). ]
 AS
 BEGIN
  DECLARE @rowCount_Dim_Vessel int
@@ -13,6 +15,7 @@ BEGIN
   -- truncate tables to have accurate test results 
   truncate table edw.Dim_Vessel
   truncate table extract.AIS_Data
+  truncate table utility.Batch
 
   --Prepare Dim_Vessel to be pre-populated with 10 records
 	insert into edw.Dim_Vessel 
@@ -56,4 +59,4 @@ BEGIN
  
 end 
 
- -- exec tsqlt.Run @TestName = '[test].[Test5 - Insert one already existing records containg update(s). ]'
+ -- exec tsqlt.Run @TestName = '[testDimVessel].[Test5 - Insert one already existing records containg update(s). ]'

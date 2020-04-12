@@ -1,8 +1,10 @@
 ﻿
 
+
+
 /****** Test7:  Insert already existing records containing updates for 6 records and no updates for the other 4 */
 
-CREATE    PROCEDURE [test].[Test7 - Insert already existing records containing no updates for 4 records and few updates for the other 6]
+CREATE     PROCEDURE [testDimVessel].[Test7 - Insert already existing records containing no updates for 4 records and few updates for the other 6]
 AS
 BEGIN
  
@@ -13,6 +15,7 @@ BEGIN
   -- truncate tables to have accurate test results 
   truncate table edw.Dim_Vessel
   truncate table extract.AIS_Data
+  truncate table utility.Batch
 
  --Prepare Dim_Vessel to be pre-populated with 10 records
 	insert into edw.Dim_Vessel 
@@ -65,4 +68,4 @@ BEGIN
  
 end 
 
-   --exec tsqlt.Run @TestName = '[test].[Test7 - Insert already existing records containing no updates for 4 records and few updates for the other 6]'
+   --exec tsqlt.Run @TestName = '[testDimVessel].[Test7 - Insert already existing records containing no updates for 4 records and few updates for the other 6]'

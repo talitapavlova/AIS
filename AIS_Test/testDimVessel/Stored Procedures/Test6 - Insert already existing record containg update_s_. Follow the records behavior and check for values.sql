@@ -3,7 +3,7 @@
 
 -- Test6 - Insert already existing record containg update(s). Follow the records behavior and check for values
 
-CREATE       PROCEDURE [test].[Test6 - Insert already existing record containg update(s). Follow the records behavior and check for values]
+CREATE   PROCEDURE [testDimVessel].[Test6 - Insert already existing record containg update(s). Follow the records behavior and check for values]
 AS
 BEGIN
   DECLARE @rowCount_Dim_Vessel int
@@ -30,6 +30,7 @@ BEGIN
 	-- truncate tables to have accurate test results 
 	truncate table edw.Dim_Vessel
 	truncate table extract.AIS_Data
+	truncate table utility.Batch
 
    --Prepare Dim_Vessel to be pre-populated with 10 records
 	insert into edw.Dim_Vessel 
@@ -100,4 +101,4 @@ BEGIN
 	EXEC tSQLt.AssertEqualsString 5 , @updatedDimToStarboard;  
 
 end
-  --exec tsqlt.Run @TestName = '[test].[Test6 - Insert already existing record containg update(s). Follow the records behavior and check for values]'
+  --exec tsqlt.Run @TestName = '[testDimVessel].[Test6 - Insert already existing record containg update(s). Follow the records behavior and check for values]'

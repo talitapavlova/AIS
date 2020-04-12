@@ -80,6 +80,11 @@
     <Folder Include="extract\Tables\" />
     <Folder Include="utility\" />
     <Folder Include="utility\Tables\" />
+    <Folder Include="utility\Stored Procedures\" />
+    <Folder Include="testDimVessel\" />
+    <Folder Include="testDimVessel\Stored Procedures\" />
+    <Folder Include="testBatch\" />
+    <Folder Include="testBatch\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="tSQLt\Tables\Private_RenamedObjectLog.sql" />
@@ -241,15 +246,19 @@
     <Build Include="extract\Tables\AIS_Data.sql" />
     <Build Include="transform\Views\Dim_Vessel_T.sql" />
     <Build Include="utility\Tables\Batch.sql" />
-    <Build Include="test\Stored Procedures\Test7 - Insert already existing records containing no updates for 4 records and few updates for the other 6.sql" />
-    <Build Include="test\Stored Procedures\Test6 - Insert already existing record containg update_s_. Follow the records behavior and check for values.sql" />
-    <Build Include="test\Stored Procedures\Test5 - Insert one already existing records containg update_s_. .sql" />
-    <Build Include="test\Stored Procedures\Test4 - Insert already existing records containing no updates.sql" />
-    <Build Include="test\Stored Procedures\Test3 - Insert 10 non existent records into Dim_Vessel.sql" />
-    <Build Include="test\Stored Procedures\Test2 - Insert one record into Dim_Vessel.sql" />
-    <Build Include="test\Stored Procedures\Test1 - Insert from .csv containing 0 records.sql" />
     <Build Include="test\Stored Procedures\Run all the tests.sql" />
     <Build Include="Security\utility.sql" />
+    <Build Include="utility\Stored Procedures\Add_Batch.sql" />
+    <Build Include="testDimVessel\Stored Procedures\Test7 - Insert already existing records containing no updates for 4 records and few updates for the other 6.sql" />
+    <Build Include="testDimVessel\Stored Procedures\Test5 - Insert one already existing records containg update_s_. .sql" />
+    <Build Include="testDimVessel\Stored Procedures\Test4 - Insert already existing records containing no updates.sql" />
+    <Build Include="testDimVessel\Stored Procedures\Test3 - Insert 10 non existent records into Dim_Vessel.sql" />
+    <Build Include="testDimVessel\Stored Procedures\Test2 - Insert one record into Dim_Vessel.sql" />
+    <Build Include="testDimVessel\Stored Procedures\Test1 - Insert from .csv containing 0 records.sql" />
+    <Build Include="testDimVessel\Stored Procedures\Test6 - Insert already existing record containg update_s_. Follow the records behavior and check for values.sql" />
+    <Build Include="testBatch\Stored Procedures\Test1 - Insert already existing record with updates.sql" />
+    <Build Include="Security\testDimVessel.sql" />
+    <Build Include="Security\testBatch.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\tSQLtCLR.dll" />

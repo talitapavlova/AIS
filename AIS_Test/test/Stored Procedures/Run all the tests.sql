@@ -1,8 +1,9 @@
 ﻿
 
 
+
 -- Run All tests
 
-CREATE PROCEDURE [test].[Run all the tests]
+CREATE   PROCEDURE [test].[Run all the tests]
 AS
-	EXEC tSQLt.Run 'test'
+	EXEC tSQLt.Run '[testDimVessel]'

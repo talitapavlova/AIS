@@ -4,6 +4,8 @@
 
 
 
+
+
 /******
 	Test02: Insert 10 non existent records into Dim_Vessel
 
@@ -26,7 +28,7 @@
 
 *****/
 
-CREATE        PROCEDURE [test].[Test3 - Insert 10 non existent records into Dim_Vessel]
+CREATE   PROCEDURE [testDimVessel].[Test3 - Insert 10 non existent records into Dim_Vessel]
 AS
 BEGIN
 
@@ -37,6 +39,7 @@ BEGIN
   -- truncate tables to have accurate test results 
   truncate table edw.Dim_Vessel
   truncate table extract.AIS_Data
+  truncate table utility.Batch
 
   -- ETL for Dim_Vessel records
   execute [extract].[AIS_Data_CSV]'C:\AIS\Tests\Test3.csv'
@@ -102,4 +105,4 @@ BEGIN
 
 end
 
--- exec tsqlt.Run @TestName = '[test].[Test3: Insert 10 non existent records into Dim_Vessel]'
+-- exec tsqlt.Run @TestName = '[testDimVessel].[Test3: Insert 10 non existent records into Dim_Vessel]'

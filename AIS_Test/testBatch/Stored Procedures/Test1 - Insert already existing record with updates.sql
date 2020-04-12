@@ -1,8 +1,7 @@
 ﻿
+/****** Test1 - Insert non existent record */
 
-/****** Test4 - Insert already existing records containing no updates */
-
-CREATE     PROCEDURE [test].[Test4 - Insert already existing records containing no updates]
+CREATE  PROCEDURE testBatch.[Test1 - Insert already existing record with updates]
 AS
 BEGIN
  
@@ -13,34 +12,54 @@ BEGIN
   -- truncate tables to have accurate test results 
 	truncate table edw.Dim_Vessel
 	truncate table extract.AIS_Data
+	truncate table utility.Batch
 
-  --Prepare Dim_Vessel to be pre-populated with 10 records
-	insert into edw.Dim_Vessel 
-	values ('205769000', null, null, null, null, 'Belgium',205, null, null, null, null, null, null, null, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
-	insert into edw.Dim_Vessel 
-	values ('211789180','IRIS' ,null, null, null,'Germany (Federal Republic of)',211, null,null,null,null,null,null,null, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
-	insert into edw.Dim_Vessel 
-	values ('219006916', 'RI322 SINNE FRIHED', null, null, null,'Denmark',	219, null,null,null,null,null,null,null, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
-	insert into edw.Dim_Vessel 
-	values ('219013485','TOVE KAJGAARD',null, null, null, 'Denmark',	219, null,null,null,null,null,null,null, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
-	insert into edw.Dim_Vessel 
-	values ('219330000','NEPTUN AS 202',null, null, null,'Denmark',	219, null,null,null,null,null,null,null, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
-	insert into edw.Dim_Vessel 
-	values ('220334000', 'STINE FN396',	null, null, null, 'Denmark',	220, null,null,null,null,null,null,null, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
-	insert into edw.Dim_Vessel 
-	values ('222530728','BJORNSHOLM', null, null, null, 'not in use',	222, null,null,null,null,null,null,null, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
-	insert into edw.Dim_Vessel 
-	values ('244813000','BIT FORCE', null, null, null, 'Netherlands (Kingdom of the)',	244, null,null,null,null,null,null,null, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
-	insert into edw.Dim_Vessel 
-	values ('259896000', null,	null,null,null, 'Norway',	259,null,null,null,null,null,null,null, 1, NULL,  '2020-03-26 16:55:40.0000000',	'9999-12-31 00:00:00.0000000')
-	insert into edw.Dim_Vessel 
-	values ('311055900','SKANDI CONSTRUCTOR','9431642',	'C6ZH8 ',	70,	   'Bahamas (Commonwealth of the)',	311, 42, 78, 120,  13,11, 24, 1, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
+  --Prepare Dim_Vessel to be pre-populated with the following records
+	execute [extract].[AIS_Data_CSV] 'C:\Users\stefy\Desktop\test_Batch\Test01.csv'   
+	select * from extract.AIS_Data
 
+	execute utility.Add_Batch 1
+	select * from utility.Batch
 
-	-- ETL for Dim_Vessel to insert the following CSV. file records, consisting of already existing records in Dim_Vessel with no updates
-	execute [extract].[AIS_Data_CSV]'C:\AIS\Tests\Test4.csv'
 	execute [load].[Dim_Vessel_L]
+	select * from edw.Dim_Vessel
 	
+	truncate table extract.AIS_Data
+
+	execute [extract].[AIS_Data_CSV] 'C:\Users\stefy\Desktop\test_Batch\Test02.csv'   
+	select * from extract.AIS_Data
+
+	execute utility.Add_Batch 1
+	select * from utility.Batch
+
+	execute [load].[Dim_Vessel_L]
+	select * from edw.Dim_Vessel
+
+	truncate table extract.AIS_Data
+
+	execute [extract].[AIS_Data_CSV] 'C:\Users\stefy\Desktop\test_Batch\Test03.csv'   
+	select * from extract.AIS_Data
+
+	execute utility.Add_Batch 1
+	select * from utility.Batch
+
+	execute [load].[Dim_Vessel_L]
+	select * from edw.Dim_Vessel
+	
+	truncate table extract.AIS_Data
+
+	execute [extract].[AIS_Data_CSV] 'C:\Users\stefy\Desktop\test_Batch\Test04.csv'   
+	select * from extract.AIS_Data
+
+	execute utility.Add_Batch 1
+	select * from utility.Batch
+
+	execute [load].[Dim_Vessel_L]
+	select * from edw.Dim_Vessel
+
+	--execute [extract].[AIS_Data_CSV]'C:\Users\stefy\Desktop\test_Batch\Test2.csv'
+	--execute [load].[Dim_Vessel_L]
+	--select * from edw.Dim_Vessel
 	/*   CSV content:
 			~MMSI|AIS Message Type|Longitude|Latitude|MID Number|MID|Navigation Status|Rate of Turn (ROT)|Speed Over Ground (SOG)|Position Accuracy|Course Over Ground (COG)|True Heading (HDG)|Manoeuvre Indicator|RAIM Flag|Repeat Indicator|Received Time UTC-Unix|Vessel Name|IMO Number|Call Sign|Ship Type|Dimension to Bow|Dimension to Stern|Length|Dimension to Port|Dimension to Starboard|Beam|Position Type Fix|ETA month|ETA day|ETA hour|ETA minute|Draught|Destination
 			219013485|5|10.163510|57.944600|219|Denmark|7|0|2,5|0|143,6|149|0|0|0|26-03-2020 16:55:41|TOVE KAJGAARD||||||||||||||||

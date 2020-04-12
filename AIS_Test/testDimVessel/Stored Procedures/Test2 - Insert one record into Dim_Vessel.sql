@@ -5,6 +5,8 @@
 
 
 
+
+
 /******
 	Test2: Insert one record into Dim_Vessel
 
@@ -17,7 +19,7 @@
 
 *****/
 
-CREATE     PROCEDURE [test].[Test2 - Insert one record into Dim_Vessel]
+CREATE    PROCEDURE [testDimVessel].[Test2 - Insert one record into Dim_Vessel]
 AS
 BEGIN
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
@@ -26,6 +28,7 @@ BEGIN
   -- truncate tables to have accurate test results 
   truncate table edw.Dim_Vessel
   truncate table extract.AIS_Data
+  truncate table utility.Batch
 
   -- ETL for Dim_Vessel records
   execute [extract].[AIS_Data_CSV]'C:\AIS\Tests\Test2.csv'
@@ -63,4 +66,4 @@ BEGIN
   
 end
 
--- exec tsqlt.Run @TestName = '[test].[Test2: Insert one record into Dim_Vessel]'
+-- exec tsqlt.Run @TestName = '[testDimVessel].[Test2: Insert one record into Dim_Vessel]'

@@ -6,10 +6,10 @@
 
 
 
+
 /*
 Change log: 
-	2020-03-26	NP	Stored procedure created
-	2020-04-08	NP	Updated SP for correct week number
+	2020-04	SI	Stored procedure created
 */
 
 
@@ -107,7 +107,7 @@ Insert unkown values into [edw].[Dim_Ship_Type]
 TRUNCATE TABLE [AIS_EDW].[edw].[Dim_Ship_Type]
 
 INSERT INTO [AIS_EDW].[edw].[Dim_Ship_Type](
-		Ship_Type_Code,
+		Ship_Type_Key,
 		Ship_Type_Description
 ) VALUES (
 	-1,
@@ -119,7 +119,7 @@ Insert utility.Ship_Type into [edw].[Dim_Ship_Type]
 */
 
 INSERT INTO [AIS_EDW].[edw].[Dim_Ship_Type](
-		Ship_Type_Code,
+		Ship_Type_Key,
 		Ship_Type_Description
 ) SELECT
 	  	Ship_Type_Code,

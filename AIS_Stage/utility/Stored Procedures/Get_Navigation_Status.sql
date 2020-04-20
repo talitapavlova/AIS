@@ -2,14 +2,14 @@
 
 
 
+
 /*
 Change log: 
-	2020-03-26	NP	Stored procedure created
-	2020-04-08	NP	Updated SP for correct week number
+	2020-04-20	SI	Stored procedure created
 */
 
 
-CREATE   PROCEDURE [utility].[Get_Navigation_Status] AS
+CREATE PROCEDURE [utility].[Get_Navigation_Status] AS
 
 BEGIN
 DECLARE

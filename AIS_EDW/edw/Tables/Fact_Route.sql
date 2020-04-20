@@ -4,7 +4,7 @@
     [Time_Key]               INT             NOT NULL,
     [Latitude_Key]           INT             NOT NULL,
     [Longitude_Key]          INT             NOT NULL,
-    [Navigation_Status]      INT             NOT NULL,
+    [Navigation_Status_Key]  INT             NOT NULL,
     [Rate_Of_Turn_ROT]       INT             NULL,
     [Speed_Over_Ground_SOG]  DECIMAL (10, 2) NULL,
     [Course_Over_Ground_COG] DECIMAL (10, 2) NULL,
@@ -15,6 +15,8 @@
     [Draught]                DECIMAL (6, 2)  NULL,
     [Batch]                  INT             NULL
 );
+
+
 
 
 

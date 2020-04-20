@@ -1,5 +1,7 @@
 ﻿
 
+
+
 /*
 Change log: 
 	2020-04-01	NP	View created with Vessel, Date and Time
@@ -7,7 +9,7 @@ Change log:
 	2020-04-11	NP	Added measures
 */
 
-CREATE VIEW [transform].[Fact_Route_T]
+CREATE    VIEW [transform].[Fact_Route_T]
 AS
 
 SELECT 
@@ -17,6 +19,7 @@ SELECT
 	tm.Time_Key,
 	lat.Latitude_Key,
 	long.Longitude_Key,
+	a.Navigation_Status,
 	a.Rate_Of_Turn_ROT,
 	a.Speed_Over_Ground_SOG,
 	a.Course_Over_Ground_COG,

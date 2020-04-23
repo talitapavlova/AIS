@@ -100,9 +100,7 @@
     <Build Include="utility\Stored Procedures\Get_Longitude.sql" />
     <Build Include="utility\Stored Procedures\Get_Latitude.sql" />
     <Build Include="utility\Stored Procedures\Add_Unknowns.sql" />
-    <Build Include="utility\Tables\Ship_Type.sql" />
     <Build Include="utility\Stored Procedures\Get_Ship_Type.sql" />
-    <Build Include="utility\Tables\Navigation_Status.sql" />
     <Build Include="utility\Stored Procedures\Get_Navigation_Status.sql" />
   </ItemGroup>
   <ItemGroup>

@@ -39,7 +39,7 @@ INSERT INTO [AIS_EDW].[edw].[Dim_Ship_Type](
 		Ship_Type_Key,
 		Ship_Type_Description
 ) SELECT
-	  	Ship_Type_Key,
+	  	CAST(Ship_Type_Key as INT),
 		Ship_Type_Description
 FROM ##IncomingShipTypes
 

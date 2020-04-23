@@ -1,12 +1,13 @@
 ﻿
-CREATE  PROCEDURE [utility].[Get_Navigation_Status] AS
+
+CREATE    PROCEDURE [utility].[Get_Navigation_Status] AS
 BEGIN
 
 /* 
 Extract data from .csv file into SQL Server temporary table ##IncomingNavigationalStatuses
 */
 IF OBJECT_ID('tempdb..##IncomingNavigationalStatuses') IS NOT NULL DROP TABLE ##IncomingNavigationalStatuses
-SELECT * INTO ##IncomingNavigationalStatuses FROM OPENROWSET ( BULK 'C:\AIS\StaticDimensions\NavigationStatus\NavigationStatus.csv', FIRSTROW = 2,
+SELECT * INTO ##IncomingNavigationalStatuses FROM OPENROWSET ( BULK 'C:\AIS\StaticDimensions\NavigationStatus\NavigationStatus.txt', FIRSTROW = 2,
 		FORMATFILE = 'C:\AIS\StaticDimensions\NavigationStatus\formatNavigationStatus.fmt') as tbl
 
 /*

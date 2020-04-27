@@ -7,6 +7,7 @@
 
 
 
+
 /******
 	Test2: Insert one record into Dim_Vessel
 
@@ -19,7 +20,7 @@
 
 *****/
 
-CREATE    PROCEDURE [testDimVessel].[Test2 - Insert one record into Dim_Vessel]
+CREATE     PROCEDURE [testDimVessel].[Test2 - Insert one record into Dim_Vessel]
 AS
 BEGIN
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
@@ -66,4 +67,4 @@ BEGIN
   
 end
 
--- exec tsqlt.Run @TestName = '[testDimVessel].[Test2: Insert one record into Dim_Vessel]'
+-- exec tsqlt.Run @TestName = '[testDimVessel].[Test2 - Insert one record into Dim_Vessel]'

@@ -1,6 +1,8 @@
 ﻿
 
 
+
+
 /*
 Change log: 
 	2020-03-01	NP	View created
@@ -10,7 +12,7 @@ Change log:
 */
 
 
-CREATE   VIEW [transform].[Dim_Vessel_T]
+CREATE    VIEW [transform].[Dim_Vessel_T]
 AS
 
 WITH 
@@ -46,6 +48,7 @@ SELECT
 		WHEN ISNULL(new.MID_Number, 0) = ISNULL(old.MID_Number, 0) THEN 0
 		ELSE 1
 	END AS isMIDChanged,
+
 	CASE 
 		WHEN old.IMO IS NOT NULL AND new.IMO IS NULL THEN 0
 		WHEN ISNULL(new.IMO, 0) = ISNULL(old.IMO, 0) THEN 0
@@ -97,7 +100,7 @@ SELECT
 		ELSE 1
 	END AS isPositionTypeFixChanged
 FROM extract.AIS_Data new
-LEFT JOIN AIS_TEST.edw.Dim_Vessel old  
+LEFT JOIN edw.Dim_Vessel old  
 	ON new.MMSI = old.MMSI 
 	AND old.BatchUpdated IS NULL
 WHERE new.Message_Type in (24, 19, 5)

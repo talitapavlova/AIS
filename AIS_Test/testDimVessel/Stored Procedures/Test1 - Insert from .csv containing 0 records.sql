@@ -1,12 +1,13 @@
 ﻿
 
+
 /****** Test1 - Insert from .csv containing 0 records */
 ------Assemble
 -------Act
 -------Assert ...
 -------Assert...
 
-CREATE   PROCEDURE [testDimVessel].[Test1 - Insert from .csv containing 0 records]
+CREATE     PROCEDURE [testDimVessel].[Test1 - Insert from .csv containing 0 records]
 AS
 BEGIN
  
@@ -39,4 +40,4 @@ BEGIN
  
 end 
 
-   --exec tsqlt.Run @TestName = '[test].[Test1 - Insert from .csv containing 0 records]'
+   --exec tsqlt.Run @TestName = '[testDimVessel].[Test1 - Insert from .csv containing 0 records]'

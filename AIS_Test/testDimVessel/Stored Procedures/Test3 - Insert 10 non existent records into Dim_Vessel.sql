@@ -6,6 +6,7 @@
 
 
 
+
 /******
 	Test02: Insert 10 non existent records into Dim_Vessel
 
@@ -28,7 +29,7 @@
 
 *****/
 
-CREATE   PROCEDURE [testDimVessel].[Test3 - Insert 10 non existent records into Dim_Vessel]
+CREATE    PROCEDURE [testDimVessel].[Test3 - Insert 10 non existent records into Dim_Vessel]
 AS
 BEGIN
 
@@ -105,4 +106,4 @@ BEGIN
 
 end
 
--- exec tsqlt.Run @TestName = '[testDimVessel].[Test3: Insert 10 non existent records into Dim_Vessel]'
+-- exec tsqlt.Run @TestName = '[testDimVessel].[Test3 - Insert 10 non existent records into Dim_Vessel]'

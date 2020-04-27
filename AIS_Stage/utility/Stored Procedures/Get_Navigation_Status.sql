@@ -1,6 +1,15 @@
 ﻿
 
-CREATE    PROCEDURE [utility].[Get_Navigation_Status] AS
+
+
+
+/*
+Change log: 
+	2020-04-20	SI	Stored procedure created
+*/
+
+
+CREATE PROCEDURE [utility].[Get_Navigation_Status] AS
 BEGIN
 
 /* 

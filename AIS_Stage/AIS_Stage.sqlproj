@@ -102,6 +102,8 @@
     <Build Include="utility\Stored Procedures\Add_Unknowns.sql" />
     <Build Include="utility\Stored Procedures\Get_Ship_Type.sql" />
     <Build Include="utility\Stored Procedures\Get_Navigation_Status.sql" />
+    <Build Include="transform\Views\Dim_Voyage_T.sql" />
+    <Build Include="load\Stored Procedures\Dim_Voyage_L.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AIS_EDW\AIS_EDW.sqlproj">

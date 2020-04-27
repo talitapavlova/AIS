@@ -6,6 +6,7 @@ Change log:
 	2020-04-10	SI	Connected to Dim_Latitude and Dim_Longitude
 	2020-04-11	NP	Added measures
 	2020-04-20	SI	Connected to Dim_Navigation_Status
+	2020-04-24	NP	Connected to Dim_Voyage
 */
 
 CREATE PROCEDURE [load].[Fact_Route_L]
@@ -18,6 +19,7 @@ INSERT INTO AIS_EDW.edw.Fact_Route (
 	Latitude_Key, 
 	Longitude_Key, 
 	Navigation_Status_Key,
+	Voyage_Key,
 	Rate_Of_Turn_ROT,
 	Speed_Over_Ground_SOG,
 	Course_Over_Ground_COG,
@@ -34,6 +36,7 @@ SELECT
 	COALESCE(Latitude_Key, -1),
 	COALESCE(Longitude_Key, -1),
 	COALESCE(Navigation_Status, -1),
+	COALESCE(Voyage_Key, -1),
 	Rate_Of_Turn_ROT,
 	Speed_Over_Ground_SOG,
 	Course_Over_Ground_COG,

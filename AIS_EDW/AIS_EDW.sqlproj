@@ -74,6 +74,7 @@
     <Build Include="edw\Tables\Dim_Latitude.sql" />
     <Build Include="edw\Tables\Dim_Ship_Type.sql" />
     <Build Include="edw\Tables\Dim_Navigation_Status.sql" />
+    <Build Include="edw\Tables\Dim_Voyage.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="AIS_EDW.refactorlog" />

@@ -3,6 +3,7 @@
 
 
 
+
 /*
 Change log: 
 	2020-03-01	NP	Stored procedure created
@@ -11,7 +12,7 @@ Change log:
 	2020-04-10	NP	Updated to include more columns
 */
 
-CREATE     PROCEDURE [load].[Dim_Vessel_L]
+CREATE   PROCEDURE [load].[Dim_Vessel_L]
 AS
 	
 IF OBJECT_ID('tempdb..#newRecords') IS NOT NULL DROP TABLE #newRecords
@@ -40,10 +41,10 @@ SELECT
 INTO #newRecords
 FROM  [transform].[Dim_Vessel_T]
 
-UPDATE AIS_TEST.edw.Dim_Vessel
+UPDATE edw.Dim_Vessel
 SET Valid_To = b.ReceivedTime,
 	BatchUpdated = b.Batch
-FROM AIS_EDW.edw.Dim_Vessel a
+FROM edw.Dim_Vessel a
 INNER JOIN #newRecords b 
 	ON a.MMSI = b.MMSI 
 	AND b.VesselRowNumAsc = 1
@@ -51,7 +52,7 @@ WHERE a.BatchUpdated IS NULL
 	AND b.MMSI_exists = 1 
 	AND b.isChanged > 0
 
-INSERT INTO AIS_TEST.edw.Dim_Vessel (
+INSERT INTO edw.Dim_Vessel (
 	MMSI,
 	Vessel_Name,
 	MID,

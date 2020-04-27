@@ -1,27 +1,24 @@
 ﻿
 
 
+
 -- Test6 - Insert already existing record containg update(s). Follow the records behavior and check for values
 
-CREATE   PROCEDURE [testDimVessel].[Test6 - Insert already existing record containg update(s). Follow the records behavior and check for values]
+CREATE    PROCEDURE [testDimVessel].[Test6 - Insert already existing record containg update(s). Follow the records behavior and check for values]
 AS
 BEGIN
+  
   DECLARE @rowCount_Dim_Vessel int
 
-  DECLARE @oldName varchar(100);
-  DECLARE @updatedName varchar(100);
+  DECLARE @oldName varchar(100), @updatedName varchar(100);
   
-  DECLARE @oldIMO varchar(100);
-  DECLARE @updatedIMO varchar(100);
+  DECLARE @oldIMO varchar(100), @updatedIMO varchar(100);
 
-  DECLARE @oldShipType  int;
-  DECLARE @updatedShipType int;
+  DECLARE @oldShipType int, @updatedShipType int;
 
-  DECLARE @oldDimToStarboard varchar(100);
-  DECLARE @updatedDimToStarboard varchar(100);
+  DECLARE @oldDimToStarboard varchar(100), @updatedDimToStarboard varchar(100);
 
-  DECLARE @oldBeam int;
-  DECLARE @updatedBeam int;
+  DECLARE @oldBeam int,@updatedBeam int;
 
 
  

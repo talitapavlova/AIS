@@ -3,9 +3,10 @@
 
 
 
+
 -- Test5 - Insert one already existing records containg update(s).
 
-CREATE    PROCEDURE [testDimVessel].[Test5 - Insert one already existing records containg update(s). ]
+CREATE   PROCEDURE [testDimVessel].[Test5 - Insert one already existing records containg update(s)]
 AS
 BEGIN
  DECLARE @rowCount_Dim_Vessel int
@@ -59,4 +60,4 @@ BEGIN
  
 end 
 
- -- exec tsqlt.Run @TestName = '[testDimVessel].[Test5 - Insert one already existing records containg update(s). ]'
+ -- exec tsqlt.Run @TestName = '[testDimVessel].[Test5 - Insert one already existing records containg update(s)]'

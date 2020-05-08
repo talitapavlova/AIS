@@ -264,6 +264,22 @@
     <Build Include="testDimVessel\Stored Procedures\Test5 - Insert one already existing records containg update_s__1.sql" />
     <Build Include="testBatch\Stored Procedures\Test2 - Insert one already existing record, containing updates_1.sql" />
     <Build Include="testBatch\Stored Procedures\Test1 - Insert one already existing record, containing updates_1.sql" />
+    <Build Include="testDimVessel\Stored Procedures\Test9 - Insert one already existing record containg some update_s_ as %27NULLs%27_1.sql" />
+    <Build Include="testDimVessel\Stored Procedures\Test8 - Insert one already existing record containg all updates as %27NULLs%27_1.sql" />
+    <Build Include="testDimVessel\Stored Procedures\Test7 - Insert multiple_10_ already existing record containing update_s__1.sql" />
+    <Build Include="testDimVessel\Stored Procedures\Test6 - Insert one already existing record containing updates_1. Check by row attributes..sql" />
+    <Build Include="testDimVessel\Stored Procedures\Test5 - Insert one already existing record containg updates_1. Check by rows number.sql" />
+    <Build Include="testDimVessel\Stored Procedures\Test4 - Insert many already existing records containing no updates_1.sql" />
+    <Build Include="testDimVessel\Stored Procedures\Test3 - Insert many_10_ new records into Dim_Vessel_1.sql" />
+    <Build Include="testDimVessel\Stored Procedures\Test2 - Insert one new record into Dim_Vessel_1.sql" />
+    <Build Include="testDimVessel\Stored Procedures\Test13 - Insert new record with values in multiple rows_1.sql" />
+    <Build Include="testDimVessel\Stored Procedures\Test12 - Insert new record with values in multiple rows_1.sql" />
+    <Build Include="testDimVessel\Stored Procedures\Test11 - Insert updates to record coming in consecutive batches_1.sql" />
+    <Build Include="testDimVessel\Stored Procedures\Test10 - Insert multiple records containing new records and updates for already exsiting records_1..sql" />
+    <Build Include="testBatch\Stored Procedures\Test5 - Insert updates for already existent record, coming with multiple rows_1.sql" />
+    <Build Include="testBatch\Stored Procedures\Test4 - Insert updates for already existent record, coming with multiple rows_1.sql" />
+    <Build Include="testBatch\Stored Procedures\Test3 - Insert one already existent record, containing updates in the 3rd execution of ETL_1.sql" />
+    <Build Include="testBatch\Stored Procedures\Test1 - Insert new record_1.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\tSQLtCLR.dll" />

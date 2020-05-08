@@ -11,7 +11,7 @@ Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "AIS_SSIS", "AIS_SSIS\AIS_SS
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "AIS_Test", "AIS_Test\AIS_Test.sqlproj", "{230354FC-9193-4D62-B7C5-AB249208F4D2}"
 EndProject
-Project("{6870E480-7721-4708-BFB8-9AE898AA21B3}") = "MarineTraffic", "RoutesInDenmark_TabularModel\MarineTraffic.smproj", "{8CE414BB-95B2-4C99-9E03-51BA72086E22}"
+Project("{6870E480-7721-4708-BFB8-9AE898AA21B3}") = "MarineTraffic", "MarineTraffic_TabularModel\MarineTraffic.smproj", "{8CE414BB-95B2-4C99-9E03-51BA72086E22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

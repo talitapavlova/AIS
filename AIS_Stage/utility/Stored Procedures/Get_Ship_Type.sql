@@ -1,21 +1,20 @@
 ﻿
 
-
 /*
 Change log: 
 	2020-04	SI	Stored procedure created
 */
 
 
-CREATE   PROCEDURE [utility].[Get_Ship_Type] AS
+CREATE    PROCEDURE [utility].[Get_Ship_Type] AS
 
 BEGIN
 
 /* 
 Extract data from .csv file into SQL Server temporary table ##IncomingShipTypes
 */
-IF OBJECT_ID('tempdb..##IncomingShipTypes') IS NOT NULL DROP TABLE ##IncomingShipTypes
-SELECT * INTO ##IncomingShipTypes FROM OPENROWSET ( BULK 'C:\AIS\StaticDimensions\ShipType\ShipType.txt', FIRSTROW = 2,
+IF OBJECT_ID('tempdb..#IncomingShipTypes') IS NOT NULL DROP TABLE #IncomingShipTypes
+SELECT * INTO #IncomingShipTypes FROM OPENROWSET ( BULK 'C:\AIS\StaticDimensions\ShipType\ShipType.txt', FIRSTROW = 2,
 		FORMATFILE = 'C:\AIS\StaticDimensions\ShipType\formatShipType.fmt') as tbl
 
 /*
@@ -41,6 +40,6 @@ INSERT INTO [AIS_EDW].[edw].[Dim_Ship_Type](
 ) SELECT
 	  	CAST(Ship_Type_Key as INT),
 		Ship_Type_Description
-FROM ##IncomingShipTypes
+FROM #IncomingShipTypes
 
 END

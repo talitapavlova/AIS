@@ -1,141 +1,59 @@
 ﻿
 
-/****** Test1 - Insert non existent record */
 
-CREATE    PROCEDURE [testBatch].[Test2 - Insert one already existing record, containing updates]
+/*
+Test2:  The following test inserts an already existing record into Dim_Vessel containing updates. It verifies the logic for both utility.Batch and Dim_Vessel tables:
+			- For utility.Batch table it is verified if the SP generates a new row, each time the ETL process is executed.
+			- For Dim_Vessel it is verified if the slowly changing dimension refers to the correct batch information for each type2 record*/
+
+CREATE   PROCEDURE [testBatch].[Test2 - Insert one already existing record, containing updates] 
 AS
 BEGIN
- 
- DECLARE @rowCount_Dim_Vessel int
-  
-  IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
- 
+
+/*ARRANGE*/  
+	DECLARE @rowCount_Batch int
+	DECLARE @oldBatchCreated int, @oldBatchUpdated int
+	DECLARE @newBatchCreated int, @newBatchUpdated int
+   
   -- truncate tables to have accurate test results 
 	truncate table edw.Dim_Vessel
 	truncate table extract.AIS_Data
 	truncate table utility.Batch
 
-  
-  /*Perform ETL process, includign add_Batch procedure  for preparring */
-  --Prepare Dim_Vessel to be pre-populated with one following record from the .csv file
-	execute [extract].[AIS_Data_CSV] 'C:\Users\stefy\Desktop\test_Batch\Test01.csv'   
-	--select * from extract.AIS_Data
-
-  --Execute 
+/*ACT*/	
+  -- Prepare Dim_Vessel to be pre-populated with one following record from the .csv file. Excute utility.Add_Batch SP, which is excecuted each time the ETL is triggered 
+	execute [extract].[AIS_Data_CSV] 'C:\AIS\Tests\test_Batch\Test01.csv'   
 	execute utility.Add_Batch 1
-	--select * from utility.Batch
-
-	execute [load].[Dim_Vessel_L]
-	select * from edw.Dim_Vessel
-	
+	execute [load].[Dim_Vessel_L]	
 	truncate table extract.AIS_Data
 
-  -- New batch, new ETL for Dim_Vessel with updates 
-	execute [extract].[AIS_Data_CSV] 'C:\Users\stefy\Desktop\test_Batch\Test02.csv'   
-	--select * from extract.AIS_Data
-
+  -- New ETL for Dim_Vessel with updates. Excute utility.Add_Batch SP, which is excecuted each time the ETL is triggered 
+	execute [extract].[AIS_Data_CSV] 'C:\AIS\Tests\test_Batch\Test02.csv'   
 	execute utility.Add_Batch 1
-	select * from utility.Batch
-
 	execute [load].[Dim_Vessel_L]
-	select * from edw.Dim_Vessel
-
 	truncate table extract.AIS_Data
-
-	execute [extract].[AIS_Data_CSV] 'C:\Users\stefy\Desktop\test_Batch\Test03.csv'   
-	--select * from extract.AIS_Data
-
-	execute utility.Add_Batch 1
-	select * from utility.Batch
-
-	execute [load].[Dim_Vessel_L]
-	select * from edw.Dim_Vessel
 	
-	truncate table extract.AIS_Data
-
-	execute [extract].[AIS_Data_CSV] 'C:\Users\stefy\Desktop\test_Batch\Test04.csv'   
-	--select * from extract.AIS_Data
-
-	execute utility.Add_Batch 1
-	select * from utility.Batch
-
-	execute [load].[Dim_Vessel_L]
-	select * from edw.Dim_Vessel
-
-	--execute [extract].[AIS_Data_CSV]'C:\Users\stefy\Desktop\test_Batch\Test2.csv'
-	--execute [load].[Dim_Vessel_L]
-	--select * from edw.Dim_Vessel
-	/*   CSV content:
-			~MMSI|AIS Message Type|Longitude|Latitude|MID Number|MID|Navigation Status|Rate of Turn (ROT)|Speed Over Ground (SOG)|Position Accuracy|Course Over Ground (COG)|True Heading (HDG)|Manoeuvre Indicator|RAIM Flag|Repeat Indicator|Received Time UTC-Unix|Vessel Name|IMO Number|Call Sign|Ship Type|Dimension to Bow|Dimension to Stern|Length|Dimension to Port|Dimension to Starboard|Beam|Position Type Fix|ETA month|ETA day|ETA hour|ETA minute|Draught|Destination
-			219013485|5|10.163510|57.944600|219|Denmark|7|0|2,5|0|143,6|149|0|0|0|26-03-2020 16:55:41|TOVE KAJGAARD||||||||||||||||
-			259896000|5|12.050940|54.408540|259|Norway|0|0|12,7|0|90,1|90|0|0|0|26-03-2020 16:55:40|||||||||||||||||
-			222530728|5|12.311000|56.126280|222|not in use|0|-128|0,1|0|226,0|511|0|0|0|26-03-2020 16:55:41|BJORNSHOLM||||||||||||||||
-			311055900|5|||311|Bahamas (Commonwealth of the)|||||||||0|26-03-2020 16:55:41|SKANDI CONSTRUCTOR|9431642|C6ZH8  |70|42|78|120|13|11|24|1|03|21|12|34|5,5|ODENSE 
-			636092297|3|11.336810|57.492710|636|Liberia (Republic of)|0|0|9,6|0|130,8|131|0|0|0|26-03-2020 16:55:43|JOHANN||||||||||||||||	
-	*/
-
- 
+/*ASSERT*/
+  -- evaluate that utility.Batch contain 2 rows
+	set @rowCount_Batch= (select count(*) from edw.Dim_Vessel )
+    EXEC tSQLt.AssertEqualsString 2, @rowCount_Batch;  
 
 
-  /* METHOD 1 of testing - using table's records values */
-  
-   --create table expected, having the same structure as Dim_Vessel
-  create table expected (
-	[Vessel_Key] [int] IDENTITY(1,1) NOT NULL,
-	[MMSI] [char](9) NOT NULL,
-	[Vessel_Name] [nvarchar](200) NULL,
-	[IMO] [nvarchar](10) NULL,
-	[Call_Sign] [nvarchar](10) NULL,
-	[Ship_Type] [int] NULL,
-	[MID] [nvarchar](100) NULL,
-	[MID_Number] [int] NULL,
-	[Dimension_To_Bow] [int] NULL,
-	[Dimension_To_Stern] [int] NULL,
-	[Length] [int] NULL,
-	[Dimension_To_Port] [int] NULL,
-	[Dimension_To_Starboard] [int] NULL,
-	[Beam] [int] NULL,
-	[Position_Type_Fix] [int] NULL,
-	[BatchCreated] [int] NULL,
-	[BatchUpdated] [int] NULL,
-	[Valid_From] [datetime2](7) NULL,
-	[Valid_To] [datetime2](7) NULL,
-  )
-
-  --values expected to be in Dim_Vessel after inserting the values from the CSV. file 
-	insert into expected
-	values ('205769000', null, null, null, null, 'Belgium',205, null, null, null, null, null, null, null, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
-	insert into expected
-	values ('211789180','IRIS' ,null, null, null,'Germany (Federal Republic of)',211, null,null,null,null,null,null,null, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
-	insert into expected
-	values ('219006916', 'RI322 SINNE FRIHED', null, null, null,'Denmark',	219, null,null,null,null,null,null,null, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
-	insert into expected
-	values ('219013485','TOVE KAJGAARD',null, null, null, 'Denmark',	219, null,null,null,null,null,null,null, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
-	insert into expected
-	values ('219330000','NEPTUN AS 202',null, null, null,'Denmark',	219, null,null,null,null,null,null,null, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
-	insert into expected
-	values ('220334000', 'STINE FN396',	null, null, null, 'Denmark',	220, null,null,null,null,null,null,null, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
-	insert into expected
-	values ('222530728','BJORNSHOLM', null, null, null, 'not in use',	222, null,null,null,null,null,null,null, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
-	insert into expected
-	values ('244813000','BIT FORCE', null, null, null, 'Netherlands (Kingdom of the)',	244, null,null,null,null,null,null,null, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
-	insert into expected
-	values ('259896000', null,	null,null,null, 'Norway',	259,null,null,null,null,null,null,null, 1, NULL,  '2020-03-26 16:55:40.0000000',	'9999-12-31 00:00:00.0000000')
-	insert into expected
-	values ('311055900','SKANDI CONSTRUCTOR','9431642',	'C6ZH8 ',	70,	   'Bahamas (Commonwealth of the)',	311, 42, 78, 120,  13,11, 24, 1, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
+/* Dim_Vessel test: Checking if each record of the slowly changing dimension points to the correct Batch row*/	
+-- Checking for old record's BatchCreated and BatchUpdated attributes
+	set @oldBatchCreated = ( select BatchCreated from edw.Dim_Vessel where MMSI = '265410000' and  Valid_To = '2020-03-26 16:00:00.0000000')
+	EXEC tSQLt.AssertEqualsString 1 , @oldBatchCreated;  
 	
-  -- evaluate the actual table (Dim_Vessel) and the expected table
-	 EXEC tSQLt.AssertEqualsTable 'expected', 'edw.Dim_Vessel';
+	set @oldBatchUpdated = (select BatchUpdated from edw.Dim_Vessel where MMSI = '265410000' and  Valid_To = '2020-03-26 16:00:00.0000000')
+	EXEC tSQLt.AssertEqualsString 2, @oldBatchUpdated;  
 
+-- Checking for updated record's BatchCreated and BatchUpdated attributes
+	set @newBatchCreated = ( select BatchCreated from edw.Dim_Vessel where MMSI = '265410000' and  Valid_To = '9999-12-31 00:00:00.0000000')
+	EXEC tSQLt.AssertEqualsString 2 , @newBatchCreated;  
+	
+	set @newBatchUpdated = (select BatchUpdated from edw.Dim_Vessel where MMSI = '265410000' and  Valid_To = '9999-12-31 00:00:00.0000000')
+	EXEC tSQLt.AssertEqualsString null, @newBatchUpdated;  
 
- /* METHOD 2 of testing - using row count */
- 
- -- set rowCount for Dim_Vessel
-	set @rowCount_Dim_Vessel= (select count(*) from edw.Dim_Vessel )
- 
- -- evaluate if expected rowCount for Dim_Vessel is 2
-	EXEC tSQLt.AssertEqualsString 10, @rowCount_Dim_Vessel;  
- 
 end 
 
- -- exec tsqlt.Run @TestName = '[test].[Test4 - Insert already existing records containing no updates]'
+ -- exec tsqlt.Run @TestName = '[testBatch].[Test2 - Insert one already existing record, containing updates]'

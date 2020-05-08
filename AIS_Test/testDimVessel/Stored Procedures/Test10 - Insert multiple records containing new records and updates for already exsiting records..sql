@@ -1,15 +1,28 @@
 ﻿
 
 
+/******
+	Change log: 
+		2020-03-25	Stored procedure created for testing stored procedures targetting Dim_Vessel
+		2020-04-10	Stored procedure updated for testing the effect of the stored procedures utility.Add_Batch on Dim_Vessel. The update consists of:
+						-add execution of utility.Batch SP;
+						-check if the type2 sowly changing dimension's records contains the correct batch number by closly checking the values of 
+					     [BatchCreated] and [BatchUpdated] attributes. 
 
-/****** Test7:  Insert already existing records containing updates for 6 records and no updates for the other 4 */
+	Test10:  Insert multiple records containing new records and updates for already exsiting records.
+		     The test performs the ETL targeting Dim_Vessel, where the source file contains many (10) records, 
+		      where 4 of them are complete new, and the other 6 contain updates for already existing records in Dim_Vessel.  
+		     The test checks if the outcome of the ETL process is as expected, by assessing the number of rows in Dim_Vessel after the ETL process had been executed
+			 UPDATE: Furthermore, it is verified if the record contains the correct batch number, when Add_Batch is included.
+*/
 
-CREATE     PROCEDURE [testDimVessel].[Test7 - Insert already existing records containing no updates for 4 records and few updates for the other 6]
+CREATE PROCEDURE [testDimVessel].[Test10 - Insert multiple records containing new records and updates for already exsiting records.]
 AS
 BEGIN
- 
+/*ARRANGE*/ 
   DECLARE @rowCount_Dim_Vessel int
-  
+  DECLARE @numberRecReferencingOldBatch int, @numberValidRecReferencingNewBatch int,  @numberNonValidRecReferencingNewBatch int; 
+
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
  
   -- truncate tables to have accurate test results 
@@ -17,7 +30,7 @@ BEGIN
   truncate table extract.AIS_Data
   truncate table utility.Batch
 
- --Prepare Dim_Vessel to be pre-populated with 10 records
+ --Prepare Dim_Vessel to be pre-populated with 10 records, simulting a previous execution of the ETL
 	insert into edw.Dim_Vessel 
 	values ('205769000', null, null, null, null, 'Belgium',205, null, null, null, null, null, null, null, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
 	insert into edw.Dim_Vessel 
@@ -39,11 +52,16 @@ BEGIN
 	insert into edw.Dim_Vessel 
 	values ('311055900','SKANDI CONSTRUCTOR','9431642',	'C6ZH8 ',	70,	   'Bahamas (Commonwealth of the)',	311, 42, 78, 120,  13,11, 24, 1, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
 
+    --Prepare utility.Batch table to be pre-populated with 1 records, simulting a previous execution of the ETL
+    insert into utility.Batch
+	values (1,10,1,0,'2020-03-26 15:55:41.0000000',	'2020-03-26 16:05:41.0000000', GETDATE())
 
+/*ACT*/
 	-- ETL for Dim_Vessel to insert the following CSV. file records, consisting of 10 already existing record in Dim_Vessel, where first 4 contain no updates and the next 6 contain few updates 
 	execute [extract].[AIS_Data_CSV]'C:\AIS\Tests\Test7.csv'
-	execute [load].[Dim_Vessel_L]
-	
+	execute utility.Add_Batch 1
+	execute load.Dim_Vessel_L
+	truncate table extract.AIS_Data
 	/*   CSV content:
 			~MMSI|AIS Message Type|Longitude|Latitude|MID Number|MID|Navigation Status|Rate of Turn (ROT)|Speed Over Ground (SOG)|Position Accuracy|Course Over Ground (COG)|True Heading (HDG)|Manoeuvre Indicator|RAIM Flag|Repeat Indicator|Received Time UTC-Unix|Vessel Name|IMO Number|Call Sign|Ship Type|Dimension to Bow|Dimension to Stern|Length|Dimension to Port|Dimension to Starboard|Beam|Position Type Fix|ETA month|ETA day|ETA hour|ETA minute|Draught|Destination
 			244813000|5|8.597500|57.854670|244|Netherlands (Kingdom of the)|0|7|13,6|0|68,0|66|0|0|0|26-03-2020 16:55:41|BIT FORCE||||||||||||||||
@@ -59,13 +77,32 @@ BEGIN
 
 	*/
 
- 
  -- set rowCount for Dim_Vessel
  set @rowCount_Dim_Vessel= (select count(*) from edw.Dim_Vessel )
- 
+
+  -- set rowCount for the number of records that are not updated. *The records cross-refference [BatchCreated]=1 and [BatchUpdated]=null
+ set @numberRecReferencingOldBatch= (select count(*) from edw.Dim_Vessel where BatchCreated=1 and BatchUpdated is null )
+
+  -- set rowCount for the number of records that are updated and are now valid. *The records cross-refference [BatchCreated]=1 and [BatchUpdated]=2
+ set @numberNonValidRecReferencingNewBatch= (select count(*) from edw.Dim_Vessel where BatchCreated=1 and BatchUpdated=2 )
+
+ -- set rowCount for the number of records that are updated and are now valid. *The records cross-refference [BatchCreated]=1 and [BatchUpdated]=null
+ set @numberValidRecReferencingNewBatch= (select count(*) from edw.Dim_Vessel where BatchCreated=2 and BatchUpdated is null )
+
+/*ASSES*/ 
+
  -- evaluate if expected rowCount for Dim_Vessel is 2
  EXEC tSQLt.AssertEqualsString 16, @rowCount_Dim_Vessel;  
+
+  -- evaluate if expected rowCount is 4
+ EXEC tSQLt.AssertEqualsString 4, @numberRecReferencingOldBatch;
+ 
+  --evaluate if expected rowCount is 6
+ EXEC tSQLt.AssertEqualsString 6, @numberValidRecReferencingNewBatch;  
+
+ -- evaluate if expected rowCount is 6
+ EXEC tSQLt.AssertEqualsString 6, @numberNonValidRecReferencingNewBatch;  
  
 end 
 
-   --exec tsqlt.Run @TestName = '[testDimVessel].[Test7 - Insert already existing records containing no updates for 4 records and few updates for the other 6]'
+   --exec tsqlt.Run @TestName = '[testDimVessel].[Test10 - Insert multiple records containing new records and updates for already exsiting records.]'

@@ -5,10 +5,10 @@
     "culture": "en-GB",
     "dataSources": [
       {
-        "name": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW",
-        "connectionString": "Provider=SQLNCLI11;Data Source=DESKTOP-DJ90PDJ\\MYSQLSERVER;Initial Catalog=AIS_EDW;Integrated Security=SSPI;Persist Security Info=false",
+        "name": "DESKTOP-AMSSPQK AIS_EDW",
+        "connectionString": "Provider=SQLNCLI11;Data Source=DESKTOP-AMSSPQK;Initial Catalog=AIS_EDW;Integrated Security=SSPI;Persist Security Info=false",
         "impersonationMode": "impersonateAccount",
-        "account": "DESKTOP-DJ90PDJ\\winpc",
+        "account": "DESKTOP-AMSSPQK\\stefy",
         "annotations": [
           {
             "name": "ConnectionEditUISource",
@@ -124,7 +124,7 @@
             "source": {
               "type": "query",
               "query": " SELECT [edw].[Dim_Date].* FROM [edw].[Dim_Date] ",
-              "dataSource": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW"
+              "dataSource": "DESKTOP-AMSSPQK AIS_EDW"
             }
           }
         ],
@@ -219,7 +219,7 @@
             "source": {
               "type": "query",
               "query": " SELECT [edw].[Dim_Latitude].[Latitude_Key],[edw].[Dim_Latitude].[Latitude_Value],[edw].[Dim_Latitude].[Latitude_Degree],[edw].[Dim_Latitude].[Latitude_Decimal_Degree],[edw].[Dim_Latitude].[Latitude_Direction] FROM [edw].[Dim_Latitude] ",
-              "dataSource": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW"
+              "dataSource": "DESKTOP-AMSSPQK AIS_EDW"
             },
             "annotations": [
               {
@@ -687,7 +687,7 @@
             "source": {
               "type": "query",
               "query": " SELECT [edw].[Dim_Longitude].[Longitude_Key],[edw].[Dim_Longitude].[Longitude_Value],[edw].[Dim_Longitude].[Longitude_Degree],[edw].[Dim_Longitude].[Longitude_Decimal_Degree],[edw].[Dim_Longitude].[Longitude_Direction] FROM [edw].[Dim_Longitude] ",
-              "dataSource": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW"
+              "dataSource": "DESKTOP-AMSSPQK AIS_EDW"
             },
             "annotations": [
               {
@@ -1102,7 +1102,7 @@
             "source": {
               "type": "query",
               "query": " SELECT [edw].[Dim_Navigation_Status].* FROM [edw].[Dim_Navigation_Status] ",
-              "dataSource": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW"
+              "dataSource": "DESKTOP-AMSSPQK AIS_EDW"
             }
           }
         ],
@@ -1145,7 +1145,7 @@
             "source": {
               "type": "query",
               "query": " SELECT [edw].[Dim_Ship_Type].* FROM [edw].[Dim_Ship_Type] ",
-              "dataSource": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW"
+              "dataSource": "DESKTOP-AMSSPQK AIS_EDW"
             }
           }
         ],
@@ -1210,7 +1210,7 @@
             "source": {
               "type": "query",
               "query": " SELECT [edw].[Dim_Time].[Time_Key],[edw].[Dim_Time].[Time],[edw].[Dim_Time].[Hour],[edw].[Dim_Time].[Minute],[edw].[Dim_Time].[Second] FROM [edw].[Dim_Time] ",
-              "dataSource": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW"
+              "dataSource": "DESKTOP-AMSSPQK AIS_EDW"
             },
             "annotations": [
               {
@@ -1639,7 +1639,7 @@
             "source": {
               "type": "query",
               "query": " SELECT [edw].[Dim_Vessel].* FROM [edw].[Dim_Vessel] ",
-              "dataSource": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW"
+              "dataSource": "DESKTOP-AMSSPQK AIS_EDW"
             }
           }
         ],
@@ -1744,7 +1744,7 @@
             "source": {
               "type": "query",
               "query": " SELECT [edw].[Dim_Voyage].* FROM [edw].[Dim_Voyage] ",
-              "dataSource": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW"
+              "dataSource": "DESKTOP-AMSSPQK AIS_EDW"
             }
           }
         ],
@@ -1877,7 +1877,7 @@
             "source": {
               "type": "query",
               "query": " SELECT [edw].[Fact_Route].* FROM [edw].[Fact_Route] ",
-              "dataSource": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW"
+              "dataSource": "DESKTOP-AMSSPQK AIS_EDW"
             }
           }
         ],
@@ -1887,28 +1887,28 @@
             "expression": "DISTINCTCOUNT([Vessel_Key])"
           },
           {
-            "name": "Minimum of Course_Over_Ground_COG",
-            "expression": "MIN([Course_Over_Ground_COG])"
+            "name": "Minimum of Speed_Over_Ground_SOG 2",
+            "expression": "MIN([Speed_Over_Ground_SOG])"
           },
           {
-            "name": "Maximum of Course_Over_Ground_COG",
-            "expression": "MAX([Course_Over_Ground_COG])"
-          },
-          {
-            "name": "Average of Course_Over_Ground_COG",
-            "expression": "AVERAGE([Course_Over_Ground_COG])"
+            "name": "Maximum of Speed_Over_Ground_SOG",
+            "expression": "MAX([Speed_Over_Ground_SOG])"
           },
           {
             "name": "Average of Speed_Over_Ground_SOG",
             "expression": "AVERAGE([Speed_Over_Ground_SOG])"
           },
           {
-            "name": "Minimum of Speed_Over_Ground_SOG",
-            "expression": "MIN([Speed_Over_Ground_SOG])"
+            "name": "Maximum of Course_Over_Ground_COG",
+            "expression": "MAX([Course_Over_Ground_COG])"
           },
           {
-            "name": "Minimum of Speed_Over_Ground_SOG 2",
-            "expression": "MIN([Speed_Over_Ground_SOG])"
+            "name": "Minimum of Course_Over_Ground_COG",
+            "expression": "MIN([Course_Over_Ground_COG])"
+          },
+          {
+            "name": "Average of Course_Over_Ground_COG",
+            "expression": "AVERAGE([Course_Over_Ground_COG])"
           }
         ],
         "annotations": [

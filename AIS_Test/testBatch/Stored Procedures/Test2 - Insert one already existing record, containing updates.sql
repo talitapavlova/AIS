@@ -1,7 +1,8 @@
 ﻿
+
 /****** Test1 - Insert non existent record */
 
-CREATE  PROCEDURE testBatch.[Test1 - Insert already existing record with updates]
+CREATE    PROCEDURE [testBatch].[Test2 - Insert one already existing record, containing updates]
 AS
 BEGIN
  
@@ -14,20 +15,24 @@ BEGIN
 	truncate table extract.AIS_Data
 	truncate table utility.Batch
 
-  --Prepare Dim_Vessel to be pre-populated with the following records
+  
+  /*Perform ETL process, includign add_Batch procedure  for preparring */
+  --Prepare Dim_Vessel to be pre-populated with one following record from the .csv file
 	execute [extract].[AIS_Data_CSV] 'C:\Users\stefy\Desktop\test_Batch\Test01.csv'   
-	select * from extract.AIS_Data
+	--select * from extract.AIS_Data
 
+  --Execute 
 	execute utility.Add_Batch 1
-	select * from utility.Batch
+	--select * from utility.Batch
 
 	execute [load].[Dim_Vessel_L]
 	select * from edw.Dim_Vessel
 	
 	truncate table extract.AIS_Data
 
+  -- New batch, new ETL for Dim_Vessel with updates 
 	execute [extract].[AIS_Data_CSV] 'C:\Users\stefy\Desktop\test_Batch\Test02.csv'   
-	select * from extract.AIS_Data
+	--select * from extract.AIS_Data
 
 	execute utility.Add_Batch 1
 	select * from utility.Batch
@@ -38,7 +43,7 @@ BEGIN
 	truncate table extract.AIS_Data
 
 	execute [extract].[AIS_Data_CSV] 'C:\Users\stefy\Desktop\test_Batch\Test03.csv'   
-	select * from extract.AIS_Data
+	--select * from extract.AIS_Data
 
 	execute utility.Add_Batch 1
 	select * from utility.Batch
@@ -49,7 +54,7 @@ BEGIN
 	truncate table extract.AIS_Data
 
 	execute [extract].[AIS_Data_CSV] 'C:\Users\stefy\Desktop\test_Batch\Test04.csv'   
-	select * from extract.AIS_Data
+	--select * from extract.AIS_Data
 
 	execute utility.Add_Batch 1
 	select * from utility.Batch

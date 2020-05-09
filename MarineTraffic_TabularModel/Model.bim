@@ -1,0 +1,1996 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1200,
+  "model": {
+    "culture": "en-GB",
+    "dataSources": [
+      {
+        "name": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW",
+        "connectionString": "Provider=SQLNCLI11;Data Source=DESKTOP-DJ90PDJ\\MYSQLSERVER;Initial Catalog=AIS_EDW;Integrated Security=SSPI;Persist Security Info=false",
+        "impersonationMode": "impersonateAccount",
+        "account": "DESKTOP-DJ90PDJ\\winpc",
+        "annotations": [
+          {
+            "name": "ConnectionEditUISource",
+            "value": "SqlServer"
+          }
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "name": "Date",
+        "columns": [
+          {
+            "name": "Date_Key",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Date_Key",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Date",
+            "formatString": "General Date",
+            "sourceProviderType": "DBDate"
+          },
+          {
+            "name": "Year",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Year",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Quarter",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Quarter",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Month",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Month",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Month_Name",
+            "dataType": "string",
+            "isHidden": true,
+            "sourceColumn": "Month_Name",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Month_ShortName",
+            "dataType": "string",
+            "isHidden": true,
+            "sourceColumn": "Month_ShortName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Week",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Week",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Day",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Day",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "DayOfYear",
+            "dataType": "int64",
+            "sourceColumn": "DayOfYear",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "DayOfWeek",
+            "dataType": "int64",
+            "sourceColumn": "DayOfWeek",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "DayOfWeek_Name",
+            "dataType": "string",
+            "sourceColumn": "DayOfWeek_Name",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "DayOfWeek_ShortName",
+            "dataType": "string",
+            "sourceColumn": "DayOfWeek_ShortName",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "DateCreated",
+            "dataType": "dateTime",
+            "isHidden": true,
+            "sourceColumn": "DateCreated",
+            "formatString": "General Date",
+            "sourceProviderType": "DBTimeStamp"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Date",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " SELECT [edw].[Dim_Date].* FROM [edw].[Dim_Date] ",
+              "dataSource": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW"
+            }
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Hierarchy2",
+            "levels": [
+              {
+                "name": "Year",
+                "ordinal": 0,
+                "column": "Year"
+              },
+              {
+                "name": "Quarter",
+                "ordinal": 1,
+                "column": "Quarter"
+              },
+              {
+                "name": "Week",
+                "ordinal": 3,
+                "column": "Week"
+              },
+              {
+                "name": "Day",
+                "ordinal": 4,
+                "column": "Day"
+              },
+              {
+                "name": "Month_ShortName",
+                "ordinal": 2,
+                "column": "Month_ShortName"
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " SELECT [edw].[Dim_Date].* FROM [edw].[Dim_Date] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Dim_Date"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "edw"
+          }
+        ]
+      },
+      {
+        "name": "Latitude",
+        "columns": [
+          {
+            "name": "Latitude_Key",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Latitude_Key",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Latitude_Value",
+            "dataType": "double",
+            "sourceColumn": "Latitude_Value",
+            "sourceProviderType": "Numeric"
+          },
+          {
+            "name": "Latitude_Degree",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Latitude_Degree",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Latitude_Decimal_Degree",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Latitude_Decimal_Degree",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Latitude_Direction",
+            "dataType": "string",
+            "sourceColumn": "Latitude_Direction",
+            "sourceProviderType": "Char"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Latitude",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " SELECT [edw].[Dim_Latitude].[Latitude_Key],[edw].[Dim_Latitude].[Latitude_Value],[edw].[Dim_Latitude].[Latitude_Degree],[edw].[Dim_Latitude].[Latitude_Decimal_Degree],[edw].[Dim_Latitude].[Latitude_Direction] FROM [edw].[Dim_Latitude] ",
+              "dataSource": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW"
+            },
+            "annotations": [
+              {
+                "name": "TableWidgetSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"TableWidgetSerialization\"><AnnotationContent><![CDATA[<?xml version=\"1.0\"?>",
+                  "<TableWidgetGridSerialization xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">",
+                  "  <ColumnSuggestedType />",
+                  "  <ColumnFormat />",
+                  "  <ColumnAccuracy />",
+                  "  <ColumnCurrencySymbol />",
+                  "  <ColumnPositivePattern />",
+                  "  <ColumnNegativePattern />",
+                  "  <ColumnWidths>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Latitude_Key</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>93</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Latitude_Value</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>138</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Latitude_Degree</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>95</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Latitude_Decimal_Degree</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>65</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Latitude_Min</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>91</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Latitude_Sec</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>92</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Latitude_Direction</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>117</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>DateCreated</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>92</int>",
+                  "      </value>",
+                  "    </item>",
+                  "  </ColumnWidths>",
+                  "  <ColumnDisplayIndex>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Latitude_Key</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>0</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Latitude_Value</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>1</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Latitude_Degree</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>2</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Latitude_Decimal_Degree</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>3</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Latitude_Min</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>4</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Latitude_Sec</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>5</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Latitude_Direction</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>6</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>DateCreated</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>7</int>",
+                  "      </value>",
+                  "    </item>",
+                  "  </ColumnDisplayIndex>",
+                  "  <ColumnFrozen />",
+                  "  <ColumnChecked>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Latitude_Value</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <boolean>true</boolean>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Latitude_Key</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <boolean>true</boolean>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>DateCreated</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <boolean>false</boolean>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Latitude_Min</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <boolean>false</boolean>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Latitude_Sec</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <boolean>false</boolean>",
+                  "      </value>",
+                  "    </item>",
+                  "  </ColumnChecked>",
+                  "  <ColumnFilter />",
+                  "  <SelectionFilter />",
+                  "  <FilterParameters />",
+                  "  <IsSortDescending>false</IsSortDescending>",
+                  "</TableWidgetGridSerialization>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Latitude",
+            "levels": [
+              {
+                "name": "Latitude_Degree",
+                "ordinal": 0,
+                "column": "Latitude_Degree"
+              },
+              {
+                "name": "Latitude_Decimal_Degree",
+                "ordinal": 1,
+                "column": "Latitude_Decimal_Degree"
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " SELECT [edw].[Dim_Latitude].[Latitude_Key],[edw].[Dim_Latitude].[Latitude_Value],[edw].[Dim_Latitude].[Latitude_Degree],[edw].[Dim_Latitude].[Latitude_Decimal_Degree],[edw].[Dim_Latitude].[Latitude_Direction] FROM [edw].[Dim_Latitude] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Dim_Latitude"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "edw"
+          },
+          {
+            "name": "TableWidgetSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"TableWidgetSerialization\"><AnnotationContent><![CDATA[<?xml version=\"1.0\"?>",
+              "<TableWidgetGridSerialization xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">",
+              "  <ColumnSuggestedType />",
+              "  <ColumnFormat />",
+              "  <ColumnAccuracy />",
+              "  <ColumnCurrencySymbol />",
+              "  <ColumnPositivePattern />",
+              "  <ColumnNegativePattern />",
+              "  <ColumnWidths>",
+              "    <item>",
+              "      <key>",
+              "        <string>Latitude_Key</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>93</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Latitude_Value</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>138</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Latitude_Degree</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>95</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Latitude_Decimal_Degree</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>65</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Latitude_Min</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>91</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Latitude_Sec</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>92</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Latitude_Direction</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>117</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>DateCreated</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>92</int>",
+              "      </value>",
+              "    </item>",
+              "  </ColumnWidths>",
+              "  <ColumnDisplayIndex>",
+              "    <item>",
+              "      <key>",
+              "        <string>Latitude_Key</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>0</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Latitude_Value</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>1</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Latitude_Degree</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>2</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Latitude_Decimal_Degree</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>3</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Latitude_Min</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>4</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Latitude_Sec</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>5</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Latitude_Direction</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>6</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>DateCreated</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>7</int>",
+              "      </value>",
+              "    </item>",
+              "  </ColumnDisplayIndex>",
+              "  <ColumnFrozen />",
+              "  <ColumnChecked>",
+              "    <item>",
+              "      <key>",
+              "        <string>Latitude_Value</string>",
+              "      </key>",
+              "      <value>",
+              "        <boolean>true</boolean>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Latitude_Key</string>",
+              "      </key>",
+              "      <value>",
+              "        <boolean>true</boolean>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>DateCreated</string>",
+              "      </key>",
+              "      <value>",
+              "        <boolean>false</boolean>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Latitude_Min</string>",
+              "      </key>",
+              "      <value>",
+              "        <boolean>false</boolean>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Latitude_Sec</string>",
+              "      </key>",
+              "      <value>",
+              "        <boolean>false</boolean>",
+              "      </value>",
+              "    </item>",
+              "  </ColumnChecked>",
+              "  <ColumnFilter />",
+              "  <SelectionFilter />",
+              "  <FilterParameters />",
+              "  <IsSortDescending>false</IsSortDescending>",
+              "</TableWidgetGridSerialization>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Longitude",
+        "columns": [
+          {
+            "name": "Longitude_Key",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Longitude_Key",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Longitude_Value",
+            "dataType": "double",
+            "sourceColumn": "Longitude_Value",
+            "sourceProviderType": "Numeric"
+          },
+          {
+            "name": "Longitude_Degree",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Longitude_Degree",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Longitude_Decimal_Degree",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Longitude_Decimal_Degree",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Longitude_Direction",
+            "dataType": "string",
+            "sourceColumn": "Longitude_Direction",
+            "sourceProviderType": "Char"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Longitude",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " SELECT [edw].[Dim_Longitude].[Longitude_Key],[edw].[Dim_Longitude].[Longitude_Value],[edw].[Dim_Longitude].[Longitude_Degree],[edw].[Dim_Longitude].[Longitude_Decimal_Degree],[edw].[Dim_Longitude].[Longitude_Direction] FROM [edw].[Dim_Longitude] ",
+              "dataSource": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW"
+            },
+            "annotations": [
+              {
+                "name": "TableWidgetSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"TableWidgetSerialization\"><AnnotationContent><![CDATA[<?xml version=\"1.0\"?>",
+                  "<TableWidgetGridSerialization xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">",
+                  "  <ColumnSuggestedType />",
+                  "  <ColumnFormat />",
+                  "  <ColumnAccuracy />",
+                  "  <ColumnCurrencySymbol />",
+                  "  <ColumnPositivePattern />",
+                  "  <ColumnNegativePattern />",
+                  "  <ColumnWidths>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Longitude_Key</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>101</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Longitude_Value</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>109</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Longitude_Degree</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>118</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Longitude_Decimal_Degree</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>160</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Longitude_Min</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>99</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Longitude_Sec</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>100</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Longitude_Direction</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>125</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>DateCreated</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>92</int>",
+                  "      </value>",
+                  "    </item>",
+                  "  </ColumnWidths>",
+                  "  <ColumnDisplayIndex>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Longitude_Key</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>0</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Longitude_Value</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>1</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Longitude_Degree</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>2</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Longitude_Decimal_Degree</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>3</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Longitude_Min</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>4</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Longitude_Sec</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>5</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Longitude_Direction</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>6</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>DateCreated</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>7</int>",
+                  "      </value>",
+                  "    </item>",
+                  "  </ColumnDisplayIndex>",
+                  "  <ColumnFrozen />",
+                  "  <ColumnChecked>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Longitude_Min</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <boolean>false</boolean>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Longitude_Sec</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <boolean>false</boolean>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>DateCreated</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <boolean>false</boolean>",
+                  "      </value>",
+                  "    </item>",
+                  "  </ColumnChecked>",
+                  "  <ColumnFilter />",
+                  "  <SelectionFilter />",
+                  "  <FilterParameters />",
+                  "  <IsSortDescending>false</IsSortDescending>",
+                  "</TableWidgetGridSerialization>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Longitude",
+            "levels": [
+              {
+                "name": "Longitude_Degree",
+                "ordinal": 0,
+                "column": "Longitude_Degree"
+              },
+              {
+                "name": "Longitude_Decimal_Degree",
+                "ordinal": 1,
+                "column": "Longitude_Decimal_Degree"
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " SELECT [edw].[Dim_Longitude].[Longitude_Key],[edw].[Dim_Longitude].[Longitude_Value],[edw].[Dim_Longitude].[Longitude_Degree],[edw].[Dim_Longitude].[Longitude_Decimal_Degree],[edw].[Dim_Longitude].[Longitude_Direction] FROM [edw].[Dim_Longitude] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Dim_Longitude"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "edw"
+          },
+          {
+            "name": "TableWidgetSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"TableWidgetSerialization\"><AnnotationContent><![CDATA[<?xml version=\"1.0\"?>",
+              "<TableWidgetGridSerialization xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">",
+              "  <ColumnSuggestedType />",
+              "  <ColumnFormat />",
+              "  <ColumnAccuracy />",
+              "  <ColumnCurrencySymbol />",
+              "  <ColumnPositivePattern />",
+              "  <ColumnNegativePattern />",
+              "  <ColumnWidths>",
+              "    <item>",
+              "      <key>",
+              "        <string>Longitude_Key</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>101</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Longitude_Value</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>109</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Longitude_Degree</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>118</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Longitude_Decimal_Degree</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>160</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Longitude_Min</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>99</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Longitude_Sec</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>100</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Longitude_Direction</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>125</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>DateCreated</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>92</int>",
+              "      </value>",
+              "    </item>",
+              "  </ColumnWidths>",
+              "  <ColumnDisplayIndex>",
+              "    <item>",
+              "      <key>",
+              "        <string>Longitude_Key</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>0</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Longitude_Value</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>1</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Longitude_Degree</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>2</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Longitude_Decimal_Degree</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>3</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Longitude_Min</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>4</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Longitude_Sec</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>5</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Longitude_Direction</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>6</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>DateCreated</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>7</int>",
+              "      </value>",
+              "    </item>",
+              "  </ColumnDisplayIndex>",
+              "  <ColumnFrozen />",
+              "  <ColumnChecked>",
+              "    <item>",
+              "      <key>",
+              "        <string>Longitude_Min</string>",
+              "      </key>",
+              "      <value>",
+              "        <boolean>false</boolean>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Longitude_Sec</string>",
+              "      </key>",
+              "      <value>",
+              "        <boolean>false</boolean>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>DateCreated</string>",
+              "      </key>",
+              "      <value>",
+              "        <boolean>false</boolean>",
+              "      </value>",
+              "    </item>",
+              "  </ColumnChecked>",
+              "  <ColumnFilter />",
+              "  <SelectionFilter />",
+              "  <FilterParameters />",
+              "  <IsSortDescending>false</IsSortDescending>",
+              "</TableWidgetGridSerialization>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Navigation_Status",
+        "columns": [
+          {
+            "name": "Navigation_Status_Key",
+            "dataType": "int64",
+            "sourceColumn": "Navigation_Status_Key",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Navigation_Status_Description",
+            "dataType": "string",
+            "sourceColumn": "Navigation_Status_Description",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Navigation_Status",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " SELECT [edw].[Dim_Navigation_Status].* FROM [edw].[Dim_Navigation_Status] ",
+              "dataSource": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " SELECT [edw].[Dim_Navigation_Status].* FROM [edw].[Dim_Navigation_Status] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Dim_Navigation_Status"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "edw"
+          }
+        ]
+      },
+      {
+        "name": "Ship_Type",
+        "columns": [
+          {
+            "name": "Ship_Type_Key",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Ship_Type_Key",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Ship_Type_Description",
+            "dataType": "string",
+            "sourceColumn": "Ship_Type_Description",
+            "sourceProviderType": "WChar"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Ship_Type",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " SELECT [edw].[Dim_Ship_Type].* FROM [edw].[Dim_Ship_Type] ",
+              "dataSource": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " SELECT [edw].[Dim_Ship_Type].* FROM [edw].[Dim_Ship_Type] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Dim_Ship_Type"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "edw"
+          }
+        ]
+      },
+      {
+        "name": "Time",
+        "columns": [
+          {
+            "name": "Time_Key",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Time_Key",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Time",
+            "dataType": "dateTime",
+            "sourceColumn": "Time",
+            "formatString": "General Date",
+            "sourceProviderType": "145"
+          },
+          {
+            "name": "Hour",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Hour",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Minute",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Minute",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Second",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Second",
+            "sourceProviderType": "Integer"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Time",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " SELECT [edw].[Dim_Time].[Time_Key],[edw].[Dim_Time].[Time],[edw].[Dim_Time].[Hour],[edw].[Dim_Time].[Minute],[edw].[Dim_Time].[Second] FROM [edw].[Dim_Time] ",
+              "dataSource": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW"
+            },
+            "annotations": [
+              {
+                "name": "TableWidgetSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"TableWidgetSerialization\"><AnnotationContent><![CDATA[<?xml version=\"1.0\"?>",
+                  "<TableWidgetGridSerialization xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">",
+                  "  <ColumnSuggestedType />",
+                  "  <ColumnFormat />",
+                  "  <ColumnAccuracy />",
+                  "  <ColumnCurrencySymbol />",
+                  "  <ColumnPositivePattern />",
+                  "  <ColumnNegativePattern />",
+                  "  <ColumnWidths>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Time_Key</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>76</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Time</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>103</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Hour</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>93</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Minute</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>96</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Second</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>135</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>DateCreated</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>92</int>",
+                  "      </value>",
+                  "    </item>",
+                  "  </ColumnWidths>",
+                  "  <ColumnDisplayIndex>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Time_Key</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>0</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Time</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>1</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Hour</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>2</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Minute</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>3</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>Second</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>4</int>",
+                  "      </value>",
+                  "    </item>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>DateCreated</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <int>5</int>",
+                  "      </value>",
+                  "    </item>",
+                  "  </ColumnDisplayIndex>",
+                  "  <ColumnFrozen />",
+                  "  <ColumnChecked>",
+                  "    <item>",
+                  "      <key>",
+                  "        <string>DateCreated</string>",
+                  "      </key>",
+                  "      <value>",
+                  "        <boolean>false</boolean>",
+                  "      </value>",
+                  "    </item>",
+                  "  </ColumnChecked>",
+                  "  <ColumnFilter />",
+                  "  <SelectionFilter />",
+                  "  <FilterParameters />",
+                  "  <IsSortDescending>false</IsSortDescending>",
+                  "</TableWidgetGridSerialization>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Time Hierarchy",
+            "levels": [
+              {
+                "name": "Hour",
+                "ordinal": 0,
+                "column": "Hour"
+              },
+              {
+                "name": "Minute",
+                "ordinal": 1,
+                "column": "Minute"
+              },
+              {
+                "name": "Second",
+                "ordinal": 2,
+                "column": "Second"
+              }
+            ]
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " SELECT [edw].[Dim_Time].[Time_Key],[edw].[Dim_Time].[Time],[edw].[Dim_Time].[Hour],[edw].[Dim_Time].[Minute],[edw].[Dim_Time].[Second] FROM [edw].[Dim_Time] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Dim_Time"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "edw"
+          },
+          {
+            "name": "TableWidgetSerialization",
+            "value": [
+              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"TableWidgetSerialization\"><AnnotationContent><![CDATA[<?xml version=\"1.0\"?>",
+              "<TableWidgetGridSerialization xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">",
+              "  <ColumnSuggestedType />",
+              "  <ColumnFormat />",
+              "  <ColumnAccuracy />",
+              "  <ColumnCurrencySymbol />",
+              "  <ColumnPositivePattern />",
+              "  <ColumnNegativePattern />",
+              "  <ColumnWidths>",
+              "    <item>",
+              "      <key>",
+              "        <string>Time_Key</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>76</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Time</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>103</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Hour</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>93</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Minute</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>96</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Second</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>135</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>DateCreated</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>92</int>",
+              "      </value>",
+              "    </item>",
+              "  </ColumnWidths>",
+              "  <ColumnDisplayIndex>",
+              "    <item>",
+              "      <key>",
+              "        <string>Time_Key</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>0</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Time</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>1</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Hour</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>2</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Minute</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>3</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>Second</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>4</int>",
+              "      </value>",
+              "    </item>",
+              "    <item>",
+              "      <key>",
+              "        <string>DateCreated</string>",
+              "      </key>",
+              "      <value>",
+              "        <int>5</int>",
+              "      </value>",
+              "    </item>",
+              "  </ColumnDisplayIndex>",
+              "  <ColumnFrozen />",
+              "  <ColumnChecked>",
+              "    <item>",
+              "      <key>",
+              "        <string>DateCreated</string>",
+              "      </key>",
+              "      <value>",
+              "        <boolean>false</boolean>",
+              "      </value>",
+              "    </item>",
+              "  </ColumnChecked>",
+              "  <ColumnFilter />",
+              "  <SelectionFilter />",
+              "  <FilterParameters />",
+              "  <IsSortDescending>false</IsSortDescending>",
+              "</TableWidgetGridSerialization>]]></AnnotationContent></Gemini>"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Vessel",
+        "columns": [
+          {
+            "name": "Vessel_Key",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Vessel_Key",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MMSI",
+            "dataType": "string",
+            "sourceColumn": "MMSI",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Vessel_Name",
+            "dataType": "string",
+            "sourceColumn": "Vessel_Name",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "IMO",
+            "dataType": "string",
+            "sourceColumn": "IMO",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Call_Sign",
+            "dataType": "string",
+            "sourceColumn": "Call_Sign",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Ship_Type",
+            "dataType": "int64",
+            "sourceColumn": "Ship_Type",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MID",
+            "dataType": "string",
+            "sourceColumn": "MID",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "MID_Number",
+            "dataType": "int64",
+            "sourceColumn": "MID_Number",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Dimension_To_Bow",
+            "dataType": "int64",
+            "sourceColumn": "Dimension_To_Bow",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Dimension_To_Stern",
+            "dataType": "int64",
+            "sourceColumn": "Dimension_To_Stern",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Length",
+            "dataType": "int64",
+            "sourceColumn": "Length",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Dimension_To_Port",
+            "dataType": "int64",
+            "sourceColumn": "Dimension_To_Port",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Dimension_To_Starboard",
+            "dataType": "int64",
+            "sourceColumn": "Dimension_To_Starboard",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Beam",
+            "dataType": "int64",
+            "sourceColumn": "Beam",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Position_Type_Fix",
+            "dataType": "int64",
+            "sourceColumn": "Position_Type_Fix",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "BatchCreated",
+            "dataType": "int64",
+            "sourceColumn": "BatchCreated",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "BatchUpdated",
+            "dataType": "int64",
+            "sourceColumn": "BatchUpdated",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Valid_From",
+            "dataType": "dateTime",
+            "sourceColumn": "Valid_From",
+            "formatString": "General Date",
+            "sourceProviderType": "DBTimeStamp"
+          },
+          {
+            "name": "Valid_To",
+            "dataType": "dateTime",
+            "sourceColumn": "Valid_To",
+            "formatString": "General Date",
+            "sourceProviderType": "DBTimeStamp"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Vessel",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " SELECT [edw].[Dim_Vessel].* FROM [edw].[Dim_Vessel] ",
+              "dataSource": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " SELECT [edw].[Dim_Vessel].* FROM [edw].[Dim_Vessel] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Dim_Vessel"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "edw"
+          }
+        ]
+      },
+      {
+        "name": "Voyage",
+        "columns": [
+          {
+            "name": "Voyage_Key",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Voyage_Key",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MMSI",
+            "dataType": "string",
+            "sourceColumn": "MMSI",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Start_Timestamp",
+            "dataType": "dateTime",
+            "sourceColumn": "Start_Timestamp",
+            "formatString": "General Date",
+            "sourceProviderType": "DBTimeStamp"
+          },
+          {
+            "name": "Update_Timestamp",
+            "dataType": "dateTime",
+            "sourceColumn": "Update_Timestamp",
+            "formatString": "General Date",
+            "sourceProviderType": "DBTimeStamp"
+          },
+          {
+            "name": "ETA_month",
+            "dataType": "int64",
+            "sourceColumn": "ETA_month",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "ETA_day",
+            "dataType": "int64",
+            "sourceColumn": "ETA_day",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "ETA_hour",
+            "dataType": "int64",
+            "sourceColumn": "ETA_hour",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "ETA_minute",
+            "dataType": "int64",
+            "sourceColumn": "ETA_minute",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Destination",
+            "dataType": "string",
+            "sourceColumn": "Destination",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "Batch_Created",
+            "dataType": "int64",
+            "sourceColumn": "Batch_Created",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Batch_Updated",
+            "dataType": "int64",
+            "sourceColumn": "Batch_Updated",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Is_Current",
+            "dataType": "int64",
+            "sourceColumn": "Is_Current",
+            "sourceProviderType": "Integer"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Voyage",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " SELECT [edw].[Dim_Voyage].* FROM [edw].[Dim_Voyage] ",
+              "dataSource": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " SELECT [edw].[Dim_Voyage].* FROM [edw].[Dim_Voyage] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Dim_Voyage"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "edw"
+          }
+        ]
+      },
+      {
+        "name": "Route",
+        "columns": [
+          {
+            "name": "Vessel_Key",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Vessel_Key",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Date_Key",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Date_Key",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Time_Key",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Time_Key",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Latitude_Key",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Latitude_Key",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Longitude_Key",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Longitude_Key",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Navigation_Status_Key",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Navigation_Status_Key",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Voyage_Key",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Voyage_Key",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Rate_Of_Turn_ROT",
+            "dataType": "int64",
+            "sourceColumn": "Rate_Of_Turn_ROT",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Speed_Over_Ground_SOG",
+            "dataType": "double",
+            "sourceColumn": "Speed_Over_Ground_SOG",
+            "sourceProviderType": "Numeric"
+          },
+          {
+            "name": "Course_Over_Ground_COG",
+            "dataType": "double",
+            "sourceColumn": "Course_Over_Ground_COG",
+            "sourceProviderType": "Numeric"
+          },
+          {
+            "name": "True_Heading_HDG",
+            "dataType": "int64",
+            "sourceColumn": "True_Heading_HDG",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Position_Accuracy",
+            "dataType": "int64",
+            "sourceColumn": "Position_Accuracy",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "Manoeuvre_Indicator",
+            "dataType": "int64",
+            "sourceColumn": "Manoeuvre_Indicator",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "RAIM_Flag",
+            "dataType": "int64",
+            "sourceColumn": "RAIM_Flag",
+            "sourceProviderType": "UnsignedTinyInt"
+          },
+          {
+            "name": "Draught",
+            "dataType": "double",
+            "sourceColumn": "Draught",
+            "sourceProviderType": "Numeric"
+          },
+          {
+            "name": "Batch",
+            "dataType": "int64",
+            "sourceColumn": "Batch",
+            "sourceProviderType": "Integer"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Route",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " SELECT [edw].[Fact_Route].* FROM [edw].[Fact_Route] ",
+              "dataSource": "SqlServer DESKTOP-DJ90PDJMYSQLSERVER AIS_EDW"
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Total_Vessels",
+            "expression": "DISTINCTCOUNT([Vessel_Key])"
+          },
+          {
+            "name": "Minimum of Course_Over_Ground_COG",
+            "expression": "MIN([Course_Over_Ground_COG])"
+          },
+          {
+            "name": "Maximum of Course_Over_Ground_COG",
+            "expression": "MAX([Course_Over_Ground_COG])"
+          },
+          {
+            "name": "Average of Course_Over_Ground_COG",
+            "expression": "AVERAGE([Course_Over_Ground_COG])"
+          },
+          {
+            "name": "Average of Speed_Over_Ground_SOG",
+            "expression": "AVERAGE([Speed_Over_Ground_SOG])"
+          },
+          {
+            "name": "Minimum of Speed_Over_Ground_SOG",
+            "expression": "MIN([Speed_Over_Ground_SOG])"
+          },
+          {
+            "name": "Minimum of Speed_Over_Ground_SOG 2",
+            "expression": "MIN([Speed_Over_Ground_SOG])"
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " SELECT [edw].[Fact_Route].* FROM [edw].[Fact_Route] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "Fact_Route"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "edw"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "b11ae31f-9732-49e0-8c29-1f0a9a75b3a7",
+        "fromTable": "Route",
+        "fromColumn": "Voyage_Key",
+        "toTable": "Voyage",
+        "toColumn": "Voyage_Key"
+      },
+      {
+        "name": "006e1a0c-b275-4c06-8737-43d51fbe776a",
+        "fromTable": "Route",
+        "fromColumn": "Vessel_Key",
+        "toTable": "Vessel",
+        "toColumn": "Vessel_Key"
+      },
+      {
+        "name": "66e56c39-88a6-4252-b791-f47ec778039c",
+        "fromTable": "Route",
+        "fromColumn": "Time_Key",
+        "toTable": "Time",
+        "toColumn": "Time_Key"
+      },
+      {
+        "name": "2a07ab20-0be5-4a12-9536-a88952471324",
+        "fromTable": "Route",
+        "fromColumn": "Navigation_Status_Key",
+        "toTable": "Navigation_Status",
+        "toColumn": "Navigation_Status_Key"
+      },
+      {
+        "name": "87ddee71-254b-4888-b18f-dbe9b3d4c388",
+        "fromTable": "Route",
+        "fromColumn": "Longitude_Key",
+        "toTable": "Longitude",
+        "toColumn": "Longitude_Key"
+      },
+      {
+        "name": "f9dfab5e-620e-4777-bd95-71628412f88f",
+        "fromTable": "Route",
+        "fromColumn": "Latitude_Key",
+        "toTable": "Latitude",
+        "toColumn": "Latitude_Key"
+      },
+      {
+        "name": "e3c39025-bf0f-42cd-9e60-55ed6d9da2ad",
+        "fromTable": "Vessel",
+        "fromColumn": "Ship_Type",
+        "toTable": "Ship_Type",
+        "toColumn": "Ship_Type_Key"
+      },
+      {
+        "name": "e0112ac1-e055-4faa-a709-77d1cd0b3671",
+        "fromTable": "Route",
+        "fromColumn": "Date_Key",
+        "toTable": "Date",
+        "toColumn": "Date_Key"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "400"
+      }
+    ]
+  },
+  "id": "SemanticModel"
+}

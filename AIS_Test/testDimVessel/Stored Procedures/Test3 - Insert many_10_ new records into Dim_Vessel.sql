@@ -2,12 +2,18 @@
 
 
 
-
-
-
-
 /******
-	Test02: Insert 10 non existent records into Dim_Vessel
+	Change log: 
+		2020-03-25	Stored procedure created for testing stored procedures targetting Dim_Vessel
+		2020-04-10	Stored procedure updated for testing the effect of the stored procedures utility.Add_Batch on Dim_Vessel. The update consists of:
+						-add execution of utility.Batch SP;
+						-expand table expected with [BatchCreated] and [BatchUpdated] attributes;
+						-expand insert statement of expected with the expected valued for the above mentioned attributes, for providing the possibility of comparison with the actual Dim_Vessel table, hence 
+							checking if the record contains the correct batch number.
+
+	Test3: Insert 10 new records into Dim_Vessel:
+		The test performs the ETL targeting Dim_Vessel one time, where the source file contains many records(10). The test verifies if the output of the ETL process is as expected.
+		UPDATE: Furthermore, it is verified if the record contains the correct batch number, when Add_Batch is included 
 
 	- Dim_Vessel
 		- no content
@@ -28,24 +34,19 @@
 
 *****/
 
-CREATE   PROCEDURE [testDimVessel].[Test3 - Insert 10 non existent records into Dim_Vessel]
+CREATE PROCEDURE [testDimVessel].[Test3 - Insert many(10) new records into Dim_Vessel]
 AS
 BEGIN
 
+/*Arrange*/
+  
   DECLARE @rowCount_Dim_Vessel int
-
   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
 
   -- truncate tables to have accurate test results 
   truncate table edw.Dim_Vessel
   truncate table extract.AIS_Data
   truncate table utility.Batch
-
-  -- ETL for Dim_Vessel records
-  execute [extract].[AIS_Data_CSV]'C:\AIS\Tests\Test3.csv'
-  execute [load].[Dim_Vessel_L]
-
-  /* METHOD 1 of testing - using table's records values */
 
   --create table expected, having the same structure as Dim_Vessel
   create table expected (
@@ -92,17 +93,23 @@ BEGIN
 	insert into expected
 	values ('311055900','SKANDI CONSTRUCTOR','9431642',	'C6ZH8 ',	70,	   'Bahamas (Commonwealth of the)',	311, 42, 78, 120,  13,11, 24, 1, 1, NULL,  '2020-03-26 16:55:41.0000000',	'9999-12-31 00:00:00.0000000')
 	
+/*ACT*/
+  -- ETL for Dim_Vessel records
+  execute [extract].[AIS_Data_CSV]'C:\AIS\Tests\Test3.csv'
+  execute utility.Add_Batch 1
+  execute [load].[Dim_Vessel_L]	
+  truncate table extract.AIS_Data
+
+  -- set rowCount for Dim_Vessel
+  set @rowCount_Dim_Vessel= (select count(*) from edw.Dim_Vessel )
+
+/*ASSERT*/
   -- evaluate the actual table (Dim_Vessel) and the expected table
   EXEC tSQLt.AssertEqualsTable 'expected', 'edw.Dim_Vessel';
 
- /* METHOD 2 of testing - using row count */
- 
- -- set rowCount for Dim_Vessel
- set @rowCount_Dim_Vessel= (select count(*) from edw.Dim_Vessel )
- 
- -- evaluate if expected rowCount for Dim_Vessel is 2
- EXEC tSQLt.AssertEqualsString 10, @rowCount_Dim_Vessel;  
+ -- evaluate the actual table (Dim_Vessel) using rowCount for Dim_Vessel
+  EXEC tSQLt.AssertEqualsString 10, @rowCount_Dim_Vessel;  
 
 end
 
--- exec tsqlt.Run @TestName = '[testDimVessel].[Test3: Insert 10 non existent records into Dim_Vessel]'
+-- exec tsqlt.Run @TestName = '[testDimVessel].[Test3 - Insert many(10) new records into Dim_Vessel]'

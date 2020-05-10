@@ -59,21 +59,12 @@
           {
             "name": "Month_Name",
             "dataType": "string",
-            "isHidden": true,
             "sourceColumn": "Month_Name",
-            "sourceProviderType": "WChar"
-          },
-          {
-            "name": "Month_ShortName",
-            "dataType": "string",
-            "isHidden": true,
-            "sourceColumn": "Month_ShortName",
             "sourceProviderType": "WChar"
           },
           {
             "name": "Week",
             "dataType": "int64",
-            "isHidden": true,
             "sourceColumn": "Week",
             "sourceProviderType": "Integer"
           },
@@ -85,36 +76,10 @@
             "sourceProviderType": "Integer"
           },
           {
-            "name": "DayOfYear",
-            "dataType": "int64",
-            "sourceColumn": "DayOfYear",
-            "sourceProviderType": "Integer"
-          },
-          {
-            "name": "DayOfWeek",
-            "dataType": "int64",
-            "sourceColumn": "DayOfWeek",
-            "sourceProviderType": "Integer"
-          },
-          {
             "name": "DayOfWeek_Name",
             "dataType": "string",
             "sourceColumn": "DayOfWeek_Name",
             "sourceProviderType": "WChar"
-          },
-          {
-            "name": "DayOfWeek_ShortName",
-            "dataType": "string",
-            "sourceColumn": "DayOfWeek_ShortName",
-            "sourceProviderType": "WChar"
-          },
-          {
-            "name": "DateCreated",
-            "dataType": "dateTime",
-            "isHidden": true,
-            "sourceColumn": "DateCreated",
-            "formatString": "General Date",
-            "sourceProviderType": "DBTimeStamp"
           }
         ],
         "partitions": [
@@ -130,7 +95,7 @@
         ],
         "hierarchies": [
           {
-            "name": "Hierarchy2",
+            "name": "Date_Hierarchy",
             "levels": [
               {
                 "name": "Year",
@@ -143,19 +108,14 @@
                 "column": "Quarter"
               },
               {
-                "name": "Week",
-                "ordinal": 3,
-                "column": "Week"
-              },
-              {
                 "name": "Day",
-                "ordinal": 4,
+                "ordinal": 3,
                 "column": "Day"
               },
               {
-                "name": "Month_ShortName",
+                "name": "Month",
                 "ordinal": 2,
-                "column": "Month_ShortName"
+                "column": "Month"
               }
             ]
           }
@@ -194,14 +154,12 @@
           {
             "name": "Latitude_Degree",
             "dataType": "int64",
-            "isHidden": true,
             "sourceColumn": "Latitude_Degree",
             "sourceProviderType": "Integer"
           },
           {
             "name": "Latitude_Decimal_Degree",
             "dataType": "int64",
-            "isHidden": true,
             "sourceColumn": "Latitude_Decimal_Degree",
             "sourceProviderType": "Integer"
           },
@@ -414,23 +372,6 @@
                   "  <IsSortDescending>false</IsSortDescending>",
                   "</TableWidgetGridSerialization>]]></AnnotationContent></Gemini>"
                 ]
-              }
-            ]
-          }
-        ],
-        "hierarchies": [
-          {
-            "name": "Latitude",
-            "levels": [
-              {
-                "name": "Latitude_Degree",
-                "ordinal": 0,
-                "column": "Latitude_Degree"
-              },
-              {
-                "name": "Latitude_Decimal_Degree",
-                "ordinal": 1,
-                "column": "Latitude_Decimal_Degree"
               }
             ]
           }
@@ -662,14 +603,12 @@
           {
             "name": "Longitude_Degree",
             "dataType": "int64",
-            "isHidden": true,
             "sourceColumn": "Longitude_Degree",
             "sourceProviderType": "Integer"
           },
           {
             "name": "Longitude_Decimal_Degree",
             "dataType": "int64",
-            "isHidden": true,
             "sourceColumn": "Longitude_Decimal_Degree",
             "sourceProviderType": "Integer"
           },
@@ -866,23 +805,6 @@
                   "  <IsSortDescending>false</IsSortDescending>",
                   "</TableWidgetGridSerialization>]]></AnnotationContent></Gemini>"
                 ]
-              }
-            ]
-          }
-        ],
-        "hierarchies": [
-          {
-            "name": "Longitude",
-            "levels": [
-              {
-                "name": "Longitude_Degree",
-                "ordinal": 0,
-                "column": "Longitude_Degree"
-              },
-              {
-                "name": "Longitude_Decimal_Degree",
-                "ordinal": 1,
-                "column": "Longitude_Decimal_Degree"
               }
             ]
           }
@@ -1085,6 +1007,7 @@
           {
             "name": "Navigation_Status_Key",
             "dataType": "int64",
+            "isHidden": true,
             "sourceColumn": "Navigation_Status_Key",
             "sourceProviderType": "Integer"
           },
@@ -1177,6 +1100,7 @@
           {
             "name": "Time",
             "dataType": "dateTime",
+            "isHidden": true,
             "sourceColumn": "Time",
             "formatString": "General Date",
             "sourceProviderType": "145"
@@ -1719,18 +1643,6 @@
             "sourceProviderType": "WChar"
           },
           {
-            "name": "Batch_Created",
-            "dataType": "int64",
-            "sourceColumn": "Batch_Created",
-            "sourceProviderType": "Integer"
-          },
-          {
-            "name": "Batch_Updated",
-            "dataType": "int64",
-            "sourceColumn": "Batch_Updated",
-            "sourceProviderType": "Integer"
-          },
-          {
             "name": "Is_Current",
             "dataType": "int64",
             "sourceColumn": "Is_Current",
@@ -1866,6 +1778,7 @@
           {
             "name": "Batch",
             "dataType": "int64",
+            "isHidden": true,
             "sourceColumn": "Batch",
             "sourceProviderType": "Integer"
           }
@@ -1883,32 +1796,23 @@
         ],
         "measures": [
           {
-            "name": "Total_Vessels",
-            "expression": "DISTINCTCOUNT([Vessel_Key])"
-          },
-          {
-            "name": "Minimum of Speed_Over_Ground_SOG 2",
-            "expression": "MIN([Speed_Over_Ground_SOG])"
-          },
-          {
-            "name": "Maximum of Speed_Over_Ground_SOG",
-            "expression": "MAX([Speed_Over_Ground_SOG])"
-          },
-          {
-            "name": "Average of Speed_Over_Ground_SOG",
+            "name": "Average_SOG",
             "expression": "AVERAGE([Speed_Over_Ground_SOG])"
           },
           {
-            "name": "Maximum of Course_Over_Ground_COG",
-            "expression": "MAX([Course_Over_Ground_COG])"
-          },
-          {
-            "name": "Minimum of Course_Over_Ground_COG",
-            "expression": "MIN([Course_Over_Ground_COG])"
-          },
-          {
-            "name": "Average of Course_Over_Ground_COG",
+            "name": "Average_COG",
             "expression": "AVERAGE([Course_Over_Ground_COG])"
+          },
+          {
+            "name": "Total_Records",
+            "expression": "COUNTA([Vessel_Key])"
+          },
+          {
+            "name": "Total_DistinctMMSI",
+            "expression": [
+              "",
+              "CALCULATE ( DISTINCTCOUNT ( Vessel[MMSI]), Route)"
+            ]
           }
         ],
         "annotations": [

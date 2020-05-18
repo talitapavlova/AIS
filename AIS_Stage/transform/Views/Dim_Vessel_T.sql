@@ -1,4 +1,7 @@
 ﻿
+
+
+
 /*
 Change log: 
 	2020-03-01	NP	View created
@@ -94,11 +97,12 @@ SELECT
 		WHEN ISNULL(new.Position_Type_Fix, 0) = ISNULL(old.Position_Type_Fix, 0) THEN 0
 		ELSE 1
 	END AS isPositionTypeFixChanged
-FROM extract.AIS_Data new
+FROM archive.AIS_Data_archive new
 LEFT JOIN AIS_EDW.edw.Dim_Vessel old  
 	ON new.MMSI = old.MMSI 
 	AND old.BatchUpdated IS NULL
 WHERE new.Message_Type in (24, 19, 5)
+AND new.Batch > (SELECT ISNULL(MAX(Batch), 0) from utility.Batch)
 )
 , 
 
@@ -163,6 +167,7 @@ SELECT
 	IMO,
 	Call_Sign,
 	Ship_Type,
+	ISNULL(b.Ship_Type_Description, -1) AS Ship_Type_Description,
 	Dimension_To_Bow,
 	Dimension_To_Stern,
 	Length, 
@@ -180,4 +185,5 @@ SELECT
 	VesselRowNumAsc,
 	MMSI_exists,
 	isChanged
-FROM VesselsInOrder
+FROM VesselsInOrder a
+LEFT JOIN utility.Dim_Ship_Type b on a.Ship_Type = b.Ship_Type_Key

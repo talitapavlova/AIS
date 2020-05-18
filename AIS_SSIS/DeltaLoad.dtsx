@@ -11,36 +11,137 @@
   DTS:LocaleID="1030"
   DTS:ObjectName="DeltaLoad"
   DTS:PackageType="5"
-  DTS:VersionBuild="12"
-  DTS:VersionGUID="{3D95D464-AB3E-4C4C-81C8-0DBB1AC2AB37}">
+  DTS:VersionBuild="36"
+  DTS:VersionGUID="{ACBF9548-0C55-4F73-A8CB-01FECB6D4EB2}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
-  <DTS:Variables />
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Flat File Connection Manager]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{1C614086-7FB3-4295-A1BB-26CD168996B2}"
+      DTS:ObjectName="Flat File Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1030"
+          DTS:HeaderRowDelimiter="_x007C_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="C:\AIS\log.txt">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName=" event "
+              DTS:DTSID="{067683C8-37EA-4B94-A719-6D2A18DE1912}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="64"
+              DTS:TextQualified="True"
+              DTS:ObjectName=" timestamp"
+              DTS:DTSID="{A0F4951F-CD2E-4C49-A4FB-FF49F2FEEB88}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Flat File Connection Manager 1]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{D8885CBA-3A59-457D-80F9-A8115390C5F3}"
+      DTS:ObjectName="Flat File Connection Manager 1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1030"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="C:\AIS\log.txt">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName=" event "
+              DTS:DTSID="{FED42999-5F87-41E3-B6D7-C98C7A324863}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName=" timestamp"
+              DTS:DTSID="{7B8CE905-26E4-48C4-A9E9-6135DFEDFD4A}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{C2985E38-94C2-4B9E-AF28-715C76787E4A}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="HasError">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3E288C8A-6DBF-4BAE-9DA0-42DA630311B4}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="HasError1">
+      <DTS:VariableValue
+        DTS:DataType="19">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
   <DTS:Executables>
     <DTS:Executable
-      DTS:refId="Package\Add Batch"
+      DTS:refId="Package\Check for error in previous load"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
-      DTS:DTSID="{5E14AFD1-D3E9-4613-ABFD-0C6EEABD7264}"
+      DTS:DTSID="{99859B89-3388-4A5A-AB36-60B44023F69B}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
-      DTS:ObjectName="Add Batch"
+      DTS:ObjectName="Check for error in previous load"
       DTS:ThreadHint="0">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{D59E26AB-8475-43EB-8EF5-41488A4ED299}"
-          SQLTask:SqlStatementSource="exec [utility].[Add_Batch] 1" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="SELECT &#xA;&#x9;CASE WHEN Message_type = 'error' THEN 1&#xA;&#x9;&#x9;ELSE 0&#xA;&#x9;END AS er&#xA;FROM utility.Event_Log&#xA;WHERE DateCreated = (&#xA;&#x9;SELECT max(DateCreated)&#xA;&#x9;FROM utility.Event_Log)&#xA;"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="er"
+            SQLTask:DtsVariableName="User::HasError" />
+        </SQLTask:SqlTaskData>
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
-      DTS:refId="Package\Archive"
+      DTS:refId="Package\Move to ARCHIVE"
       DTS:CreationName="Microsoft.ExecuteProcess"
       DTS:Description="Execute Process Task"
       DTS:DTSID="{90FDB9DF-B453-4CDE-929F-D8164F220FB3}"
       DTS:ExecutableType="Microsoft.ExecuteProcess"
       DTS:LocaleID="-1"
-      DTS:ObjectName="Archive"
+      DTS:ObjectName="Move to ARCHIVE"
       DTS:ThreadHint="0">
       <DTS:Variables />
       <DTS:ObjectData>
@@ -50,51 +151,19 @@
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
-      DTS:refId="Package\Extract from CSV"
-      DTS:CreationName="Microsoft.ExecuteSQLTask"
-      DTS:Description="Execute SQL Task"
-      DTS:DTSID="{5F595B45-B83B-45B0-B078-6E06AD46E80B}"
-      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:refId="Package\Move to ERROR"
+      DTS:CreationName="Microsoft.ExecuteProcess"
+      DTS:Description="Execute Process Task"
+      DTS:DTSID="{E78BF23A-6185-41C1-81C7-721DB60F3049}"
+      DTS:ExecutableType="Microsoft.ExecuteProcess"
       DTS:LocaleID="-1"
-      DTS:ObjectName="Extract from CSV"
-      DTS:ThreadHint="0">
+      DTS:ObjectName="Move to ERROR"
+      DTS:ThreadHint="1">
       <DTS:Variables />
       <DTS:ObjectData>
-        <SQLTask:SqlTaskData
-          SQLTask:Connection="{D59E26AB-8475-43EB-8EF5-41488A4ED299}"
-          SQLTask:SqlStatementSource="exec extract.AIS_Data_CSV" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable
-      DTS:refId="Package\Load Dim_Vessel"
-      DTS:CreationName="Microsoft.ExecuteSQLTask"
-      DTS:Description="Execute SQL Task"
-      DTS:DTSID="{30A86C7F-5C30-47CC-9AB8-569BC3AD85CF}"
-      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
-      DTS:LocaleID="-1"
-      DTS:ObjectName="Load Dim_Vessel"
-      DTS:ThreadHint="0">
-      <DTS:Variables />
-      <DTS:ObjectData>
-        <SQLTask:SqlTaskData
-          SQLTask:Connection="{D59E26AB-8475-43EB-8EF5-41488A4ED299}"
-          SQLTask:SqlStatementSource="exec load.Dim_Vessel_L" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable
-      DTS:refId="Package\Load Fact_Route"
-      DTS:CreationName="Microsoft.ExecuteSQLTask"
-      DTS:Description="Execute SQL Task"
-      DTS:DTSID="{BB15BA17-F542-43AC-B297-0EE23D277CDF}"
-      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
-      DTS:LocaleID="-1"
-      DTS:ObjectName="Load Fact_Route"
-      DTS:ThreadHint="0">
-      <DTS:Variables />
-      <DTS:ObjectData>
-        <SQLTask:SqlTaskData
-          SQLTask:Connection="{D59E26AB-8475-43EB-8EF5-41488A4ED299}"
-          SQLTask:SqlStatementSource="exec load.Fact_Route_L" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+        <ExecuteProcessData
+          Executable="PowerShell.exe"
+          Arguments="-F C:\AIS\AISerror.ps1" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -114,19 +183,19 @@
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
-      DTS:refId="Package\Truncate AIS_Data"
+      DTS:refId="Package\Run ETL"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
-      DTS:DTSID="{FAE5613A-B1F0-4353-9290-0F2DED443FA1}"
+      DTS:DTSID="{5F595B45-B83B-45B0-B078-6E06AD46E80B}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
-      DTS:ObjectName="Truncate AIS_Data"
+      DTS:ObjectName="Run ETL"
       DTS:ThreadHint="0">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{D59E26AB-8475-43EB-8EF5-41488A4ED299}"
-          SQLTask:SqlStatementSource="Truncate table extract.AIS_Data" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="exec etl.Run_ETL 1" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
@@ -134,51 +203,48 @@
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint]"
       DTS:CreationName=""
-      DTS:DTSID="{94C92909-3FF6-4914-AAEA-CB98F551022B}"
-      DTS:From="Package\Extract from CSV"
+      DTS:DTSID="{BDA2121E-A5FC-4BA1-90CA-3F1D5D4DBAB8}"
+      DTS:From="Package\Run ETL"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint"
-      DTS:To="Package\Add Batch" />
+      DTS:To="Package\Move to ARCHIVE" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
       DTS:CreationName=""
-      DTS:DTSID="{6C7F1EED-652B-4EDD-AC5C-1B81F0B2479D}"
-      DTS:From="Package\Load Dim_Vessel"
+      DTS:DTSID="{46AD035A-F490-4EE7-8D9E-21FCF2C35582}"
+      DTS:From="Package\Run ETL"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 1"
-      DTS:To="Package\Load Fact_Route" />
+      DTS:To="Package\Move to ERROR"
+      DTS:Value="1" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
       DTS:CreationName=""
-      DTS:DTSID="{CA5593CB-A50F-40B8-B54A-8E3E247475B4}"
+      DTS:DTSID="{BEFEC54D-18A7-4678-8DF5-D42D2627F3A8}"
       DTS:From="Package\Output"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 2"
-      DTS:To="Package\Extract from CSV" />
+      DTS:To="Package\Check for error in previous load" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
       DTS:CreationName=""
-      DTS:DTSID="{F6761365-D0DB-4DA2-910A-3051A2EAEA04}"
-      DTS:From="Package\Add Batch"
+      DTS:DTSID="{618074B2-1645-42C9-A091-99E26DDD6EFA}"
+      DTS:EvalOp="1"
+      DTS:Expression="@HasError == 0"
+      DTS:From="Package\Check for error in previous load"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 3"
-      DTS:To="Package\Load Dim_Vessel" />
+      DTS:To="Package\Run ETL" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
       DTS:CreationName=""
-      DTS:DTSID="{F9681419-2A0C-49BC-935B-1982C0993311}"
-      DTS:From="Package\Load Fact_Route"
+      DTS:DTSID="{FD9F9EBA-B86A-4111-BA30-C394602002A3}"
+      DTS:EvalOp="1"
+      DTS:Expression="@HasError &gt; 0"
+      DTS:From="Package\Check for error in previous load"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 4"
-      DTS:To="Package\Truncate AIS_Data" />
-    <DTS:PrecedenceConstraint
-      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
-      DTS:CreationName=""
-      DTS:DTSID="{1993847F-36FA-47A3-A322-20A64D4318A0}"
-      DTS:From="Package\Truncate AIS_Data"
-      DTS:LogicalAnd="True"
-      DTS:ObjectName="Constraint 5"
-      DTS:To="Package\Archive" />
+      DTS:To="Package\Move to ERROR" />
   </DTS:PrecedenceConstraints>
   <DTS:EventHandlers>
     <DTS:EventHandler
@@ -214,49 +280,41 @@
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="126.4,41.6"
-          Id="Package\Add Batch"
-          TopLeft="35.4285720319163,179.858826051864" />
-        <NodeLayout
-          Size="112.8,41.6"
-          Id="Package\Archive"
-          TopLeft="31.8857147333572,348.094122528947" />
-        <NodeLayout
-          Size="158.4,41.6"
-          Id="Package\Extract from CSV"
-          TopLeft="21.7142860840786,97.6941188825461" />
-        <NodeLayout
-          Size="158.4,41.6"
-          Id="Package\Load Dim_Vessel"
-          TopLeft="207.428574961059,183.529414338637" />
+          Size="227.2,41.6"
+          Id="Package\Check for error in previous load"
+          TopLeft="209.142860704539,153.552943329993" />
         <NodeLayout
           Size="162.4,41.6"
-          Id="Package\Load Fact_Route"
-          TopLeft="204.0000034741,265.505886076561" />
+          Id="Package\Move to ARCHIVE"
+          TopLeft="246.742861249496,358.494122674803" />
+        <NodeLayout
+          Size="152.8,41.6"
+          Id="Package\Move to ERROR"
+          TopLeft="440.000007493156,360.941181532651" />
         <NodeLayout
           Size="129.6,41.6"
           Id="Package\Output"
-          TopLeft="33.7142862884361,13.4588237181667" />
+          TopLeft="258.285718684294,60.56470673175" />
         <NodeLayout
-          Size="167.2,41.6"
-          Id="Package\Truncate AIS_Data"
-          TopLeft="200.000003405979,349.270592516599" />
+          Size="117.6,41.6"
+          Id="Package\Run ETL"
+          TopLeft="270.285718888654,246.964709211304" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="99.7714290579974,139.294118882546">
+          TopLeft="327.380956871981,288.564709211304">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,40.564707169318"
+              EndConnector="0,69.9294134634985"
               Start="0,0"
-              End="0,33.064707169318">
+              End="0,62.4294134634985">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,33.064707169318" />
+                    End="0,62.4294134634985" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -267,40 +325,54 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="285.91428921758,225.129414338637">
+          TopLeft="347.352385555321,288.564709211304">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,40.3764717379241"
+              EndConnector="150.761907340717,72.3764723213472"
               Start="0,0"
-              End="0,32.8764717379241">
+              End="150.761907340717,64.8764723213472">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,32.8764717379241" />
+                    End="0,25.5334866922008" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.5334866922008"
+                    Point2="0,29.5334866922008"
+                    Point3="4,29.5334866922008" />
+                  <mssgle:LineSegment
+                    End="146.761907340717,29.5334866922008" />
+                  <mssgle:CubicBezierSegment
+                    Point1="146.761907340717,29.5334866922008"
+                    Point2="150.761907340717,29.5334866922008"
+                    Point3="150.761907340717,33.5334866922008" />
+                  <mssgle:LineSegment
+                    End="150.761907340717,64.8764723213472" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="60.1396060141085,34.5334866922008,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="99.7142861862573,55.0588237181667">
+          TopLeft="322.914289694417,102.16470673175">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,42.6352951643794"
+              EndConnector="0,51.388236598243"
               Start="0,0"
-              End="0,35.1352951643794">
+              End="0,43.888236598243">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,35.1352951643794" />
+                    End="0,43.888236598243" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -311,70 +383,78 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="161.828572031916,202.494120195251">
+          TopLeft="325.914289796597,195.152943329993">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="45.6000029291432,0"
+              EndConnector="0,51.8117658813115"
               Start="0,0"
-              End="38.1000029291432,0">
+              End="0,44.3117658813115">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="38.1000029291432,0" />
+                    End="0,44.3117658813115" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="-8,14.1558829406558,16,16"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 4]"
-          TopLeft="284.400003440039,307.105886076561">
+          TopLeft="402.704766206028,195.152943329993">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,42.1647064400376"
+              EndConnector="130.133337216151,165.788238202659"
               Start="0,0"
-              End="0,34.6647064400376">
+              End="130.133337216151,158.288238202659">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,34.6647064400376" />
+                    End="0,25.9346653812267" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.9346653812267"
+                    Point2="0,29.9346653812267"
+                    Point3="4,29.9346653812267" />
+                  <mssgle:LineSegment
+                    End="126.133337216151,29.9346653812267" />
+                  <mssgle:CubicBezierSegment
+                    Point1="126.133337216151,29.9346653812267"
+                    Point2="130.133337216151,29.9346653812267"
+                    Point3="130.133337216151,33.9346653812267" />
+                  <mssgle:LineSegment
+                    End="130.133337216151,158.288238202659" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="57.0666686080753,34.9346653812267,16,16"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 5]"
-          TopLeft="200.000003405979,369.482357522773">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-55.3142886726221,0"
-              Start="0,0"
-              End="-47.8142886726221,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="-47.8142886726221,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+        <AnnotationLayout
+          Text="@HasError &gt; 0"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="107.2,40"
+          Id="3cf5df7a-42d0-4b29-8a71-9ee4767f28de"
+          TopLeft="419.428578571398,189.035296768796" />
+        <AnnotationLayout
+          Text="@HasError = 0"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="140.8,40"
+          Id="d8d60e29-aaae-4b48-b7e5-0c360c352e22"
+          TopLeft="215.428575097298,198.211767485728" />
       </GraphLayout>
     </LayoutInfo>
   </Package>

@@ -74,13 +74,14 @@
     <Folder Include="archive\" />
     <Folder Include="archive\Tables\" />
     <Folder Include="archive\Stored Procedures\" />
+    <Folder Include="etl\" />
+    <Folder Include="etl\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\transform.sql" />
     <Build Include="Security\load.sql" />
     <Build Include="Security\extract.sql" />
     <Build Include="load\Stored Procedures\Dim_Vessel_L.sql" />
-    <Build Include="extract\Stored Procedures\AIS_Data_JSON.sql" />
     <Build Include="extract\Stored Procedures\AIS_Data_CSV.sql" />
     <Build Include="utility\Tables\Date_Info.sql" />
     <Build Include="utility\Stored Procedures\Get_Date.sql" />
@@ -104,6 +105,11 @@
     <Build Include="utility\Stored Procedures\Get_Navigation_Status.sql" />
     <Build Include="transform\Views\Dim_Voyage_T.sql" />
     <Build Include="load\Stored Procedures\Dim_Voyage_L.sql" />
+    <Build Include="archive\Stored Procedures\AIS_Data_AddToArchive_1.sql" />
+    <Build Include="etl\Stored Procedures\Run_ETL.sql" />
+    <Build Include="Security\etl.sql" />
+    <Build Include="utility\Tables\Event_Log.sql" />
+    <Build Include="utility\Tables\Dim_Ship_Type.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AIS_EDW\AIS_EDW.sqlproj">

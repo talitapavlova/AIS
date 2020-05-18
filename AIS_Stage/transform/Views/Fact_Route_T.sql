@@ -3,6 +3,8 @@
 
 
 
+
+
 /*
 Change log: 
 	2020-04-01	NP	View created with Vessel, Date and Time
@@ -11,7 +13,7 @@ Change log:
 	2020-04-24	NP	Added Voyage
 */
 
-CREATE    VIEW [transform].[Fact_Route_T]
+CREATE VIEW [transform].[Fact_Route_T]
 AS
 
 SELECT 
@@ -32,7 +34,7 @@ SELECT
 	a.RAIM_Flag,
 	a.ETA_Draught AS Draught,
 	a.Batch
-FROM extract.AIS_Data a
+FROM archive.AIS_Data_archive a
 LEFT JOIN AIS_EDW.edw.Dim_Vessel ves  
 	ON a.MMSI = ves.MMSI 
 	AND a.ReceivedTime >= ves.Valid_From
@@ -48,6 +50,7 @@ LEFT JOIN AIS_EDW.edw.Dim_Longitude long
 LEFT JOIN AIS_EDW.edw.Dim_Voyage voy  
 	ON a.MMSI = voy.MMSI 
 	AND voy.Is_Current = 1
+WHERE a.Batch > (SELECT ISNULL(MAX(Batch), 0) from utility.Batch)
 GO
 
 

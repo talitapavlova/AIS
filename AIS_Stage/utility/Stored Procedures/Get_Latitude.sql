@@ -4,13 +4,14 @@
 
 
 
+
 /*
 Change log: 
 	2020-04-10	SI	Stored procedure created
 	2020-04-11	NP	Added Latitude_key as integer
 */
 
-CREATE    PROCEDURE [utility].[Get_Latitude] AS
+CREATE  PROCEDURE [utility].[Get_Latitude] AS
 BEGIN
 
 /***** Denmark's border, including the water bodies, ranges from 53.000000 degrees to 59.000000 degrees Latitude, 
@@ -75,12 +76,12 @@ INSERT INTO [AIS_EDW].[edw].[Dim_Latitude](
 		Latitude_Direction
 ) VALUES (
 	-1,
-	-1,
-	-1,
-	-1,
-	-1,
-	-1,
-	'NA'
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL
 ) 
 
 /*

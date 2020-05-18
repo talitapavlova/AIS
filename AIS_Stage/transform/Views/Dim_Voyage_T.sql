@@ -1,6 +1,8 @@
 ﻿
 
 
+
+
 /*
 Change log: 
 	2020-04-21	NP	View created
@@ -21,9 +23,9 @@ SELECT
 	ETA_minute,
 	Replace(Destination, '@', '') as Destination,
 	Batch
-FROM extract.AIS_Data
-WHERE 
-	Destination is not null
+FROM archive.AIS_Data_archive
+WHERE Destination is not null
+	AND Batch > (SELECT ISNULL(MAX(Batch), 0) from utility.Batch)
 )
 , 
 

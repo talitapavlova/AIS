@@ -1,17 +1,26 @@
 ﻿
 
 
+
 /*
 Change log: 
 	2020-05-08	NP	Stored procedure created
+	2020-05-18	NP	Added the event log table logic with added error loging
 */
 
 CREATE PROCEDURE [etl].[Run_ETL] (@continuous smallint)
 AS
 
+BEGIN
+DECLARE 
+	@batch int = (SELECT ISNULL(1, MAX(Batch)) FROM utility.Batch),
+	@ErrorMessage  nvarchar(4000), 
+    @ErrorSeverity int;
+
 BEGIN TRY
 	BEGIN TRANSACTION
 		EXEC extract.AIS_Data_CSV
+		select 1/0
 		EXEC load.Dim_Vessel_L
 		EXEC load.Dim_Voyage_L
 		EXEC load.Fact_Route_L
@@ -38,10 +47,42 @@ BEGIN TRY
 		EXEC archive.AIS_Data_AddToArchive
 
 		TRUNCATE table extract.AIS_Data
+
+		SET @batch = (SELECT MAX(Batch) FROM utility.Batch)
+		INSERT INTO utility.Event_Log (
+			Batch,
+			Severity,
+			Message,
+			Message_type
+			)
+		VALUES (
+			@batch,
+			0,
+			'Batch load succeeded',
+			'success' )
+
 	COMMIT
 END TRY
 
 BEGIN CATCH
 	IF @@TRANCOUNT > 0
 		ROLLBACK TRAN
+
+		SELECT 
+			@ErrorMessage = ERROR_MESSAGE(), 
+			@ErrorSeverity = ERROR_SEVERITY()
+
+		INSERT INTO utility.Event_Log (
+			Batch,
+			Severity,
+			Message,
+			Message_type
+			)
+		VALUES (
+			@batch,
+			@ErrorSeverity,
+			@ErrorMessage,
+			'error' )
+
 END CATCH
+END

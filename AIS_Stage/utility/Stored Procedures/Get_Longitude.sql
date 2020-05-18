@@ -75,12 +75,12 @@ INSERT into [AIS_EDW].[edw].[Dim_Longitude](
 	Longitude_Direction
 ) VALUES (
 	-1,
-	-1,
-	-1,
-	-1,
-	-1,
-	-1,
-	'NA'
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL
 ) 
 
 /*

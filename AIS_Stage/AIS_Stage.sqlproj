@@ -108,6 +108,7 @@
     <Build Include="archive\Stored Procedures\AIS_Data_AddToArchive_1.sql" />
     <Build Include="etl\Stored Procedures\Run_ETL.sql" />
     <Build Include="Security\etl.sql" />
+    <Build Include="utility\Tables\Event_Log.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AIS_EDW\AIS_EDW.sqlproj">

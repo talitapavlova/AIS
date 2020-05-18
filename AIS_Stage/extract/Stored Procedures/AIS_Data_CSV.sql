@@ -17,7 +17,7 @@ Change log:
 */
  
 
-CREATE PROCEDURE [extract].[AIS_Data_CSV] (@File nvarchar(50) = 'C:\AIS\output_in_use.csv')
+CREATE PROCEDURE [extract].[AIS_Data_CSV] (@File nvarchar(200))
 AS
 
 DECLARE

@@ -1,12 +1,13 @@
 ﻿
 
+
 /*
 Change log: 
 	2020-04	SI	Stored procedure created
 */
 
 
-CREATE    PROCEDURE [utility].[Get_Ship_Type] AS
+CREATE PROCEDURE [utility].[Get_Ship_Type] AS
 
 BEGIN
 
@@ -20,9 +21,9 @@ SELECT * INTO #IncomingShipTypes FROM OPENROWSET ( BULK 'C:\AIS\StaticDimensions
 /*
 Insert unkown values into [edw].[Dim_Ship_Type]
 */
-TRUNCATE TABLE [AIS_EDW].[edw].[Dim_Ship_Type]
+TRUNCATE TABLE [utility].[Dim_Ship_Type]
 
-INSERT INTO [AIS_EDW].[edw].[Dim_Ship_Type](
+INSERT INTO [utility].[Dim_Ship_Type](
 		Ship_Type_Key,
 		Ship_Type_Description
 ) VALUES (
@@ -34,7 +35,7 @@ INSERT INTO [AIS_EDW].[edw].[Dim_Ship_Type](
 Insert utility.Ship_Type into [edw].[Dim_Ship_Type]
 */
 
-INSERT INTO [AIS_EDW].[edw].[Dim_Ship_Type](
+INSERT INTO [utility].[Dim_Ship_Type](
 		Ship_Type_Key,
 		Ship_Type_Description
 ) SELECT

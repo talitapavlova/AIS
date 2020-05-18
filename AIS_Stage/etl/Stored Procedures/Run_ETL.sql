@@ -8,7 +8,7 @@ Change log:
 	2020-05-18	NP	Added the event log table logic with added error loging
 */
 
-CREATE PROCEDURE [etl].[Run_ETL] (@continuous smallint)
+CREATE PROCEDURE [etl].[Run_ETL] (@continuous smallint, @File nvarchar(200) = 'C:\AIS\output_in_use.csv')
 AS
 
 BEGIN
@@ -19,8 +19,9 @@ DECLARE
 
 BEGIN TRY
 	BEGIN TRANSACTION
-		EXEC extract.AIS_Data_CSV
-		select 1/0
+		EXEC extract.AIS_Data_CSV @File
+		EXEC archive.AIS_Data_AddToArchive
+
 		EXEC load.Dim_Vessel_L
 		EXEC load.Dim_Voyage_L
 		EXEC load.Fact_Route_L
@@ -43,8 +44,6 @@ BEGIN TRY
 			GETDATE()		
 		FROM extract.AIS_Data
 		GROUP BY Batch
-
-		EXEC archive.AIS_Data_AddToArchive
 
 		TRUNCATE table extract.AIS_Data
 

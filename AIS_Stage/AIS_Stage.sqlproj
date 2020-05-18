@@ -109,6 +109,7 @@
     <Build Include="etl\Stored Procedures\Run_ETL.sql" />
     <Build Include="Security\etl.sql" />
     <Build Include="utility\Tables\Event_Log.sql" />
+    <Build Include="utility\Tables\Dim_Ship_Type.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AIS_EDW\AIS_EDW.sqlproj">

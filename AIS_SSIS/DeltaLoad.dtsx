@@ -11,8 +11,8 @@
   DTS:LocaleID="1030"
   DTS:ObjectName="DeltaLoad"
   DTS:PackageType="5"
-  DTS:VersionBuild="30"
-  DTS:VersionGUID="{49CCDFA6-F9D2-4B39-A713-A249C1E0429A}">
+  DTS:VersionBuild="36"
+  DTS:VersionGUID="{ACBF9548-0C55-4F73-A8CB-01FECB6D4EB2}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -296,7 +296,7 @@
         <NodeLayout
           Size="129.6,41.6"
           Id="Package\Output"
-          TopLeft="258.285718684294,59.9529420172879" />
+          TopLeft="258.285718684294,60.56470673175" />
         <NodeLayout
           Size="117.6,41.6"
           Id="Package\Run ETL"
@@ -361,18 +361,18 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="322.914289694417,101.552942017288">
+          TopLeft="322.914289694417,102.16470673175">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,52.0000013127051"
+              EndConnector="0,51.388236598243"
               Start="0,0"
-              End="0,44.5000013127051">
+              End="0,43.888236598243">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,44.5000013127051" />
+                    End="0,43.888236598243" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

@@ -3,13 +3,15 @@
 
 
 
+
+
 /*
 Change log: 
 	2020-04-21	NP	View created
 */
 
 
-CREATE VIEW [transform].[Dim_Voyage_T]
+CREATE    VIEW [transform].[Dim_Voyage_T]
 AS
 
 WITH 
@@ -107,7 +109,9 @@ INNER JOIN AIS_EDW.edw.Dim_Voyage dv
 	ON uv.MMSI = dv.MMSI
 	AND uv.Destination = dv.Destination
 	AND dv.Is_Current = 1
-	AND (uv.ETA_month != dv.ETA_month OR uv.ETA_day != dv.ETA_day OR uv.ETA_hour != dv.ETA_hour OR uv.ETA_minute != dv.ETA_minute)
+	AND (isNull(uv.ETA_month, -1) != isNull(dv.ETA_month,-1) OR 
+			isNull(uv.ETA_day,-1) != isNull(dv.ETA_day, -1) OR 
+			isNull(uv.ETA_hour,-1) != isNull(dv.ETA_hour,-1) OR isNull(uv.ETA_minute,-1) != isNull(dv.ETA_minute,-1))
 
 UNION
 

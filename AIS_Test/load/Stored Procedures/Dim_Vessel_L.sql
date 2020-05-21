@@ -3,7 +3,6 @@
 
 
 
-
 /*
 Change log: 
 	2020-03-01	NP	Stored procedure created
@@ -12,7 +11,7 @@ Change log:
 	2020-04-10	NP	Updated to include more columns
 */
 
-CREATE   PROCEDURE [load].[Dim_Vessel_L]
+CREATE PROCEDURE [load].[Dim_Vessel_L]
 AS
 	
 IF OBJECT_ID('tempdb..#newRecords') IS NOT NULL DROP TABLE #newRecords
@@ -24,6 +23,7 @@ SELECT
 	IMO,
 	Call_Sign,
 	Ship_Type,
+	Ship_Type_Description,
 	Dimension_To_Bow,
 	Dimension_To_Stern,
 	Length, 
@@ -60,6 +60,7 @@ INSERT INTO edw.Dim_Vessel (
 	IMO,
 	Call_Sign,
 	Ship_Type,
+	Ship_Type_Description,
 	Dimension_To_Bow,
 	Dimension_To_Stern,
 	Length, 
@@ -79,6 +80,7 @@ SELECT
 	IMO,
 	Call_Sign,
 	Ship_Type,
+	Ship_Type_Description,
 	Dimension_To_Bow,
 	Dimension_To_Stern,
 	Length, 

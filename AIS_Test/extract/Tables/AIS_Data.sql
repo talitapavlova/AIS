@@ -25,12 +25,14 @@
     [Dimension_To_Starboard] INT             NULL,
     [Beam]                   INT             NULL,
     [Position_Type_Fix]      TINYINT         NULL,
-    [ETA_month]              TINYINT         NULL,
-    [ETA_day]                TINYINT         NULL,
-    [ETA_hour]               TINYINT         NULL,
-    [ETA_minute]             TINYINT         NULL,
+    [ETA_month]              INT             NULL,
+    [ETA_day]                INT             NULL,
+    [ETA_hour]               INT             NULL,
+    [ETA_minute]             INT             NULL,
     [ETA_Draught]            DECIMAL (6, 2)  NULL,
     [Destination]            NVARCHAR (20)   NULL,
     [Batch]                  INT             NULL
 );
+
+
 

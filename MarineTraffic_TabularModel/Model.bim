@@ -6,7 +6,7 @@
     "dataSources": [
       {
         "name": "DESKTOP-AMSSPQK AIS_EDW",
-        "connectionString": "Provider=SQLNCLI11;Data Source=DESKTOP-AMSSPQK;Initial Catalog=AIS_EDW;Integrated Security=SSPI;Persist Security Info=false",
+        "connectionString": "Provider=SQLNCLI11;Data Source=DESKTOP-AMSSPQK;Integrated Security=SSPI;Persist Security Info=false;Initial Catalog=AIS_EDW",
         "impersonationMode": "impersonateAccount",
         "account": "DESKTOP-AMSSPQK\\stefy",
         "annotations": [
@@ -1630,7 +1630,6 @@
       },
       {
         "name": "Vessel",
-        "description": "The tabel Vessel is teh result of joining Dim_Vessel and Dim_Ship_Type ",
         "columns": [
           {
             "name": "Vessel_Key",
@@ -1642,25 +1641,25 @@
             "name": "MMSI",
             "dataType": "string",
             "sourceColumn": "MMSI",
-            "sourceProviderType": "VarChar"
+            "sourceProviderType": "Char"
           },
           {
             "name": "Vessel_Name",
             "dataType": "string",
             "sourceColumn": "Vessel_Name",
-            "sourceProviderType": "VarChar"
+            "sourceProviderType": "WChar"
           },
           {
             "name": "IMO",
             "dataType": "string",
             "sourceColumn": "IMO",
-            "sourceProviderType": "VarChar"
+            "sourceProviderType": "WChar"
           },
           {
             "name": "Call_Sign",
             "dataType": "string",
             "sourceColumn": "Call_Sign",
-            "sourceProviderType": "VarChar"
+            "sourceProviderType": "WChar"
           },
           {
             "name": "Ship_Type",
@@ -1669,10 +1668,16 @@
             "sourceProviderType": "Integer"
           },
           {
+            "name": "Ship_Type_Description",
+            "dataType": "string",
+            "sourceColumn": "Ship_Type_Description",
+            "sourceProviderType": "WChar"
+          },
+          {
             "name": "MID",
             "dataType": "string",
             "sourceColumn": "MID",
-            "sourceProviderType": "VarChar"
+            "sourceProviderType": "WChar"
           },
           {
             "name": "MID_Number",
@@ -1742,7 +1747,7 @@
             "isHidden": true,
             "sourceColumn": "Valid_From",
             "formatString": "General Date",
-            "sourceProviderType": "Date"
+            "sourceProviderType": "DBTimeStamp"
           },
           {
             "name": "Valid_To",
@@ -1750,44 +1755,32 @@
             "isHidden": true,
             "sourceColumn": "Valid_To",
             "formatString": "General Date",
-            "sourceProviderType": "Date"
-          },
-          {
-            "name": "Ship_Type_Description",
-            "dataType": "string",
-            "sourceColumn": "Ship_Type_Description",
-            "sourceProviderType": "VarChar"
+            "sourceProviderType": "DBTimeStamp"
           }
         ],
         "partitions": [
           {
-            "name": "Query",
+            "name": "Dim_Vessel",
             "dataView": "full",
             "source": {
               "type": "query",
-              "query": "select *from edw.Dim_Vessel a inner join edw.Dim_Ship_Type b on a.Ship_Type= b.Ship_Type_Key",
+              "query": " SELECT [edw].[Dim_Vessel].* FROM [edw].[Dim_Vessel] ",
               "dataSource": "DESKTOP-AMSSPQK AIS_EDW"
-            },
-            "annotations": [
-              {
-                "name": "QueryEditorSerialization",
-                "value": "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>select MMSI from Dim_Vessel a inner join Ship_Type b on a.Ship_Type= b.Ship_Type_Key</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
-              }
-            ]
+            }
           }
         ],
         "annotations": [
           {
             "name": "_TM_ExtProp_QueryDefinition",
-            "value": "select *from edw.Dim_Vessel a inner join edw.Dim_Ship_Type b on a.Ship_Type= b.Ship_Type_Key"
+            "value": " SELECT [edw].[Dim_Vessel].* FROM [edw].[Dim_Vessel] "
           },
           {
             "name": "_TM_ExtProp_DbTableName",
-            "value": "Query"
+            "value": "Dim_Vessel"
           },
           {
-            "name": "QueryEditorSerialization",
-            "value": "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>select MMSI from Dim_Vessel a inner join Ship_Type b on a.Ship_Type= b.Ship_Type_Key</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "edw"
           }
         ]
       }
@@ -1836,7 +1829,7 @@
         "toColumn": "Date_Key"
       },
       {
-        "name": "1f5caab3-ff24-4b01-a395-43aa00ced6e7",
+        "name": "7881bb5b-ea4d-4c24-a0af-86d6d4d745c5",
         "fromTable": "Route",
         "fromColumn": "Vessel_Key",
         "toTable": "Vessel",

@@ -1,4 +1,5 @@
 ﻿
+
 /*
 Change log: 
 	2020-02-27	SI	Stored procedure created
@@ -17,7 +18,7 @@ Change log:
 */
  
 
-CREATE PROCEDURE [extract].[AIS_Data_CSV] (@File nvarchar(200))
+CREATE   PROCEDURE [extract].[AIS_Data_CSV] (@File nvarchar(200))
 AS
 
 DECLARE
@@ -98,10 +99,10 @@ INSERT INTO extract.AIS_Data (
 	, CAST(Dimension_To_Starboard AS int)
 	, CAST(Beam AS int)
 	, CAST(Position_Type_Fix AS tinyint)
-	, CAST(ETA_month AS tinyint)
-	, CAST(ETA_day AS tinyint)
-	, CAST(ETA_hour AS tinyint)
-	, CAST(ETA_minute AS tinyint)
+	, CAST(ETA_month AS int)
+	, CAST(ETA_day AS int)
+	, CAST(ETA_hour AS int)
+	, CAST(ETA_minute AS int)
 	, CAST(REPLACE(ETA_Draught, ',', '.') AS decimal(6, 2))
 	, Destination
 	, @Batch

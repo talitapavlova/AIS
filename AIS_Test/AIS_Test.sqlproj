@@ -3,16 +3,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>AIS_Tests</Name>
+    <Name>AIS_Test</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{3fc960b8-c3d6-4bcf-90c2-ee09631f75fd}</ProjectGuid>
+    <ProjectGuid>{fac03e25-26e0-4f54-93c0-f439ee2eed95}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>AIS_Tests</RootNamespace>
-    <AssemblyName>AIS_Tests</AssemblyName>
+    <RootNamespace>AIS_Test</RootNamespace>
+    <AssemblyName>AIS_Test</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>

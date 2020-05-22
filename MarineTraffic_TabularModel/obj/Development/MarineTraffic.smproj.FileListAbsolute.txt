@@ -1,0 +1,7 @@
+C:\Users\stefy\Source\Repos\AIS\MarineTraffic_TabularModel\bin\Model.asdatabase
+C:\Users\stefy\Source\Repos\AIS\MarineTraffic_TabularModel\bin\Model.deploymenttargets
+C:\Users\stefy\Source\Repos\AIS\MarineTraffic_TabularModel\bin\Model.deploymentoptions
+C:\Users\stefy\Source\Repos\AIS\MarineTraffic_TabularModel\obj\Development\MarineTraffic.smproj.CoreCompileInputs.cache
+C:\Users\stefy\Source\Repos\AIS\MarineTraffic_TabularModel\obj\Development\Model.asdatabase
+C:\Users\stefy\Source\Repos\AIS\MarineTraffic_TabularModel\obj\Development\Model.deploymentoptions
+C:\Users\stefy\Source\Repos\AIS\MarineTraffic_TabularModel\obj\Development\Model.deploymenttargets

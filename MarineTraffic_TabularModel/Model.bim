@@ -15,18 +15,6 @@
             "value": "SqlServer"
           }
         ]
-      },
-      {
-        "name": "SqlServer DESKTOP-AMSSPQK AIS_Stage",
-        "connectionString": "Provider=SQLNCLI11;Data Source=DESKTOP-AMSSPQK;Integrated Security=SSPI;Persist Security Info=false;Initial Catalog=AIS_Stage",
-        "impersonationMode": "impersonateAccount",
-        "account": "DESKTOP-AMSSPQK\\stefy",
-        "annotations": [
-          {
-            "name": "ConnectionEditUISource",
-            "value": "SqlServer"
-          }
-        ]
       }
     ],
     "tables": [
@@ -1641,54 +1629,12 @@
         ]
       },
       {
-        "name": "Ship_Type",
-        "isHidden": true,
-        "columns": [
-          {
-            "name": "Ship_Type_Key",
-            "dataType": "int64",
-            "sourceColumn": "Ship_Type_Key",
-            "sourceProviderType": "Integer"
-          },
-          {
-            "name": "Ship_Type_Description",
-            "dataType": "string",
-            "sourceColumn": "Ship_Type_Description",
-            "sourceProviderType": "WChar"
-          }
-        ],
-        "partitions": [
-          {
-            "name": "Ship_Type",
-            "dataView": "full",
-            "source": {
-              "type": "query",
-              "query": " SELECT [utility].[Dim_Ship_Type].* FROM [utility].[Dim_Ship_Type] ",
-              "dataSource": "SqlServer DESKTOP-AMSSPQK AIS_Stage"
-            }
-          }
-        ],
-        "annotations": [
-          {
-            "name": "_TM_ExtProp_QueryDefinition",
-            "value": " SELECT [utility].[Dim_Ship_Type].* FROM [utility].[Dim_Ship_Type] "
-          },
-          {
-            "name": "_TM_ExtProp_DbTableName",
-            "value": "Dim_Ship_Type"
-          },
-          {
-            "name": "_TM_ExtProp_DbSchemaName",
-            "value": "utility"
-          }
-        ]
-      },
-      {
         "name": "Vessel",
         "columns": [
           {
             "name": "Vessel_Key",
             "dataType": "int64",
+            "isHidden": true,
             "sourceColumn": "Vessel_Key",
             "sourceProviderType": "Integer"
           },
@@ -1696,25 +1642,25 @@
             "name": "MMSI",
             "dataType": "string",
             "sourceColumn": "MMSI",
-            "sourceProviderType": "VarChar"
+            "sourceProviderType": "Char"
           },
           {
             "name": "Vessel_Name",
             "dataType": "string",
             "sourceColumn": "Vessel_Name",
-            "sourceProviderType": "VarChar"
+            "sourceProviderType": "WChar"
           },
           {
             "name": "IMO",
             "dataType": "string",
             "sourceColumn": "IMO",
-            "sourceProviderType": "VarChar"
+            "sourceProviderType": "WChar"
           },
           {
             "name": "Call_Sign",
             "dataType": "string",
             "sourceColumn": "Call_Sign",
-            "sourceProviderType": "VarChar"
+            "sourceProviderType": "WChar"
           },
           {
             "name": "Ship_Type",
@@ -1723,10 +1669,16 @@
             "sourceProviderType": "Integer"
           },
           {
+            "name": "Ship_Type_Description",
+            "dataType": "string",
+            "sourceColumn": "Ship_Type_Description",
+            "sourceProviderType": "WChar"
+          },
+          {
             "name": "MID",
             "dataType": "string",
             "sourceColumn": "MID",
-            "sourceProviderType": "VarChar"
+            "sourceProviderType": "WChar"
           },
           {
             "name": "MID_Number",
@@ -1793,148 +1745,41 @@
           {
             "name": "Valid_From",
             "dataType": "dateTime",
-            "isHidden": true,
             "sourceColumn": "Valid_From",
             "formatString": "General Date",
-            "sourceProviderType": "Date"
+            "sourceProviderType": "DBTimeStamp"
           },
           {
             "name": "Valid_To",
             "dataType": "dateTime",
-            "isHidden": true,
             "sourceColumn": "Valid_To",
             "formatString": "General Date",
-            "sourceProviderType": "Date"
-          },
-          {
-            "type": "calculated",
-            "name": "Ship_Type_description",
-            "dataType": "string",
-            "isDataTypeInferred": true,
-            "expression": " LOOKUPVALUE(Ship_Type[Ship_Type_Description], Ship_Type[Ship_Type_Key], Vessel[Ship_Type])"
+            "sourceProviderType": "DBTimeStamp"
           }
         ],
         "partitions": [
           {
-            "name": "Query",
+            "name": "Vessel",
             "dataView": "full",
             "source": {
               "type": "query",
-              "query": [
-                "SELECT",
-                "  edw.Dim_Vessel.Vessel_Key",
-                "  ,edw.Dim_Vessel.MMSI",
-                "  ,edw.Dim_Vessel.Vessel_Name",
-                "  ,edw.Dim_Vessel.IMO",
-                "  ,edw.Dim_Vessel.Call_Sign",
-                "  ,edw.Dim_Vessel.Ship_Type",
-                "  ,edw.Dim_Vessel.MID",
-                "  ,edw.Dim_Vessel.MID_Number",
-                "  ,edw.Dim_Vessel.Dimension_To_Bow",
-                "  ,edw.Dim_Vessel.Dimension_To_Stern",
-                "  ,edw.Dim_Vessel.Length",
-                "  ,edw.Dim_Vessel.Dimension_To_Port",
-                "  ,edw.Dim_Vessel.Dimension_To_Starboard",
-                "  ,edw.Dim_Vessel.Beam",
-                "  ,edw.Dim_Vessel.Position_Type_Fix",
-                "  ,edw.Dim_Vessel.BatchCreated",
-                "  ,edw.Dim_Vessel.BatchUpdated",
-                "  ,edw.Dim_Vessel.Valid_From",
-                "  ,edw.Dim_Vessel.Valid_To",
-                "FROM",
-                "  edw.Dim_Vessel"
-              ],
+              "query": " SELECT [edw].[Dim_Vessel].* FROM [edw].[Dim_Vessel] ",
               "dataSource": "DESKTOP-AMSSPQK AIS_EDW"
-            },
-            "annotations": [
-              {
-                "name": "QueryEditorSerialization",
-                "value": [
-                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT",
-                  "  edw.Dim_Vessel.Vessel_Key",
-                  "  ,edw.Dim_Vessel.MMSI",
-                  "  ,edw.Dim_Vessel.Vessel_Name",
-                  "  ,edw.Dim_Vessel.IMO",
-                  "  ,edw.Dim_Vessel.Call_Sign",
-                  "  ,edw.Dim_Vessel.Ship_Type",
-                  "  ,edw.Dim_Vessel.MID",
-                  "  ,edw.Dim_Vessel.MID_Number",
-                  "  ,edw.Dim_Vessel.Dimension_To_Bow",
-                  "  ,edw.Dim_Vessel.Dimension_To_Stern",
-                  "  ,edw.Dim_Vessel.Length",
-                  "  ,edw.Dim_Vessel.Dimension_To_Port",
-                  "  ,edw.Dim_Vessel.Dimension_To_Starboard",
-                  "  ,edw.Dim_Vessel.Beam",
-                  "  ,edw.Dim_Vessel.Position_Type_Fix",
-                  "  ,edw.Dim_Vessel.BatchCreated",
-                  "  ,edw.Dim_Vessel.BatchUpdated",
-                  "  ,edw.Dim_Vessel.Valid_From",
-                  "  ,edw.Dim_Vessel.Valid_To",
-                  "FROM",
-                  "  edw.Dim_Vessel</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState><DesignerState><UseGenericDesigner>false</UseGenericDesigner><InternalDesignerState><QueryDefinition xmlns=\"http://schemas.microsoft.com/ReportingServices/QueryDefinition/Relational\"><SelectedColumns><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Vessel_Key\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"MMSI\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Vessel_Name\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"IMO\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Call_Sign\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Ship_Type\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"MID\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"MID_Number\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Dimension_To_Bow\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Dimension_To_Stern\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Length\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Dimension_To_Port\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Dimension_To_Starboard\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Beam\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Position_Type_Fix\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"BatchCreated\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"BatchUpdated\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Valid_From\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Valid_To\" /></SelectedColumns></QueryDefinition></InternalDesignerState></DesignerState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
-                ]
-              }
-            ]
+            }
           }
         ],
         "annotations": [
           {
             "name": "_TM_ExtProp_QueryDefinition",
-            "value": [
-              "SELECT",
-              "  edw.Dim_Vessel.Vessel_Key",
-              "  ,edw.Dim_Vessel.MMSI",
-              "  ,edw.Dim_Vessel.Vessel_Name",
-              "  ,edw.Dim_Vessel.IMO",
-              "  ,edw.Dim_Vessel.Call_Sign",
-              "  ,edw.Dim_Vessel.Ship_Type",
-              "  ,edw.Dim_Vessel.MID",
-              "  ,edw.Dim_Vessel.MID_Number",
-              "  ,edw.Dim_Vessel.Dimension_To_Bow",
-              "  ,edw.Dim_Vessel.Dimension_To_Stern",
-              "  ,edw.Dim_Vessel.Length",
-              "  ,edw.Dim_Vessel.Dimension_To_Port",
-              "  ,edw.Dim_Vessel.Dimension_To_Starboard",
-              "  ,edw.Dim_Vessel.Beam",
-              "  ,edw.Dim_Vessel.Position_Type_Fix",
-              "  ,edw.Dim_Vessel.BatchCreated",
-              "  ,edw.Dim_Vessel.BatchUpdated",
-              "  ,edw.Dim_Vessel.Valid_From",
-              "  ,edw.Dim_Vessel.Valid_To",
-              "FROM",
-              "  edw.Dim_Vessel"
-            ]
+            "value": " SELECT [edw].[Dim_Vessel].* FROM [edw].[Dim_Vessel] "
           },
           {
             "name": "_TM_ExtProp_DbTableName",
-            "value": "Query"
+            "value": "Dim_Vessel"
           },
           {
-            "name": "QueryEditorSerialization",
-            "value": [
-              "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>SELECT",
-              "  edw.Dim_Vessel.Vessel_Key",
-              "  ,edw.Dim_Vessel.MMSI",
-              "  ,edw.Dim_Vessel.Vessel_Name",
-              "  ,edw.Dim_Vessel.IMO",
-              "  ,edw.Dim_Vessel.Call_Sign",
-              "  ,edw.Dim_Vessel.Ship_Type",
-              "  ,edw.Dim_Vessel.MID",
-              "  ,edw.Dim_Vessel.MID_Number",
-              "  ,edw.Dim_Vessel.Dimension_To_Bow",
-              "  ,edw.Dim_Vessel.Dimension_To_Stern",
-              "  ,edw.Dim_Vessel.Length",
-              "  ,edw.Dim_Vessel.Dimension_To_Port",
-              "  ,edw.Dim_Vessel.Dimension_To_Starboard",
-              "  ,edw.Dim_Vessel.Beam",
-              "  ,edw.Dim_Vessel.Position_Type_Fix",
-              "  ,edw.Dim_Vessel.BatchCreated",
-              "  ,edw.Dim_Vessel.BatchUpdated",
-              "  ,edw.Dim_Vessel.Valid_From",
-              "  ,edw.Dim_Vessel.Valid_To",
-              "FROM",
-              "  edw.Dim_Vessel</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState><DesignerState><UseGenericDesigner>false</UseGenericDesigner><InternalDesignerState><QueryDefinition xmlns=\"http://schemas.microsoft.com/ReportingServices/QueryDefinition/Relational\"><SelectedColumns><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Vessel_Key\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"MMSI\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Vessel_Name\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"IMO\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Call_Sign\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Ship_Type\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"MID\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"MID_Number\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Dimension_To_Bow\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Dimension_To_Stern\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Length\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Dimension_To_Port\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Dimension_To_Starboard\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Beam\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Position_Type_Fix\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"BatchCreated\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"BatchUpdated\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Valid_From\" /><ColumnExpression Schema=\"edw\" ColumnOwner=\"Dim_Vessel\" ColumnName=\"Valid_To\" /></SelectedColumns></QueryDefinition></InternalDesignerState></DesignerState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
-            ]
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "edw"
           }
         ]
       }
@@ -1983,18 +1828,11 @@
         "toColumn": "Date_Key"
       },
       {
-        "name": "a6f92731-00e5-42f6-82a3-83ae6b7dd24f",
+        "name": "03f0cf4e-701f-4be7-908e-6b5135c7707b",
         "fromTable": "Route",
         "fromColumn": "Vessel_Key",
         "toTable": "Vessel",
         "toColumn": "Vessel_Key"
-      },
-      {
-        "name": "e3089c8e-1ed8-44fe-a984-f0c60ef90729",
-        "fromTable": "Vessel",
-        "fromColumn": "Ship_Type",
-        "toTable": "Ship_Type",
-        "toColumn": "Ship_Type_Key"
       }
     ],
     "annotations": [

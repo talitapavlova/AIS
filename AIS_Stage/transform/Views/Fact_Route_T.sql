@@ -5,6 +5,7 @@
 
 
 
+
 /*
 Change log: 
 	2020-04-01	NP	View created with Vessel, Date and Time
@@ -51,6 +52,8 @@ LEFT JOIN AIS_EDW.edw.Dim_Voyage voy
 	ON a.MMSI = voy.MMSI 
 	AND voy.Is_Current = 1
 WHERE a.Batch > (SELECT ISNULL(MAX(Batch), 0) from utility.Batch)
+AND a.Latitude is not null
+AND a.Longitude is not null
 GO
 
 

@@ -12,10 +12,10 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Development' ">
     <OutputPath>bin\</OutputPath>
-    <DeploymentServerName>DESKTOP-DJ90PDJ\MYSQLSERVER</DeploymentServerName>
+    <DeploymentServerName>DESKTOP-AMSSPQK\MSSQLSERVER2</DeploymentServerName>
     <DeploymentServerEdition>Developer</DeploymentServerEdition>
     <DeploymentServerVersion>Unknown</DeploymentServerVersion>
-    <DeploymentServerDatabase>RoutesInDenmark_TabularModel</DeploymentServerDatabase>
+    <DeploymentServerDatabase>MarineTraffic_TabularModel</DeploymentServerDatabase>
     <DeploymentServerCubeName>Model</DeploymentServerCubeName>
     <DeploymentOptionProcessing>Default</DeploymentOptionProcessing>
     <DeploymentOptionTransactionalDeployment>False</DeploymentOptionTransactionalDeployment>

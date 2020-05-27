@@ -1,100 +1,101 @@
 ﻿
-
 /******
 	Change log: 
-		2020-04-10	Stored procedure created for testing the effect of the stored procedures utility.Add_Batch on Dim_Vessel. 
+		2020-04-10	Stored procedure created for testing the effect of the utility.Add_Batch SP on Dim_Vessel. 
 	
-	Test13 - Insert updates to already existing record with values in multiple rows	  
-	   The following test execute the ETL process using a csv. file containg several rows for the same MMSI, each holding different updates.
-	   The test verifies if the record contains the correct information.
+	Test Description:
+		Test13 - Insert new record with values in multiple rows
+		   The following test execute the ETL process using a csv. file containg several rows for the same MMSI, each holding different updates.
+		   The test verifies if the record contains the correct information after the execution of the relvant SPs.
+
+	Set-up:
+		Dim_Vessel prepopulated with the following records:
+			-no content
+			
+		utility.Batch prepopulated with the following record:
+			-no content
+
+		CSV content:
+			~MMSI|AIS Message Type|Longitude|Latitude|MID Number|MID|Navigation Status|Rate of Turn (ROT)|Speed Over Ground (SOG)|Position Accuracy|Course Over Ground (COG)|True Heading (HDG)|Manoeuvre Indicator|RAIM Flag|Repeat Indicator|Received Time UTC-Unix|Vessel Name|IMO Number|Call Sign|Ship Type|Dimension to Bow|Dimension to Stern|Length|Dimension to Port|Dimension to Starboard|Beam|Position Type Fix|ETA month|ETA day|ETA hour|ETA minute|Draught|Destination
+			219013485|5|||311|Bahamas (Commonwealth of the)|||||||||0|26-03-2020 16:50:32|SKANDI CONSTRUCTOR||||||||||||||||
+			219013485|5|||311|Bahamas (Commonwealth of the)|||||||||0|26-03-2020 16:50:35|SKANDI CONSTRUCTOR|9431642|3|70|||||||||||34|5,5|ODENSE 		
+			219013485|5|||311|Bahamas (Commonwealth of the)|||||||||0|26-03-2020 16:50:39|SKANDI CONSTRUCTOR|9431642|3|70|42|78|120|13|11|24|1|03|21|12|34|5,5|ODENSE 
+
 */
+
 CREATE PROCEDURE [testDimVessel].[Test13 - Insert new record with values in multiple rows]
 AS
 BEGIN
 
 /*ARRANGE*/ 
-  DECLARE @rowCount_Batch int;
-  DECLARE @batchCreated_oldRec int, @batchUpdated_oldRec int; 
-  DECLARE @batchCreated_newRec int, @batchUpdated_newRec int; 
+    DECLARE @rowCount_Dim_Vessel int
+    DECLARE @batchCreated int, @batchUpdated int
 
-  IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
+   IF OBJECT_ID('expected') IS NOT NULL DROP TABLE expected;
  
-    -- truncate tables to have accurate test results 
-	truncate table edw.Dim_Vessel
-	truncate table extract.AIS_Data
-	truncate table utility.Batch
-
-  --Prepare Dim_Vessel to be pre-populated with the record, simulting a previous execution of the ETL
-	insert into edw.Dim_Vessel 
-	values ('219013485','SKANDI CONSTRUCTOR',null, null, null, null, null, null,null,null,null,null,null,null, 1, NULL,  '2020-03-26 15:55:41.0000000',	'9999-12-31 00:00:00.0000000')
-		
-	 --Prepare utility.Batch table to be pre-populated with 1 records, simulting a previous execution of the ETL
-    insert into utility.Batch
-	values (1,1,1,0,'2020-03-26 15:55:41.0000000',	'2020-03-26 16:05:41.0000000', GETDATE())
-	
+	-- truncate tables to have accurate test results 
+    truncate table edw.Dim_Vessel
+    truncate table archive.AIS_Data_archive
+    truncate table extract.AIS_Data
+    truncate table utility.Batch
 
 /*ACT*/
-	--step1: First execution of ETL
-	execute [extract].[AIS_Data_CSV] 'C:\AIS\Tests\test_Batch\Test04_1.csv' 
+	--run relevant SPs
+	execute [extract].[AIS_Data_CSV] 'C:\AIS\Tests\test_DimVessel\Test13.csv' 
+	execute [archive].[AIS_Data_AddToArchive]
+	execute [load].[Dim_Vessel_L]	
 	execute utility.Add_Batch 1
-	execute load.Dim_Vessel_L
 	truncate table extract.AIS_Data
-	select * from edw.Dim_Vessel
-	
 
+ --create table expected, having the same structure as Dim_Vessel
+  create table expected (
+	[Vessel_Key] [int] IDENTITY(1,1) NOT NULL,
+	[MMSI] [char](9) NOT NULL,
+	[Vessel_Name] [nvarchar](200) NULL,
+	[IMO] [nvarchar](10) NULL,
+	[Call_Sign] [nvarchar](10) NULL,
+	[Ship_Type] [int] NULL,
+	[Ship_Type_Description] [nvarchar](1000) NULL,
+	[MID] [nvarchar](100) NULL,
+	[MID_Number] [int] NULL,
+	[Dimension_To_Bow] [int] NULL,
+	[Dimension_To_Stern] [int] NULL,
+	[Length] [int] NULL,
+	[Dimension_To_Port] [int] NULL,
+	[Dimension_To_Starboard] [int] NULL,
+	[Beam] [int] NULL,
+	[Position_Type_Fix] [int] NULL,
+	[BatchCreated] [int] NULL,
+	[BatchUpdated] [int] NULL,
+	[Valid_From] [datetime2](7) NULL,
+	[Valid_To] [datetime2](7) NULL,
+  )
+
+  --values expected to be in Dim_Vessel after inserting the values from the CSV. file 
+	insert into expected
+	values ('219013485','SKANDI CONSTRUCTOR',	'9431642',	'3 ',	70, 'Cargo, all ships of this type',  'Bahamas (Commonwealth of the)',	311, 42, 78, 120,  13,11, 24, 1, 1, NULL,  '2020-03-26 16:50:39.0000000',	'9999-12-31 00:00:00.0000000')
+  	
+	insert into expected
+	values ('219013485','SKANDI CONSTRUCTOR',	'9431642',	'3 ',	70, 'Cargo, all ships of this type',  'Bahamas (Commonwealth of the)',311, null, null, null, null, null, null,null, 1, 1,  '2020-03-26 16:50:35.0000000',	'2020-03-26 16:50:39.0000000')
+  
+    insert into expected
+	values ('219013485','SKANDI CONSTRUCTOR',	null,	null, null, -1, 'Bahamas (Commonwealth of the)',	311, null, null, null, null, null, null,null, 1, 1,  '2020-03-26 16:50:32.0000000',	'2020-03-26 16:50:35.0000000')
+  
 
 /*ASSERT*/
-  -- evaluate that utility.Batch contain 2 rows
-	set @rowCount_Batch= (select count(*) from edw.Dim_Vessel )
-    EXEC tSQLt.AssertEqualsString 3, @rowCount_Batch;  
+    -- Extra measurement, for checking if there is a slowly changing dimension for MMSI = 219013485
+	set @rowCount_Dim_Vessel= (select count(*) from edw.Dim_Vessel where MMSI = '219013485')
+	EXEC tSQLt.AssertEqualsString 3, @rowCount_Dim_Vessel; 
+ 	  
+	-- evaluate the actual table (Dim_Vessel) and the expected table
+    EXEC tSQLt.AssertEqualsTable 'expected', 'edw.Dim_Vessel';
 
-  	-- Checking if each old record reffers to the correct batch number for BatchCreated attribute 
-	set @batchCreated_oldRec = ( select BatchCreated from edw.Dim_Vessel where MMSI = '219013485' and  Valid_To = '2020-03-26 16:55:42.0000000')
-	EXEC tSQLt.AssertEqualsString 1 , @batchCreated_oldRec;  
+	--evaluate the actual record (of Dim_Vessel) cross-refferences the correct Batch information, by checking the BatchCreated and BatchUpdated attributes
+	set @batchCreated = ( select BatchCreated from edw.Dim_Vessel where MMSI = '219013485' and Valid_To = '2020-03-26 16:50:35.0000000' )
+	EXEC tSQLt.AssertEqualsString 1 , @batchCreated;  
 	
-	-- Checking if each old record reffers to the correct batch number for BatchUpdated attribute 
-	set @batchUpdated_oldRec = ( select BatchUpdated from edw.Dim_Vessel where MMSI = '219013485' and  Valid_To = '2020-03-26 16:55:42.0000000')
-	EXEC tSQLt.AssertEqualsString 1 , @batchUpdated_oldRec;  
-
-	-- Checking if each old record reffers to the correct batch number for BatchCreated attribute 
-	set @batchCreated_oldRec = ( select BatchCreated from edw.Dim_Vessel where MMSI = '219013485' and  Valid_To = '2020-03-26 16:55:43.0000000')
-	EXEC tSQLt.AssertEqualsString 1 , @batchCreated_oldRec;  
-	
-	-- Checking if each old record reffers to the correct batch number for BatchUpdated attribute 
-	set @batchUpdated_oldRec = ( select BatchUpdated from edw.Dim_Vessel where MMSI = '219013485' and  Valid_To = '2020-03-26 16:55:43.0000000')
-	EXEC tSQLt.AssertEqualsString 1 , @batchUpdated_oldRec;  
-
-    -- Checking if each old record reffers to the correct batch number for BatchCreated attribute 
-	set @batchCreated_oldRec = ( select BatchCreated from edw.Dim_Vessel where MMSI = '219013485' and  Valid_To = '2020-03-26 16:55:44.0000000')
-	EXEC tSQLt.AssertEqualsString 1 , @batchCreated_oldRec;  
-	
-	-- Checking if each old record reffers to the correct batch number for BatchUpdated attribute 
-	set @batchUpdated_oldRec = ( select BatchUpdated from edw.Dim_Vessel where MMSI = '219013485' and  Valid_To = '2020-03-26 16:55:44.0000000')
-	EXEC tSQLt.AssertEqualsString 1 , @batchUpdated_oldRec;  
-
-	-- Checking if each old record reffers to the correct batch number for BatchCreated attribute 
-	set @batchCreated_oldRec = ( select BatchCreated from edw.Dim_Vessel where MMSI = '219013485' and  Valid_To = '2020-03-26 16:55:45.0000000')
-	EXEC tSQLt.AssertEqualsString 1 , @batchCreated_oldRec;  
-	
-	-- Checking if each old record reffers to the correct batch number for BatchUpdated attribute 
-	set @batchUpdated_oldRec = ( select BatchUpdated from edw.Dim_Vessel where MMSI = '219013485' and  Valid_To = '2020-03-26 16:55:45.0000000')
-	EXEC tSQLt.AssertEqualsString 1 , @batchUpdated_oldRec;  
-
-	-- Checking if each old record reffers to the correct batch number for BatchCreated attribute 
-	set @batchCreated_oldRec = ( select BatchCreated from edw.Dim_Vessel where MMSI = '219013485' and  Valid_To = '2020-03-26 16:55:46.0000000')
-	EXEC tSQLt.AssertEqualsString 1 , @batchCreated_oldRec;  
-	
-	-- Checking if each old record reffers to the correct batch number for BatchUpdated attribute 
-	set @batchUpdated_oldRec = ( select BatchUpdated from edw.Dim_Vessel where MMSI = '219013485' and  Valid_To = '2020-03-26 16:55:46.0000000')
-	EXEC tSQLt.AssertEqualsString 1 , @batchUpdated_oldRec;  
-
-	-- Checking if  new record reffers to the correct batch numbers for BatchCreated attribute 
-	set @batchCreated_newRec = (select BatchCreated from edw.Dim_Vessel where MMSI = '219013485' and  Valid_To = '9999-12-31 00:00:00.0000000')
-	EXEC tSQLt.AssertEqualsString 1, @batchCreated_newRec;  
- 
-	-- Checking if each new record reffers to the correct batch numbers for BatchUpdated attribute 
-	set @batchUpdated_newRec = (select BatchUpdated from edw.Dim_Vessel where MMSI = '219013485' and  Valid_To = '9999-12-31 00:00:00.0000000')
-	EXEC tSQLt.AssertEqualsString null, @batchUpdated_newRec;  
+	set @batchUpdated = (select BatchUpdated from edw.Dim_Vessel where MMSI = '219013485' and Valid_To = '9999-12-31 00:00:00.0000000' )
+	EXEC tSQLt.AssertEqualsString null, @batchUpdated;  
  
 end 
  -- exec tsqlt.Run @TestName = '[testDimVessel].[Test13 - Insert new record with values in multiple rows]'

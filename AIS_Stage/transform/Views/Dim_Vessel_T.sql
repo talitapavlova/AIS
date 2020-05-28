@@ -2,6 +2,8 @@
 
 
 
+
+
 /*
 Change log: 
 	2020-03-01	NP	View created
@@ -167,7 +169,7 @@ SELECT
 	IMO,
 	Call_Sign,
 	Ship_Type,
-	ISNULL(b.Ship_Type_Description, -1) AS Ship_Type_Description,
+	b.Ship_Type_Description,
 	Dimension_To_Bow,
 	Dimension_To_Stern,
 	Length, 
@@ -186,4 +188,4 @@ SELECT
 	MMSI_exists,
 	isChanged
 FROM VesselsInOrder a
-LEFT JOIN utility.Dim_Ship_Type b on a.Ship_Type = b.Ship_Type_Key
+LEFT JOIN utility.Ship_Type b on a.Ship_Type = b.Ship_Type_Key

@@ -3,6 +3,7 @@
 
 
 
+
 /*
 Change log: 
 	2020-05-08	NP	Stored procedure created
@@ -42,12 +43,12 @@ BEGIN TRY
 			MIN(ReceivedTime),
 			MAX(ReceivedTime),
 			GETDATE()		
-		FROM extract.AIS_Data
+		FROM archive.AIS_Data_archive
+		WHERE Batch > @batch
 		GROUP BY Batch
 
 		TRUNCATE table extract.AIS_Data
 
-		SET @batch = (SELECT MAX(Batch) FROM utility.Batch)
 		INSERT INTO utility.Event_Log (
 			Batch,
 			Severity,
@@ -55,7 +56,7 @@ BEGIN TRY
 			Message_type
 			)
 		VALUES (
-			@batch,
+			@batch + 1,
 			0,
 			'Batch load succeeded',
 			'success' )
@@ -78,7 +79,7 @@ BEGIN CATCH
 			Message_type
 			)
 		VALUES (
-			@batch,
+			@batch + 1,
 			@ErrorSeverity,
 			@ErrorMessage,
 			'error' );

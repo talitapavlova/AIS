@@ -1405,6 +1405,7 @@
           {
             "name": "MMSI",
             "dataType": "string",
+            "isHidden": true,
             "sourceColumn": "MMSI",
             "sourceProviderType": "Char"
           },
@@ -1665,6 +1666,7 @@
           {
             "name": "Ship_Type",
             "dataType": "int64",
+            "isHidden": true,
             "sourceColumn": "Ship_Type",
             "sourceProviderType": "Integer"
           },
@@ -1745,6 +1747,7 @@
           {
             "name": "Valid_From",
             "dataType": "dateTime",
+            "isHidden": true,
             "sourceColumn": "Valid_From",
             "formatString": "General Date",
             "sourceProviderType": "DBTimeStamp"
@@ -1752,6 +1755,7 @@
           {
             "name": "Valid_To",
             "dataType": "dateTime",
+            "isHidden": true,
             "sourceColumn": "Valid_To",
             "formatString": "General Date",
             "sourceProviderType": "DBTimeStamp"
